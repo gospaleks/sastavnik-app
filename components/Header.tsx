@@ -1,4 +1,14 @@
+import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import {
+  RegisterLink,
+  LoginLink,
+} from '@kinde-oss/kinde-auth-nextjs/components';
+
+import UserAvatar from '@/components/UserAvatar';
 
 import {
   NavigationMenu,
@@ -11,15 +21,28 @@ import {
   NavigationMenuViewport,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import Link from 'next/link';
-import React from 'react';
-import { cn } from '@/lib/utils';
-import { Button } from './ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from '@/components/ui/drawer';
 
-const Header = () => {
+import { buttonVariants } from '@/components/ui/button';
+import { LogInIcon, Menu, User } from 'lucide-react';
+
+const Header = async () => {
+  const { getUser, isAuthenticated } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
+  const user = await getUser();
+
   return (
     <header className="h-16 border-b">
-      <div className="container mx-auto flex h-full items-center justify-between px-4">
+      <div className="container mx-auto flex h-full items-center justify-between gap-4 px-4">
         {/* Logo */}
         <div>
           <Image
@@ -32,7 +55,7 @@ const Header = () => {
         </div>
 
         {/* Navigacija */}
-        <NavigationMenu>
+        <NavigationMenu className="hidden sm:block">
           <NavigationMenuList>
             <NavigationMenuItem>
               <Link href="/sastavi" legacyBehavior passHref>
@@ -48,23 +71,45 @@ const Header = () => {
                 <div className="w-[200px]">Svi razredi...</div>
               </NavigationMenuContent>
             </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <Link href="/o-nama" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  O nama
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 
         {/* Prijava i Registracija */}
-        <div>
-          <Button variant="outline" className="mr-2">
-            Prijava
-          </Button>
-          <Button variant="default">Registracija</Button>
+        <div className="hidden items-center gap-2 sm:flex">
+          {isLoggedIn ? (
+            <UserAvatar user={user} />
+          ) : (
+            <>
+              <LoginLink
+                className={buttonVariants({
+                  variant: 'outline',
+                })}
+              >
+                <LogInIcon />
+                Prijava
+              </LoginLink>
+              <RegisterLink className={buttonVariants()}>
+                <User />
+                Registracija
+              </RegisterLink>
+            </>
+          )}
+        </div>
+
+        {/* Hamburger Menu za mobilni prikaz */}
+        <div className="sm:hidden">
+          <Drawer direction="right">
+            <DrawerTrigger>
+              <Menu size={30} />
+            </DrawerTrigger>
+            <DrawerContent>
+              <DrawerHeader>
+                <DrawerTitle>Sastavnik</DrawerTitle>
+              </DrawerHeader>
+
+              <DrawerFooter></DrawerFooter>
+            </DrawerContent>
+          </Drawer>
         </div>
       </div>
     </header>
