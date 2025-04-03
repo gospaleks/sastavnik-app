@@ -44,15 +44,17 @@ const Header = async () => {
     <header className="h-16 border-b">
       <div className="container mx-auto flex h-full items-center justify-between gap-4 px-4">
         {/* Logo */}
-        <div>
-          <Image
-            src="/logo_navbar.png"
-            alt="Sastavnik"
-            width={150}
-            height={50}
-            className="cursor-pointer"
-          />
-        </div>
+        <Link href="/" passHref>
+          <div>
+            <Image
+              src="/logo_navbar.png"
+              alt="Sastavnik"
+              width={150}
+              height={50}
+              className="cursor-pointer"
+            />
+          </div>
+        </Link>
 
         {/* Navigacija */}
         <NavigationMenu className="hidden sm:block">

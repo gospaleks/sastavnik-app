@@ -1,9 +1,11 @@
-import Header from '@/components/Header';
+import ContentWrapper from '@/components/ContentWrapper';
+import Hero from '@/components/Hero';
 
 const HomePage = () => {
   return (
     <>
-      <Header />
+      <Hero />
+      <ContentWrapper>Content neki</ContentWrapper>
     </>
   );
 };
