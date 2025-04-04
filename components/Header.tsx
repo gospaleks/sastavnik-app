@@ -7,6 +7,7 @@ import {
   RegisterLink,
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
+import { prisma } from '@/lib/prisma';
 
 import UserAvatar from '@/components/UserAvatar';
 
@@ -37,11 +38,14 @@ import { LogInIcon, Menu, User } from 'lucide-react';
 
 const Header = async () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
-  const user = await getUser();
+  const [isLoggedIn, user, categories] = await Promise.all([
+    isAuthenticated(),
+    getUser(),
+    prisma.category.findMany(), // Fetch categories from the database
+  ]);
 
   return (
-    <header className="h-16 border-b">
+    <header className="sticky top-0 z-50 h-16 border-b bg-white">
       <div className="container mx-auto flex h-full items-center justify-between gap-4 px-4">
         {/* Logo */}
         <Link href="/" passHref>
@@ -49,28 +53,45 @@ const Header = async () => {
             <Image
               src="/logo_navbar.png"
               alt="Sastavnik"
-              width={150}
+              width={120}
               height={50}
-              className="cursor-pointer"
+              className="h-auto w-auto cursor-pointer"
+              priority
             />
           </div>
         </Link>
 
         {/* Navigacija */}
         <NavigationMenu className="hidden sm:block">
-          <NavigationMenuList>
+          <NavigationMenuList className="flex items-center gap-4">
             <NavigationMenuItem>
               <Link href="/sastavi" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                <NavigationMenuLink
+                  className={`${navigationMenuTriggerStyle()} hover:bg-muted rounded-lg px-4 py-2 transition-colors`}
+                >
                   Sastavi
                 </NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Razredi</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Kategorije</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <div className="w-[200px]">Svi razredi...</div>
+                <ul className="w-[185px]">
+                  {categories.map((category) => (
+                    <li key={category.id}>
+                      <Link
+                        href={`/kategorije/${category.name}`}
+                        className={buttonVariants({
+                          variant: 'ghost',
+                          className: 'flex w-full justify-start',
+                        })}
+                      >
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
           </NavigationMenuList>

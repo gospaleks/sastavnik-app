@@ -21,7 +21,10 @@ const UserAvatar = ({ user }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer">
         <Avatar>
-          <AvatarImage src={user?.picture || ''} />
+          {user?.picture?.includes('gravatar.com') === false ? (
+            <AvatarImage src={user?.picture || ''} />
+          ) : null}
+
           <AvatarFallback>
             {user?.given_name ? user.given_name[0] : ''}
             {user?.family_name ? user.family_name[0] : ''}

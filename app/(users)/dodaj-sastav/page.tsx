@@ -1,7 +1,26 @@
-import ContentWrapper from '@/components/ContentWrapper';
+import { redirect } from 'next/navigation';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-const DodajSastavPage = () => {
-  return <ContentWrapper>Forma</ContentWrapper>;
+import ContentWrapper from '@/components/ContentWrapper';
+import { EssayForm } from '@/components/Forms/EssayForm';
+import { prisma } from '@/lib/prisma';
+
+export const metadata = {
+  title: 'Dodaj Sastav',
+};
+
+const DodajSastavPage = async () => {
+  const { isAuthenticated } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
+  if (!isLoggedIn) redirect('/');
+
+  const categories = await prisma.category.findMany();
+
+  return (
+    <ContentWrapper>
+      <EssayForm categories={categories} />
+    </ContentWrapper>
+  );
 };
 
 export default DodajSastavPage;

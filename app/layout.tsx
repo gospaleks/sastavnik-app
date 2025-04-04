@@ -1,6 +1,7 @@
+import { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
-import Header from '@/components/Header';
+import { Toaster } from '@/components/ui/sonner';
 
 const neoGeo = localFont({
   src: [
@@ -79,6 +80,15 @@ const neoGeo = localFont({
   display: 'swap',
 });
 
+export const metadata: Metadata = {
+  title: {
+    template: '%s | Sastavnik',
+    default: 'Sastavnik - Kreiraj. Uči. Inspiriši.',
+  },
+  description:
+    'Sastavnik je platforma koja omogućava učenicima da pogledaju radove svojih drugara i da postave svoje radove.',
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -86,7 +96,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${neoGeo.variable} antialiased`}>{children}</body>
+      <body className={`${neoGeo.variable} antialiased`}>
+        {children}
+        <Toaster richColors closeButton />
+      </body>
     </html>
   );
 }

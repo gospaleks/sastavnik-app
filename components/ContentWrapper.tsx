@@ -1,5 +1,5 @@
 export const ContentWrapper = ({ children }: { children: React.ReactNode }) => {
-  return <main className="container mx-auto px-4">{children}</main>;
+  return <div className="container mx-auto p-4">{children}</div>;
 };
 
 export default ContentWrapper;

@@ -2,6 +2,10 @@ import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
+export const metadata = {
+  title: '404 - Stranica nije pronađena',
+};
+
 const NotFound = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-100 text-center dark:bg-gray-900">
