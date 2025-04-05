@@ -1,4 +1,6 @@
 import ContentWrapper from '@/components/ContentWrapper';
+import EssaysByCategoryList from '@/components/EssaysByCategoryList';
+import { Suspense } from 'react';
 
 export async function generateMetadata({
   params,
@@ -22,11 +24,18 @@ export const KategorijePage = async ({
 
   return (
     <ContentWrapper>
-      <div>
-        <h1 className="text-2xl">
-          Kategorija: <span className="font-bold">{decodedCategoryName}</span>
+      <div className="mb-8 space-y-2 text-center">
+        <p className="text-muted-foreground text-sm md:text-base">
+          Svi sastavi iz kategorije
+        </p>
+        <h1 className="text-primary text-4xl font-extrabold tracking-tight md:text-5xl">
+          {decodedCategoryName}
         </h1>
       </div>
+
+      <Suspense fallback={<h1>Loading essays...</h1>}>
+        <EssaysByCategoryList categoryName={decodedCategoryName} />
+      </Suspense>
     </ContentWrapper>
   );
 };

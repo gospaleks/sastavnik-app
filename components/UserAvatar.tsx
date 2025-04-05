@@ -10,7 +10,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LogOutIcon } from 'lucide-react';
+import { LogOutIcon, PlusIcon, UserIcon } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   user: KindeUser<Record<string, any>>;
@@ -33,9 +34,30 @@ const UserAvatar = ({ user }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>
-          {user?.given_name} {user?.family_name}
+          <span className="text-sm font-semibold">
+            {user?.given_name} {user?.family_name}
+          </span>
+          <br />
+          {user?.email}
         </DropdownMenuLabel>
+
         <DropdownMenuSeparator />
+
+        <DropdownMenuItem asChild>
+          <Link href="/dodaj-sastav" className="cursor-pointer">
+            <PlusIcon /> Dodaj sastav
+          </Link>
+        </DropdownMenuItem>
+
+        {/* TODO */}
+        <DropdownMenuItem asChild>
+          <Link href="/" className="cursor-pointer">
+            <UserIcon /> Profil
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+
         <DropdownMenuItem asChild>
           <LogoutLink className="cursor-pointer">
             <LogOutIcon /> Odjava

@@ -1,0 +1,15 @@
+import { Prisma } from '@prisma/client';
+
+export type EssayWithAuthorAndCategory = Prisma.EssayGetPayload<{
+  include: {
+    author: {
+      select: {
+        id: true;
+        firstName: true;
+        lastName: true;
+        email: true;
+      };
+    };
+    category: true;
+  };
+}>;
