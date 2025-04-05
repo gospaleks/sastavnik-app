@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { EssayWithAuthorAndCategory } from '@/lib/types';
+import { EssayWithAuthorCategoryAvg } from '@/lib/types';
 
 import {
   Card,
@@ -16,7 +16,7 @@ import { buttonVariants } from '@/components/ui/button';
 import { ArrowRight, Clock } from 'lucide-react';
 
 type Props = {
-  essay: EssayWithAuthorAndCategory;
+  essay: EssayWithAuthorCategoryAvg;
 };
 
 function formatDate(date: Date) {
@@ -43,13 +43,14 @@ const EssayCard = ({ essay }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl font-bold">{essay.title}</CardTitle>
+        <CardTitle className="text-xl font-bold">{essay.title} </CardTitle>
         <CardDescription className="text-sm text-gray-500">
           Kategorija: {essay.category.name} <br />
           {essay.schoolType === 'OSNOVNA'
             ? 'Osnovna škola'
             : 'Srednja škola'}, {essay.level}. razred
         </CardDescription>
+        {/* TODO: Add {essay.averageRating} */}
       </CardHeader>
 
       <CardContent className="flex-grow space-y-4">

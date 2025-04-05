@@ -1,5 +1,6 @@
 import ContentWrapper from '@/components/ContentWrapper';
 import EssaysByCategoryList from '@/components/EssaysByCategoryList';
+import EssayCardGridSkeleton from '@/components/Loaders/EssayCardGridSkeleton';
 import { Suspense } from 'react';
 
 export async function generateMetadata({
@@ -33,7 +34,7 @@ export const KategorijePage = async ({
         </h1>
       </div>
 
-      <Suspense fallback={<h1>Loading essays...</h1>}>
+      <Suspense fallback={<EssayCardGridSkeleton />}>
         <EssaysByCategoryList categoryName={decodedCategoryName} />
       </Suspense>
     </ContentWrapper>

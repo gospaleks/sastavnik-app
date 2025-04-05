@@ -1,7 +1,7 @@
 import { prisma } from '@/lib/prisma';
 
 export async function getEssayByCategoryName(categoryName: string) {
-  return await prisma.essay.findMany({
+  const essays = await prisma.essay.findMany({
     where: {
       category: {
         name: categoryName,
@@ -17,6 +17,26 @@ export async function getEssayByCategoryName(categoryName: string) {
         },
       },
       category: true,
+      ratings: {
+        select: {
+          value: true,
+        },
+      },
     },
   });
+
+  const essaysWithAvgRating = essays.map((essay) => {
+    const ratingValues = essay.ratings.map((r) => r.value);
+    const avgRating =
+      ratingValues.length > 0
+        ? ratingValues.reduce((a, b) => a + b, 0) / ratingValues.length
+        : null;
+
+    return {
+      ...essay,
+      averageRating: avgRating,
+    };
+  });
+
+  return essaysWithAvgRating;
 }

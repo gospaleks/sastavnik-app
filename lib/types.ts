@@ -1,6 +1,6 @@
 import { Prisma } from '@prisma/client';
 
-export type EssayWithAuthorAndCategory = Prisma.EssayGetPayload<{
+export type EssayWithAuthorCategoryAvg = Prisma.EssayGetPayload<{
   include: {
     author: {
       select: {
@@ -11,5 +11,12 @@ export type EssayWithAuthorAndCategory = Prisma.EssayGetPayload<{
       };
     };
     category: true;
+    ratings: {
+      select: {
+        value: true;
+      };
+    };
   };
-}>;
+}> & {
+  averageRating: number | null;
+};
