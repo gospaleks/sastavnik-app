@@ -1,4 +1,4 @@
-import { getEssayByCategoryName } from '@/lib/services/essayService';
+import { getEssaysByCategoryName } from '@/lib/services/essayService';
 import EssayCard from '@/components/EssayCard';
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 };
 
 const EssaysByCategoryList = async ({ categoryName }: Props) => {
-  const essayList = await getEssayByCategoryName(categoryName);
+  const essayList = await getEssaysByCategoryName(categoryName);
 
   return (
     <div className="my-4">

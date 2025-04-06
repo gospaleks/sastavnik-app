@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { EssayWithAuthorCategoryAvg } from '@/lib/types';
+import { EssayWithAuthorCategoryRating } from '@/lib/types';
 
 import {
   Card,
@@ -13,21 +13,12 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { buttonVariants } from '@/components/ui/button';
-import { ArrowRight, Clock } from 'lucide-react';
+import { ArrowRight, Clock, Star, StarOffIcon } from 'lucide-react';
+import { formatDate } from '@/lib/utils';
 
 type Props = {
-  essay: EssayWithAuthorCategoryAvg;
+  essay: EssayWithAuthorCategoryRating;
 };
-
-function formatDate(date: Date) {
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // +1 jer je 0-indexed
-  const year = date.getFullYear();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-
-  return `${day}.${month}.${year}. ${hours}:${minutes}`;
-}
 
 const EssayCard = ({ essay }: Props) => {
   const previewContent =
@@ -49,6 +40,18 @@ const EssayCard = ({ essay }: Props) => {
           {essay.schoolType === 'OSNOVNA'
             ? 'Osnovna škola'
             : 'Srednja škola'}, {essay.level}. razred
+          <br />
+          <div className="mt-2 flex items-center gap-1 text-sm">
+            {essay.averageRating !== null ? (
+              <>
+                <Star className="fill-current text-yellow-400" />
+                {essay.averageRating.toFixed(1)}
+              </>
+            ) : (
+              <StarOffIcon className="text-gray-400" />
+            )}
+            <span className="text-gray-400"> ({essay.ratingCount})</span>
+          </div>
         </CardDescription>
         {/* TODO: Add {essay.averageRating} */}
       </CardHeader>

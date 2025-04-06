@@ -31,10 +31,10 @@ model Essay {
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
 
-  author   User   @relation(fields: [authorId], references: [id])
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId String
 
-  category   Category @relation(fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId String
 
   ratings Rating[]
@@ -58,11 +58,11 @@ model Rating {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  essay   Essay  @relation(fields: [essayId], references: [id])
-  essayId String
-
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
 
-  @@unique([essayId, userId])
+  essay   Essay  @relation(fields: [essayId], references: [id], onDelete: Cascade)
+  essayId String
+
+  @@unique([userId, essayId])
 }
