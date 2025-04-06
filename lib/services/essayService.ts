@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma';
 import { EssayWithAuthorCategoryRating } from '@/lib/types';
 
+// Full podaci o sastavi po ID-u
 export async function getEssayById(essayId: string) {
   const essay = await prisma.essay.findUnique({
     where: {
@@ -42,15 +43,25 @@ export async function getEssayById(essayId: string) {
   } as EssayWithAuthorCategoryRating;
 }
 
-export async function getEssaysBasicByAuthor(
-  authorId: string,
-  essaySkipId: string,
-) {
+// Basic podaci o sastavima
+export async function getEssaysBasicByAuthor(authorId: string) {
   return await prisma.essay.findMany({
     where: {
       authorId: authorId,
-      id: {
-        not: essaySkipId,
+    },
+    select: {
+      id: true,
+      title: true,
+      content: true,
+    },
+  });
+}
+
+export async function getEssaysBasicByCategoryName(categoryName: string) {
+  return await prisma.essay.findMany({
+    where: {
+      category: {
+        name: categoryName,
       },
     },
     select: {
@@ -61,6 +72,7 @@ export async function getEssaysBasicByAuthor(
   });
 }
 
+// Full podaci o sastavima po kategoriji (za card prikaz)
 export async function getEssaysByCategoryName(categoryName: string) {
   const essays = await prisma.essay.findMany({
     where: {

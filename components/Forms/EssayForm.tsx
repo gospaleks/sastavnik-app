@@ -74,7 +74,7 @@ export function EssayForm({ categories }: Props) {
 
       <AlertCard
         title="NAPOMENA:"
-        description="Sastavi nisu namijenjeni prepisivanju. Ovi tekstovi su primeri i služe
+        description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe
         učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
         variant="destructive"
       />
@@ -133,7 +133,7 @@ export function EssayForm({ categories }: Props) {
               return (
                 <FormItem>
                   <FormLabel>Tip škole *</FormLabel>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col gap-4 sm:flex-row">
                     <button
                       type="button"
                       onClick={() => field.onChange('OSNOVNA')}

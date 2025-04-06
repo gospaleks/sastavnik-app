@@ -1,13 +1,17 @@
 import { Suspense } from 'react';
-import { getEssayById } from '@/lib/services/essayService';
-import EssaysByAuthor from './EssaysByAuthor';
-import { Badge } from '@/components/ui/badge';
-import ContentWrapper from '@/components/ContentWrapper';
-import StarRating from '@/components/StarRating';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils';
+import { getEssayById } from '@/lib/services/essayService';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+
+import StarRating from '@/components/StarRating';
+import EssaysByAuthor from './EssaysByAuthor';
+import ContentWrapper from '@/components/ContentWrapper';
+import AlertCard from '@/components/AlertCard';
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
+import { Badge } from '@/components/ui/badge';
+import EssaysWithSameCategory from './EssaysWithSameCategory';
 
 export async function generateMetadata({
   params,
@@ -98,31 +102,52 @@ export const EssayPage = async ({
             {essay.content}
           </div>
 
-          {/* TODO: Link ka npr /tag/ime-taga gde se prikazuju svi sastavi koji sadrze taj tag */}
           {essay.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
-              {essay.tags.map((tag) => (
-                <Badge
-                  key={tag}
-                  variant="outline"
-                  className="hover:bg-accent cursor-pointer transition-colors"
-                >
-                  {tag}
-                </Badge>
+              {essay.tags.map((tag, index) => (
+                <Link href={`/tag/${tag}`} key={index}>
+                  <Badge
+                    variant="outline"
+                    className="hover:bg-accent cursor-pointer transition-colors"
+                  >
+                    {tag}
+                  </Badge>
+                </Link>
               ))}
             </div>
           )}
+
+          <AlertCard
+            title="NAPOMENA:"
+            description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
+            variant="destructive"
+            className="mt-4"
+          />
         </div>
 
         {/** Desna strana: Sastavi istog autora i sastavi iste kategorije */}
-        <div className="w-full md:w-4/12">
-          <p className="text-lg font-semibold">🖋️ Ostali sastavi autora:</p>
-          <Suspense fallback={<EssaysByAuthorSkeleton />}>
-            <EssaysByAuthor
-              authorId={essay.author.id}
-              essayToSkipId={essayId}
-            />
-          </Suspense>
+        <div className="flex w-full flex-col gap-8 md:w-4/12">
+          <div>
+            <p className="text-xl font-semibold">🖋️ Ostali sastavi autora:</p>
+            <Suspense fallback={<EssaysByAuthorSkeleton />}>
+              <EssaysByAuthor
+                authorId={essay.author.id}
+                essayToSkipId={essayId}
+              />
+            </Suspense>
+          </div>
+
+          <div>
+            <p className="text-xl font-semibold">
+              📚 Sastavi iz iste kategorije:
+            </p>
+            <Suspense fallback={<EssaysByAuthorSkeleton />}>
+              <EssaysWithSameCategory
+                categoryName={essay.category.name}
+                essayToSkipId={essayId}
+              />
+            </Suspense>
+          </div>
         </div>
       </div>
     </ContentWrapper>

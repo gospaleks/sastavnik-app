@@ -34,7 +34,9 @@ const EssayCard = ({ essay }: Props) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-xl font-bold">{essay.title} </CardTitle>
+        <CardTitle className="cursor-pointer text-xl font-bold hover:underline">
+          <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>
+        </CardTitle>
         <CardDescription className="text-sm text-gray-500">
           Kategorija: {essay.category.name} <br />
           {essay.schoolType === 'OSNOVNA'
@@ -53,7 +55,6 @@ const EssayCard = ({ essay }: Props) => {
             <span className="text-gray-400"> ({essay.ratingCount})</span>
           </div>
         </CardDescription>
-        {/* TODO: Add {essay.averageRating} */}
       </CardHeader>
 
       <CardContent className="flex-grow space-y-4">
@@ -61,17 +62,17 @@ const EssayCard = ({ essay }: Props) => {
           {previewContent}
         </p>
 
-        {/* TODO: Link ka npr /tag/ime-taga gde se prikazuju svi sastavi koji sadrze taj tag */}
         {essay.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
-            {essay.tags.map((tag) => (
-              <Badge
-                key={tag}
-                variant="outline"
-                className="hover:bg-accent cursor-pointer transition-colors"
-              >
-                {tag}
-              </Badge>
+            {essay.tags.map((tag, index) => (
+              <Link href={`/tag/${tag}`} key={index}>
+                <Badge
+                  variant="outline"
+                  className="hover:bg-accent cursor-pointer transition-colors"
+                >
+                  {tag}
+                </Badge>
+              </Link>
             ))}
           </div>
         )}
@@ -82,7 +83,7 @@ const EssayCard = ({ essay }: Props) => {
           <div className="flex flex-col text-left text-sm text-gray-500">
             <span className="flex items-center gap-1 font-bold">
               <Clock className="h-4 w-4" />
-              {isUpdated ? 'Ažuriran' : 'Kreiran'}
+              {isUpdated ? 'Ažurirano' : 'Objavljeno'}
             </span>
             {formattedDate}
           </div>

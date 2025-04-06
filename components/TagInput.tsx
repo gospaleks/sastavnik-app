@@ -37,7 +37,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         onKeyDown={handleKeyDown}
-        placeholder="Dodajte tagove (Enter za dodavanje)"
+        placeholder="Dodajte proizvoljne ključne reči (Enter za dodavanje)"
       />
 
       {/* Prikaz tagova */}

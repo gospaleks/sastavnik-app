@@ -54,7 +54,7 @@ export default function StarRating({
   };
 
   return (
-    <div className="flex flex-col items-center gap-2 md:flex-row md:items-start md:justify-between">
+    <div className="flex flex-col items-center gap-2 md:flex-row md:items-start">
       <div className="bg-muted text-muted-foreground w-full rounded-md px-3 py-2 text-sm md:w-fit">
         {average !== null ? (
           <>
@@ -74,8 +74,9 @@ export default function StarRating({
       </div>
 
       {isLoggedIn && (
-        <div className="flex items-center gap-4">
-          <div className="flex gap-1">
+        <div className="bg-muted text-muted-foreground flex w-full items-center gap-4 rounded-md px-3 py-2 text-sm md:w-fit">
+          <div className="flex items-center gap-1">
+            <span className="text-primary font-semibold">Vaša ocena:</span>{' '}
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}
@@ -91,7 +92,7 @@ export default function StarRating({
                 onClick={() => handleClick(star)}
                 disabled={isLoading}
               >
-                <Star className="h-10 w-10 fill-current md:h-8 md:w-8" />
+                <Star className="h-10 w-10 fill-current md:h-7 md:w-7" />
               </button>
             ))}
           </div>
