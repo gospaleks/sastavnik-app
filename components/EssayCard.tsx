@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { EssayWithAuthorCategoryRating } from '@/lib/types';
+import { EssayWithAuthorCategory } from '@/lib/types';
 
 import {
   Card,
@@ -17,7 +17,7 @@ import { ArrowRight, Clock, Star, StarOffIcon } from 'lucide-react';
 import { formatDate } from '@/lib/utils';
 
 type Props = {
-  essay: EssayWithAuthorCategoryRating;
+  essay: EssayWithAuthorCategory;
 };
 
 const EssayCard = ({ essay }: Props) => {
@@ -44,7 +44,7 @@ const EssayCard = ({ essay }: Props) => {
             : 'Srednja škola'}, {essay.level}. razred
           <br />
           <div className="mt-2 flex items-center gap-1 text-sm">
-            {essay.averageRating !== null ? (
+            {essay.averageRating !== 0 ? (
               <>
                 <Star className="fill-current text-yellow-400" />
                 {essay.averageRating.toFixed(1)}

@@ -32,7 +32,7 @@ export async function rateEssay(essayId: string, value: number) {
     },
   });
 
-  // Get new average rating and count for essayId
+  // Izracunavanje novih proseka i broja ocena
   const essayRatingAverage = await prisma.rating.aggregate({
     where: {
       essayId: essayId,
@@ -45,8 +45,23 @@ export async function rateEssay(essayId: string, value: number) {
     },
   });
 
+  const ratingCount = essayRatingAverage._count.value || 0;
+  const averageRating = essayRatingAverage._avg.value || 0;
+
+  // Azuriramo denormalizovana polja u tabeli essay (zbog performansi jer cesce se cita nego nego pise)
+  await prisma.essay.update({
+    where: {
+      id: essayId,
+    },
+    data: {
+      averageRating: averageRating,
+      ratingCount: ratingCount,
+    },
+  });
+
+  // Vracamo nove vrednosti zbog brzog azuriranja UI-a
   return {
-    newAverageRating: essayRatingAverage._avg.value || 0,
-    newRatingCount: essayRatingAverage._count.value || 0,
+    newAverageRating: averageRating,
+    newRatingCount: ratingCount,
   };
 }

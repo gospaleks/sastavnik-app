@@ -1,5 +1,5 @@
 import { prisma } from '@/lib/prisma';
-import { EssayWithAuthorCategoryRating } from '@/lib/types';
+import { EssayWithAuthorCategory } from '@/lib/types';
 
 // Full podaci o sastavi po ID-u
 export async function getEssayById(essayId: string) {
@@ -17,11 +17,6 @@ export async function getEssayById(essayId: string) {
         },
       },
       category: true,
-      ratings: {
-        select: {
-          value: true,
-        },
-      },
     },
   });
 
@@ -29,18 +24,7 @@ export async function getEssayById(essayId: string) {
     throw new Error('Sastav nije pronađen');
   }
 
-  const ratingCount = essay.ratings.length;
-  const ratingValues = essay.ratings.map((r) => r.value);
-  const avgRating =
-    ratingValues.length > 0
-      ? ratingValues.reduce((a, b) => a + b, 0) / ratingValues.length
-      : null;
-
-  return {
-    ...essay,
-    averageRating: avgRating,
-    ratingCount: ratingCount,
-  } as EssayWithAuthorCategoryRating;
+  return essay as EssayWithAuthorCategory;
 }
 
 // Basic podaci o sastavima
@@ -101,20 +85,9 @@ export async function getEssaysByCategoryName(categoryName: string) {
     },
   });
 
-  const essaysWithAvgRating = essays.map((essay) => {
-    const ratingCount = essay.ratings.length;
-    const ratingValues = essay.ratings.map((r) => r.value);
-    const avgRating =
-      ratingValues.length > 0
-        ? ratingValues.reduce((a, b) => a + b, 0) / ratingValues.length
-        : null;
+  if (!essays) {
+    throw new Error('Sastavi nisu pronađeni');
+  }
 
-    return {
-      ...essay,
-      averageRating: avgRating,
-      ratingCount: ratingCount,
-    } as EssayWithAuthorCategoryRating;
-  });
-
-  return essaysWithAvgRating;
+  return essays as EssayWithAuthorCategory[];
 }

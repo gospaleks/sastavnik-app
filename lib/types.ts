@@ -13,8 +13,3 @@ export type EssayWithAuthorCategory = Prisma.EssayGetPayload<{
     category: true;
   };
 }>;
-
-export type EssayWithAuthorCategoryRating = EssayWithAuthorCategory & {
-  averageRating: number | null;
-  ratingCount: number | null;
-};

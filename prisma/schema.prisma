@@ -38,6 +38,10 @@ model Essay {
   categoryId String
 
   ratings Rating[]
+
+  // Denormalized fields
+  averageRating Float @default(0)
+  ratingCount   Int   @default(0)
 }
 
 enum SchoolType {

@@ -1,7 +1,7 @@
 import ContentWrapper from '@/components/ContentWrapper';
 import Hero from '@/components/Hero';
 
-const HomePage = () => {
+const HomePage = async () => {
   return (
     <>
       <Hero />
