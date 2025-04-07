@@ -10,7 +10,7 @@ type Props = {
   essayId: string;
   isLoggedIn: boolean;
   usersRating: number | undefined;
-  averageInit: number | null;
+  averageInit: number;
   ratingCountInit: number | null;
 };
 
@@ -56,7 +56,7 @@ export default function StarRating({
   return (
     <div className="flex flex-col items-center gap-2 md:flex-row md:items-start">
       <div className="bg-muted text-muted-foreground w-full rounded-md px-3 py-2 text-sm md:w-fit">
-        {average !== null ? (
+        {average !== 0 ? (
           <>
             <span className="text-primary font-semibold">Prosečna ocena:</span>{' '}
             <span className="text-lg font-bold text-yellow-500">

@@ -19,7 +19,7 @@ const EssayCardSlideshowSkeleton = async () => {
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem
             key={index}
-            className="flex pl-2 lg:basis-1/2 xl:basis-1/3"
+            className="flex pl-2 lg:basis-1/2 lg:pl-4 xl:basis-1/3"
           >
             <div className="h-full w-full">
               <EssayCardSkeleton />
