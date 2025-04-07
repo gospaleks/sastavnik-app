@@ -69,7 +69,7 @@ export function EssayForm({ categories }: Props) {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col space-y-4 rounded-lg border p-8">
+    <div className="mx-auto flex max-w-2xl flex-col space-y-4 rounded-lg border p-2 sm:p-8">
       <h1 className="text-2xl font-bold">Dodaj novi sastav</h1>
 
       <AlertCard

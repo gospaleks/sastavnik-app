@@ -1,11 +1,18 @@
 import ContentWrapper from '@/components/ContentWrapper';
 import Hero from '@/components/Hero';
+import EssayCardSlideshowSkeleton from '@/components/Loaders/EssayCardSlideshowSkeleton';
+import PopularEssaysSlideShow from '@/components/PopularEssaysSlideShow';
+import { Suspense } from 'react';
 
 const HomePage = async () => {
   return (
     <>
       <Hero />
-      <ContentWrapper>Content neki</ContentWrapper>
+      <ContentWrapper>
+        <Suspense fallback={<EssayCardSlideshowSkeleton />}>
+          <PopularEssaysSlideShow />
+        </Suspense>
+      </ContentWrapper>
     </>
   );
 };

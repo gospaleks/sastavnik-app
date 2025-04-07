@@ -13,17 +13,24 @@ const Hero = async () => {
   const isLoggedIn = await isAuthenticated();
 
   return (
-    <section className="w-full bg-gray-100 px-6 py-16 text-center dark:bg-gray-800">
+    <section
+      className="w-full bg-gray-100 px-6 py-10 text-center sm:py-20 dark:bg-gray-800"
+      style={{
+        backgroundImage: "url('/hero_background.jpg')",
+        backgroundSize: 'cover',
+      }}
+    >
       <div className="mx-auto max-w-3xl">
         <h1 className="mb-4 text-4xl font-extrabold text-gray-900 dark:text-white">
-          <span className="hidden sm:inline">📖</span>
-          <span className="block sm:inline">Kreiraj.</span>
-          <span className="block sm:inline">Uči.</span>
-          <span className="block sm:inline">Inspiriši.</span>
+          <span className="hidden sm:inline">📖</span>{' '}
+          <span className="block sm:inline">Kreiraj.</span>{' '}
+          <span className="block sm:inline">Uči.</span>{' '}
+          <span className="block sm:inline">Inspiriši.</span>{' '}
           <span className="hidden sm:inline">📖</span>
         </h1>
         <p className="mb-6 text-base text-gray-700 sm:text-lg dark:text-gray-300">
-          Pregledaj i deli sastave na razne teme – za osnovnu i srednju školu.
+          Sastavi za osnovnu i srednju školu. Inspiriši se, nauči i napiši svoj
+          najbolji sastav do sada!
         </p>
         <div className="flex flex-col items-center space-y-4 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-4">
           <Button size="lg" asChild>

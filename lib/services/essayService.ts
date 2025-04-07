@@ -74,14 +74,39 @@ export async function getEssaysByCategoryName(categoryName: string) {
         },
       },
       category: true,
-      ratings: {
-        select: {
-          value: true,
-        },
-      },
     },
     orderBy: {
       createdAt: 'desc',
+    },
+  });
+
+  if (!essays) {
+    throw new Error('Sastavi nisu pronađeni');
+  }
+
+  return essays as EssayWithAuthorCategory[];
+}
+
+// Full podaci o sastavima sortirani po popularnosti (za home page prikaz u card-ovima)
+export async function getEssaysByPopularity(limit = 10) {
+  const essays = await prisma.essay.findMany({
+    where: {
+      published: true,
+    },
+    orderBy: {
+      averageRating: 'desc',
+    },
+    take: limit,
+    include: {
+      category: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
     },
   });
 
