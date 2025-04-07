@@ -28,11 +28,12 @@ export async function getEssayById(essayId: string) {
 }
 
 // Basic podaci o sastavima
-export async function getEssaysBasicByAuthor(authorId: string) {
+export async function getEssaysBasicByAuthor(authorId: string, limit = 10) {
   return await prisma.essay.findMany({
     where: {
       authorId: authorId,
     },
+    take: limit,
     select: {
       id: true,
       title: true,
@@ -41,13 +42,17 @@ export async function getEssaysBasicByAuthor(authorId: string) {
   });
 }
 
-export async function getEssaysBasicByCategoryName(categoryName: string) {
+export async function getEssaysBasicByCategoryName(
+  categoryName: string,
+  limit = 10,
+) {
   return await prisma.essay.findMany({
     where: {
       category: {
         name: categoryName,
       },
     },
+    take: limit,
     select: {
       id: true,
       title: true,
@@ -56,7 +61,7 @@ export async function getEssaysBasicByCategoryName(categoryName: string) {
   });
 }
 
-// Full podaci o sastavima po kategoriji (za card prikaz)
+// Full podaci o sastavima po kategoriji (za card prikaz u /kategorija/categoryName)
 export async function getEssaysByCategoryName(categoryName: string) {
   const essays = await prisma.essay.findMany({
     where: {
@@ -83,6 +88,9 @@ export async function getEssaysByCategoryName(categoryName: string) {
   if (!essays) {
     throw new Error('Sastavi nisu pronađeni');
   }
+
+  // TODO: Paginacija!
+  // TODO: Dodati use cache i tag-ovanje za invalidaciju cache-a prilikom dodavanja novih sastava koji su u istoj kategoriji
 
   return essays as EssayWithAuthorCategory[];
 }

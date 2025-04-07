@@ -12,6 +12,14 @@ import EssayCard from '@/components/EssayCard';
 const PopularEssaysSlideShow = async () => {
   const popularEssays = await getEssaysByPopularity();
 
+  if (popularEssays.length === 0) {
+    return (
+      <p className="my-4 text-center text-gray-500">
+        Trenutno nema sastava za prikaz.
+      </p>
+    );
+  }
+
   return (
     <Carousel
       className="my-4 w-full"

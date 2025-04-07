@@ -1,13 +1,13 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { getAllCategories } from '@/lib/services/categoryService';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import {
   RegisterLink,
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
-import { prisma } from '@/lib/prisma';
 
 import UserAvatar from '@/components/UserAvatar';
 
@@ -49,7 +49,7 @@ const Header = async () => {
   const [isLoggedIn, user, categories] = await Promise.all([
     isAuthenticated(),
     getUser(),
-    prisma.category.findMany(), // Fetch categories from the database
+    getAllCategories(),
   ]);
 
   return (

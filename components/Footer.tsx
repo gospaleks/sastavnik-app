@@ -1,10 +1,10 @@
-import { prisma } from '@/lib/prisma';
 import Image from 'next/image';
 import Link from 'next/link';
 import ContentWrapper from '@/components/ContentWrapper';
+import { getAllCategories } from '@/lib/services/categoryService';
 
 export default async function Footer() {
-  const categories = await prisma.category.findMany();
+  const categories = await getAllCategories();
 
   return (
     <footer className="bg-muted text-muted-foreground border-border border-t">

@@ -35,9 +35,11 @@ export default function TagInput({ value, onChange }: TagInputProps) {
       <Input
         type="text"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) =>
+          e.target.value.length <= 20 && setInputValue(e.target.value)
+        }
         onKeyDown={handleKeyDown}
-        placeholder="Dodajte proizvoljne ključne reči (Enter za dodavanje)"
+        placeholder="Dodajte ključne reči (max 20 karaktera)"
       />
 
       {/* Prikaz tagova */}
