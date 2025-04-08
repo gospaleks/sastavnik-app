@@ -1,11 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import ContentWrapper from '@/components/ContentWrapper';
+
+import { getLatestEssays } from '@/lib/services/essayService';
 import { getAllCategories } from '@/lib/services/categoryService';
-import { FolderOpenIcon } from 'lucide-react';
+
+import { buttonVariants } from '@/components/ui/button';
+import ContentWrapper from '@/components/ContentWrapper';
+import { ArrowRight, FileTextIcon, FolderOpenIcon } from 'lucide-react';
 
 export default async function Footer() {
-  const categories = await getAllCategories();
+  const [categories, latestEssays] = await Promise.all([
+    getAllCategories(),
+    getLatestEssays(5),
+  ]);
 
   return (
     <footer className="bg-muted text-muted-foreground border-border border-t">
@@ -28,7 +35,7 @@ export default async function Footer() {
           </div>
 
           {/* Srednja kolona: Kategorije */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="text-primary mb-4 text-lg font-semibold">
               Kategorije
             </h4>
@@ -48,7 +55,35 @@ export default async function Footer() {
           </div>
 
           {/* Desna kolona: TODO */}
-          <div></div>
+          <div className="flex flex-col items-center md:items-start">
+            <h4 className="text-primary mb-4 text-lg font-semibold">
+              Najnoviji sastavi
+            </h4>
+            <ul className="space-y-2 text-sm">
+              {latestEssays.map((essay) => (
+                <li key={essay.id}>
+                  <Link
+                    href={`/sastavi/${essay.id}`}
+                    className="hover:text-foreground flex items-center gap-2 transition-colors"
+                  >
+                    <FileTextIcon size={15} />
+                    {essay.title}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link
+              href={'/sastavi'}
+              className={buttonVariants({
+                variant: 'link',
+                size: 'sm',
+                className: 'mt-4',
+              })}
+            >
+              Prikaži sve sastave
+              <ArrowRight />
+            </Link>
+          </div>
         </div>
       </ContentWrapper>
 

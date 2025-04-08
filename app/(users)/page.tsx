@@ -3,7 +3,7 @@ import Hero from '@/components/Hero';
 import ContentWrapper from '@/components/ContentWrapper';
 import PopularEssaysSlideShow from '@/components/PopularEssaysSlideShow';
 import EssayCardSlideshowSkeleton from '@/components/Loaders/EssayCardSlideshowSkeleton';
-import LatestEssays from '@/components/LatestEssaysAndGrades';
+import LatestEssays from '@/components/LatestEssays';
 import CategoriesCardList from '@/components/CategoriesCardList';
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
 import QuoteOfTheDay from '@/components/QuoteOfTheDay';
