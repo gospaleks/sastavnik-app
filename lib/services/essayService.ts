@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { EssayWithAuthorCategory } from '@/lib/types';
+import { unstable_cacheTag as cacheTag } from 'next/cache';
 
 // Full podaci o sastavi po ID-u
 export async function getEssayById(essayId: string) {
@@ -61,8 +62,31 @@ export async function getEssaysBasicByCategoryName(
   });
 }
 
+export async function getLatestEssays(limit = 5) {
+  'use cache';
+  cacheTag('latest-essays'); // Kad se doda novi sastav invalidiraj ovaj tag
+
+  return await prisma.essay.findMany({
+    where: {
+      published: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: limit,
+    select: {
+      id: true,
+      title: true,
+      content: true,
+    },
+  });
+}
+
 // Full podaci o sastavima po kategoriji (za card prikaz u /kategorija/categoryName)
 export async function getEssaysByCategoryName(categoryName: string) {
+  'use cache';
+  cacheTag(`essays-by-category-${categoryName}`); // Kad se doda novi sastav u kategoriji invalidiraj ovaj tag
+
   const essays = await prisma.essay.findMany({
     where: {
       category: {
@@ -90,7 +114,6 @@ export async function getEssaysByCategoryName(categoryName: string) {
   }
 
   // TODO: Paginacija!
-  // TODO: Dodati use cache i tag-ovanje za invalidaciju cache-a prilikom dodavanja novih sastava koji su u istoj kategoriji
 
   return essays as EssayWithAuthorCategory[];
 }

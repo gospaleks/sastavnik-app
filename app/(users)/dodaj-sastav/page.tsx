@@ -12,13 +12,15 @@ export const metadata = {
 const DodajSastavPage = async () => {
   const { isAuthenticated } = getKindeServerSession();
   const isLoggedIn = await isAuthenticated();
-  if (!isLoggedIn) redirect('/');
+  if (!isLoggedIn) redirect('/api/auth/login');
 
   const categories = await prisma.category.findMany();
 
   return (
     <ContentWrapper>
-      <EssayForm categories={categories} />
+      <div className="my-8">
+        <EssayForm categories={categories} />
+      </div>
     </ContentWrapper>
   );
 };

@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import ContentWrapper from '@/components/ContentWrapper';
 import { getAllCategories } from '@/lib/services/categoryService';
+import { FolderOpenIcon } from 'lucide-react';
 
 export default async function Footer() {
   const categories = await getAllCategories();
@@ -36,8 +37,9 @@ export default async function Footer() {
                 <li key={category.id}>
                   <Link
                     href={`/kategorije/${category.name}`}
-                    className="hover:text-foreground transition-colors"
+                    className="hover:text-foreground flex items-center gap-2 transition-colors"
                   >
+                    <FolderOpenIcon size={15} />
                     {category.name}
                   </Link>
                 </li>

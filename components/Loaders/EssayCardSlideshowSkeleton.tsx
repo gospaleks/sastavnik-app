@@ -15,7 +15,7 @@ const EssayCardSlideshowSkeleton = async () => {
         align: 'start',
       }}
     >
-      <CarouselContent className="-ml-1">
+      <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem
             key={index}

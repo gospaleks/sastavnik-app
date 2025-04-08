@@ -27,7 +27,7 @@ const PopularEssaysSlideShow = async () => {
         align: 'start',
       }}
     >
-      <CarouselContent className="-ml-1">
+      <CarouselContent className="-ml-1 lg:-ml-4">
         {popularEssays.map((essay) => (
           <CarouselItem
             key={essay.id}
