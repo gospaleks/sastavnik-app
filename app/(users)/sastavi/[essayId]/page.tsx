@@ -49,10 +49,7 @@ export const EssayPage = async ({
       })
     : null;
 
-  const isUpdated = essay.updatedAt.getTime() !== essay.createdAt.getTime();
-  const formattedDate = formatDate(
-    isUpdated ? essay.updatedAt : essay.createdAt,
-  );
+  const formattedDate = formatDate(essay.createdAt);
 
   return (
     <ContentWrapper>
@@ -70,7 +67,7 @@ export const EssayPage = async ({
             </p>
 
             <p className="text-muted-foreground text-center text-xs italic md:text-left">
-              {isUpdated ? 'Ažurirano' : 'Objavljeno'}: {formattedDate}
+              Objavljeno: {formattedDate}
             </p>
           </div>
 

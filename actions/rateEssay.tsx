@@ -59,6 +59,8 @@ export async function rateEssay(essayId: string, value: number) {
     },
   });
 
+  // TODO: Invalidirati cache zbog prikaza u karticama
+
   // Vracamo nove vrednosti zbog brzog azuriranja UI-a
   return {
     newAverageRating: averageRating,

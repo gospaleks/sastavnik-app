@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import localFont from 'next/font/local';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
@@ -97,7 +98,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${neoGeo.variable} antialiased`}>
-        {children}
+        <NuqsAdapter>{children}</NuqsAdapter>
         <Toaster richColors closeButton />
       </body>
     </html>

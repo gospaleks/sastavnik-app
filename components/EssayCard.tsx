@@ -26,10 +26,8 @@ const EssayCard = ({ essay }: Props) => {
       ? essay.content.slice(0, 400) + '...'
       : essay.content;
 
-  const isUpdated = essay.updatedAt.getTime() !== essay.createdAt.getTime();
-  const formattedDate = formatDate(
-    isUpdated ? essay.updatedAt : essay.createdAt,
-  );
+  // Samo createdAt prikazujemo jer se updatedAt promeni i kad se sastav oceni a ne kad ga autor izmeni
+  const formattedDate = formatDate(essay.createdAt);
 
   return (
     <Card>
@@ -83,7 +81,7 @@ const EssayCard = ({ essay }: Props) => {
           <div className="flex flex-col text-left text-sm text-gray-500">
             <span className="flex items-center gap-1 font-bold">
               <Clock className="h-4 w-4" />
-              {isUpdated ? 'Ažurirano' : 'Objavljeno'}
+              Objavljeno
             </span>
             {formattedDate}
           </div>

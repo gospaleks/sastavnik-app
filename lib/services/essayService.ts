@@ -21,10 +21,6 @@ export async function getEssayById(essayId: string) {
     },
   });
 
-  if (!essay) {
-    throw new Error('Sastav nije pronađen');
-  }
-
   return essay as EssayWithAuthorCategory;
 }
 
@@ -109,10 +105,6 @@ export async function getEssaysByCategoryName(categoryName: string) {
     },
   });
 
-  if (!essays) {
-    throw new Error('Sastavi nisu pronađeni');
-  }
-
   // TODO: Paginacija!
 
   return essays as EssayWithAuthorCategory[];
@@ -143,9 +135,51 @@ export async function getEssaysByPopularity(limit = 10) {
     },
   });
 
-  if (!essays) {
-    throw new Error('Sastavi nisu pronađeni');
-  }
-
   return essays as EssayWithAuthorCategory[];
+}
+
+// Full podaci o sastavima sortirani po datumj (za rutu '/sastavi')
+// Na stranici uvek idu po 10 sastava, pa je limit 10 a offset se menja u zavisnosti od stranice
+export async function getEssays(page = 1) {
+  'use cache';
+  cacheTag('essays'); // Invalidiraj pri promeni filtera ili pretrage ili stranice
+
+  const limit = 4; // Broj sastava po stranici
+  const offset = (page - 1) * limit; // Offset za paginaciju
+
+  const essays = await prisma.essay.findMany({
+    take: limit,
+    skip: offset,
+    where: {
+      published: true,
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+      category: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  const total = await prisma.essay.count({
+    where: {
+      published: true,
+    },
+  });
+
+  const totalPages = Math.ceil(total / limit); // Ukupan broj stranica
+
+  return {
+    essays: essays as EssayWithAuthorCategory[],
+    totalEssays: total,
+    totalPages,
+  };
 }
