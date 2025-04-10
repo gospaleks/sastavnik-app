@@ -18,13 +18,10 @@ type Props = {
 };
 
 const PagePagination = ({ totalPages }: Props) => {
-  const [offset, setOffset] = useQueryState(
-    'offset',
-    parseAsInteger.withDefault(1),
-  );
+  const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
 
-  const handleOffsetChange = (value: number) => {
-    setOffset(value);
+  const handlePageChange = (value: number) => {
+    setPage(value);
     setTimeout(async () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       refetchEssays();
@@ -37,64 +34,58 @@ const PagePagination = ({ totalPages }: Props) => {
         <PaginationItem>
           <Button
             variant="ghost"
-            disabled={offset === 1}
-            onClick={() => handleOffsetChange(offset - 1)}
+            disabled={page === 1}
+            onClick={() => handlePageChange(page - 1)}
           >
             <ChevronLeft /> <span className="hidden sm:inline">Prethodna</span>
           </Button>
         </PaginationItem>
 
         {/** First Page */}
-        {offset > 1 && (
+        {page > 1 && (
           <PaginationItem>
-            <Button variant="ghost" onClick={() => handleOffsetChange(1)}>
+            <Button variant="ghost" onClick={() => handlePageChange(1)}>
               1
             </Button>
           </PaginationItem>
         )}
 
         {/** Ellipsis */}
-        {offset > 3 && <PaginationEllipsis />}
+        {page > 3 && <PaginationEllipsis />}
 
         {/** Previous */}
-        {offset > 2 && (
+        {page > 2 && (
           <PaginationItem>
-            <Button
-              variant="ghost"
-              onClick={() => handleOffsetChange(offset - 1)}
-            >
-              {offset - 1}
+            <Button variant="ghost" onClick={() => handlePageChange(page - 1)}>
+              {page - 1}
             </Button>
           </PaginationItem>
         )}
 
         {/** Current */}
         <PaginationItem>
-          <Button variant="default">{offset}</Button>
+          <Button variant="default">{page}</Button>
         </PaginationItem>
 
         {/** Next */}
-        {offset < totalPages && (
+        {page < totalPages && (
           <PaginationItem>
-            <Button
-              variant="ghost"
-              onClick={() => handleOffsetChange(offset + 1)}
-            >
-              {offset + 1}
+            <Button variant="ghost" onClick={() => handlePageChange(page + 1)}>
+              {page + 1}
             </Button>
           </PaginationItem>
         )}
 
         {/** Ellipsis */}
-        {offset < totalPages - 2 && <PaginationEllipsis />}
+        {page < totalPages - 2 && <PaginationEllipsis />}
 
         {/** Last Page */}
-        {offset < totalPages - 1 && (
+        {page < totalPages - 1 && (
           <PaginationItem>
             <Button
               variant="ghost"
-              disabled={offset === totalPages}
-              onClick={() => handleOffsetChange(totalPages)}
+              disabled={page === totalPages}
+              onClick={() => handlePageChange(totalPages)}
             >
               {totalPages}
             </Button>
@@ -104,8 +95,8 @@ const PagePagination = ({ totalPages }: Props) => {
         <PaginationItem>
           <Button
             variant="ghost"
-            disabled={offset === totalPages}
-            onClick={() => handleOffsetChange(offset + 1)}
+            disabled={page === totalPages}
+            onClick={() => handlePageChange(page + 1)}
           >
             <span className="hidden sm:inline">Sledeća</span> <ChevronRight />
           </Button>

@@ -1,12 +1,9 @@
-import { getEssays } from '@/lib/services/essayService';
+import { Suspense } from 'react';
 
 import { loadSearchParams } from '@/lib/searchParams';
 import { SearchParams } from 'nuqs/server';
 
 import ContentWrapper from '@/components/ContentWrapper';
-import EssayCard from '@/components/EssayCard';
-import PagePagination from '@/components/PagePagination';
-import { Suspense } from 'react';
 import EssayCardGridSkeleton from '@/components/Loaders/EssayCardGridSkeleton';
 import EssaysList from '@/components/EssaysList';
 import Filters from '@/components/Filters';
@@ -20,7 +17,8 @@ type Props = {
 };
 
 const AllEssaysPage = async ({ searchParams }: Props) => {
-  const { offset } = await loadSearchParams(searchParams);
+  const { page, searchTerm, schoolType, grade } =
+    await loadSearchParams(searchParams);
 
   return (
     <ContentWrapper>
@@ -31,7 +29,12 @@ const AllEssaysPage = async ({ searchParams }: Props) => {
       <Filters />
 
       <Suspense fallback={<EssayCardGridSkeleton />}>
-        <EssaysList offset={offset} />
+        <EssaysList
+          page={page}
+          searchTerm={searchTerm}
+          schoolType={schoolType}
+          grade={grade}
+        />
       </Suspense>
     </ContentWrapper>
   );

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { EssayWithAuthorCategory } from '@/lib/types';
+import { Prisma, SchoolType } from '@prisma/client';
 import { unstable_cacheTag as cacheTag } from 'next/cache';
 
 // Full podaci o sastavi po ID-u
@@ -140,19 +141,53 @@ export async function getEssaysByPopularity(limit = 10) {
 
 // Full podaci o sastavima sortirani po datumj (za rutu '/sastavi')
 // Na stranici uvek idu po 10 sastava, pa je limit 10 a offset se menja u zavisnosti od stranice
-export async function getEssays(page = 1) {
+export async function getEssays(
+  page = 1,
+  searchTerm = '',
+  schoolType = '',
+  grade = '',
+) {
   'use cache';
-  cacheTag('essays'); // Invalidiraj pri promeni filtera ili pretrage ili stranice
+  cacheTag('essays');
 
-  const limit = 4; // Broj sastava po stranici
-  const offset = (page - 1) * limit; // Offset za paginaciju
+  const limit = 4;
+  const offset = (page - 1) * limit;
+
+  const whereClause: Prisma.EssayWhereInput = {
+    published: true,
+    ...(searchTerm && {
+      OR: [
+        {
+          title: {
+            contains: searchTerm,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        {
+          content: {
+            contains: searchTerm,
+            mode: Prisma.QueryMode.insensitive,
+          },
+        },
+        {
+          tags: {
+            has: searchTerm,
+          },
+        },
+      ],
+    }),
+    ...(schoolType && {
+      schoolType: schoolType as SchoolType,
+    }),
+    ...(grade && {
+      level: parseInt(grade),
+    }),
+  };
 
   const essays = await prisma.essay.findMany({
     take: limit,
     skip: offset,
-    where: {
-      published: true,
-    },
+    where: whereClause,
     include: {
       author: {
         select: {
@@ -170,12 +205,10 @@ export async function getEssays(page = 1) {
   });
 
   const total = await prisma.essay.count({
-    where: {
-      published: true,
-    },
+    where: whereClause,
   });
 
-  const totalPages = Math.ceil(total / limit); // Ukupan broj stranica
+  const totalPages = Math.ceil(total / limit);
 
   return {
     essays: essays as EssayWithAuthorCategory[],

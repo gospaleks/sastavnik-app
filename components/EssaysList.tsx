@@ -4,11 +4,20 @@ import EssayCard from '@/components/EssayCard';
 import PagePagination from '@/components/PagePagination';
 
 type Props = {
-  offset: number;
+  page: number;
+  searchTerm: string;
+  schoolType: string;
+  grade: string;
 };
 
-const EssaysList = async ({ offset }: Props) => {
-  const { essays, totalEssays, totalPages } = await getEssays(offset);
+const EssaysList = async ({ page, searchTerm, schoolType, grade }: Props) => {
+  const { essays, totalEssays, totalPages } = await getEssays(
+    page,
+    searchTerm,
+    schoolType,
+    grade,
+  );
+
   return (
     <>
       <div className="my-4">
@@ -20,14 +29,16 @@ const EssaysList = async ({ offset }: Props) => {
           </div>
         ) : (
           <p className="text-gray-500">
-            📄 Trenutno nema sastava u ovoj kategoriji.
+            📄 Nijedan sastav nije pronađen. Pokušajte da promenite filtere.
           </p>
         )}
       </div>
 
-      <div className="py-4">
-        <PagePagination totalPages={totalPages} />
-      </div>
+      {totalPages > 0 && (
+        <div className="mt-4 flex justify-center">
+          <PagePagination totalPages={totalPages} />
+        </div>
+      )}
     </>
   );
 };
