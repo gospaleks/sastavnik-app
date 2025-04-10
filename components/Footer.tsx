@@ -7,6 +7,7 @@ import { getAllCategories } from '@/lib/services/categoryService';
 import { buttonVariants } from '@/components/ui/button';
 import ContentWrapper from '@/components/ContentWrapper';
 import { ArrowRight, FileTextIcon, FolderOpenIcon } from 'lucide-react';
+import AlertCard from './AlertCard';
 
 export default async function Footer() {
   const [categories, latestEssays] = await Promise.all([
@@ -32,6 +33,13 @@ export default async function Footer() {
               Sastavi za osnovnu i srednju školu. Inspiriši se, nauči i napiši
               svoj najbolji sastav do sada!
             </p>
+            <AlertCard
+              title="NAPOMENA:"
+              description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe
+                    učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
+              variant="destructive"
+              className="text-left text-xs"
+            />
           </div>
 
           {/* Srednja kolona: Kategorije */}

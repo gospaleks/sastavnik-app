@@ -9,6 +9,7 @@ import {
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
 
+import SearchBar from '@/components/SearchBar';
 import UserAvatar from '@/components/UserAvatar';
 
 import {
@@ -87,7 +88,7 @@ const Header = async () => {
 
         {/* Navigacija DESKTOP */}
         <NavigationMenu className="hidden sm:block">
-          <NavigationMenuList className="flex items-center gap-4">
+          <NavigationMenuList className="flex items-center gap-2">
             <NavigationMenuItem>
               <Link href="/sastavi" legacyBehavior passHref>
                 <NavigationMenuLink
@@ -122,10 +123,12 @@ const Header = async () => {
         </NavigationMenu>
 
         <div className="flex items-center justify-center gap-4">
+          <SearchBar />
+
           {isLoggedIn && <UserAvatar user={user} />}
 
           {/* Prijava i Registracija DESKTOP */}
-          <div className="hidden items-center gap-2 sm:flex">
+          <div className="hidden items-center gap-2 md:flex">
             {!isLoggedIn && (
               <>
                 <LoginLink
@@ -146,7 +149,7 @@ const Header = async () => {
 
           {/* Prijava i Registracija MOBILE */}
           {!isLoggedIn && (
-            <div className="flex items-center justify-center sm:hidden">
+            <div className="flex items-center justify-center md:hidden">
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <UserCircleIcon size={30} />

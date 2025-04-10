@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/select';
 import { refetchEssays } from '@/lib/services/refetchEssays';
 import { Button } from './ui/button';
-import { XIcon } from 'lucide-react';
+import { SearchIcon, XIcon } from 'lucide-react';
 
 const Filters = () => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -77,12 +77,15 @@ const Filters = () => {
     <div className="flex flex-col items-center justify-between gap-2 rounded-lg border p-4 shadow-sm sm:flex-row">
       <div className="flex flex-col items-center gap-2 sm:flex-row">
         {/** Pretraga */}
-        <Input
-          className="w-[180px]"
-          placeholder="Pretraži..."
-          value={searchTerm}
-          onChange={(e) => handleSearchChange(e.target.value)}
-        />
+        <div className="relative flex items-center sm:w-auto">
+          <Input
+            className="w-[180px] pl-10 shadow-none"
+            placeholder="Pretraži..."
+            value={searchTerm}
+            onChange={(e) => handleSearchChange(e.target.value)}
+          />
+          <SearchIcon size={20} className="absolute left-3 text-gray-500" />
+        </div>
 
         {/** Tip škole */}
         <Select
