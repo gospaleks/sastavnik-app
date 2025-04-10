@@ -11,6 +11,7 @@ import {
 
 import SearchBar from '@/components/SearchBar';
 import UserAvatar from '@/components/UserAvatar';
+import MobileMenu from '@/components/MobileMenu';
 
 import {
   NavigationMenu,
@@ -31,19 +32,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components/ui/drawer';
 
 import { buttonVariants } from '@/components/ui/button';
-import { LogInIcon, Menu, User, UserCircleIcon } from 'lucide-react';
+import { LogInIcon, User, UserCircleIcon } from 'lucide-react';
 
 const Header = async () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
@@ -58,18 +49,7 @@ const Header = async () => {
       <div className="container mx-auto flex h-full items-center justify-between gap-4 px-4">
         {/* Hamburger Menu za prikaz navigacije na malim ekranima sa leve strane TODO! */}
         <div className="flex items-center justify-center sm:hidden">
-          <Drawer direction="left">
-            <DrawerTrigger>
-              <Menu size={30} />
-            </DrawerTrigger>
-            <DrawerContent>
-              <DrawerHeader>
-                <DrawerTitle>Sastavnik</DrawerTitle>
-              </DrawerHeader>
-
-              <DrawerFooter></DrawerFooter>
-            </DrawerContent>
-          </Drawer>
+          <MobileMenu categories={categories} />
         </div>
 
         {/* Logo */}

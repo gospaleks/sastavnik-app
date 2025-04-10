@@ -148,7 +148,7 @@ export async function getEssays(
   grade = '',
 ) {
   'use cache';
-  cacheTag('essays');
+  cacheTag('essays'); // TODO: Probaj da ime taga bude kombinacija essays i filter parametara!
 
   const limit = 4;
   const offset = (page - 1) * limit;
