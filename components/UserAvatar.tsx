@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/types';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
@@ -11,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LogOutIcon, PlusIcon, UserIcon } from 'lucide-react';
-import Link from 'next/link';
 
 type Props = {
   user: KindeUser<Record<string, any>>;
@@ -43,23 +44,26 @@ const UserAvatar = ({ user }: Props) => {
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
-          <Link href="/dodaj-sastav" className="cursor-pointer">
-            <PlusIcon /> Dodaj sastav
+        <DropdownMenuItem>
+          <Link href="/dodaj-sastav" className="flex w-full items-center gap-2">
+            <PlusIcon size={16} />
+            Dodaj sastav
           </Link>
         </DropdownMenuItem>
 
-        {/* TODO */}
-        <DropdownMenuItem asChild>
-          <Link href="/" className="cursor-pointer">
+        <DropdownMenuItem>
+          <Link
+            href={`/profil/${user.id}`}
+            className="flex w-full items-center gap-2"
+          >
             <UserIcon /> Profil
           </Link>
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
 
-        <DropdownMenuItem asChild>
-          <LogoutLink className="cursor-pointer">
+        <DropdownMenuItem>
+          <LogoutLink className="flex w-full items-center gap-2">
             <LogOutIcon /> Odjava
           </LogoutLink>
         </DropdownMenuItem>

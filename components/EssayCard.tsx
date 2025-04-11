@@ -87,8 +87,14 @@ const EssayCard = ({ essay }: Props) => {
           </div>
 
           <div className="text-right text-sm text-gray-500">
-            <span className="font-bold">Autor</span> <br />
-            {essay.author.firstName || ''} {essay.author.lastName || ''}
+            <span className="font-bold">Autor</span>
+            <br />
+            <Link
+              href={`/profil/${essay.authorId}`}
+              className="hover:text-primary cursor-pointer underline transition-colors"
+            >
+              {essay.author.firstName || ''} {essay.author.lastName || ''}
+            </Link>
           </div>
         </div>
 

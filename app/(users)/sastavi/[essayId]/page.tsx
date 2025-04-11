@@ -12,6 +12,7 @@ import AlertCard from '@/components/AlertCard';
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
 import { Badge } from '@/components/ui/badge';
 import EssaysWithSameCategory from './EssaysWithSameCategory';
+import { ExternalLinkIcon } from 'lucide-react';
 
 export async function generateMetadata({
   params,
@@ -60,10 +61,19 @@ export const EssayPage = async ({
             {essay.title}
           </h1>
 
-          <div>
-            <p className="text-muted-foreground text-center text-sm md:text-left md:text-base">
-              <span className="font-bold">Autor:</span> {essay.author.firstName}{' '}
-              {essay.author.lastName}
+          <div className="flex flex-col gap-2">
+            <p className="text-muted-foreground flex items-center gap-2 text-center text-sm md:text-left md:text-base">
+              <span className="font-bold">Autor: </span>
+              <Link
+                href={`/profil/${essay.authorId}`}
+                className="text-primary hover:text-primary/80 flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors"
+              >
+                {essay.author.firstName} {essay.author.lastName}
+                <ExternalLinkIcon
+                  className="inline-block animate-pulse"
+                  size={17}
+                />
+              </Link>
             </p>
 
             <p className="text-muted-foreground text-center text-xs italic md:text-left">
