@@ -1,6 +1,12 @@
 import { Card, CardContent } from '@/components/ui/card';
+import ContentWrapper from '@/components/ContentWrapper';
 import { QuoteIcon } from 'lucide-react';
-import ContentWrapper from './ContentWrapper';
+
+{
+  /**
+    TODO: Pribavi iz baze 2 random citata (nije hitno!)
+  */
+}
 
 const QuoteOfTheDay = () => {
   return (

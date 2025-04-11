@@ -2,5 +2,5 @@
 import { revalidateTag } from 'next/cache';
 
 export async function refetchEssays() {
-  revalidateTag('essays');
+  revalidateTag('e'); // hack to get data for new filters
 }

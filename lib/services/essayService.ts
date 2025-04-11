@@ -148,7 +148,18 @@ export async function getEssays(
   grade = '',
 ) {
   'use cache';
-  cacheTag('essays'); // TODO: Probaj da ime taga bude kombinacija essays i filter parametara!
+
+  const tagKey = `essays-${[
+    page,
+    encodeURIComponent(searchTerm),
+    encodeURIComponent(schoolType),
+    encodeURIComponent(grade),
+  ].join('-')}`;
+
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
+  cacheTag(tagKey); // Tag za specificne filtere
+
+  // console.log('[getEssays]', { page, searchTerm, schoolType, grade });
 
   const limit = 4;
   const offset = (page - 1) * limit;

@@ -46,6 +46,7 @@ const Filters = () => {
 
   const handleSchoolTypeChange = (value: string) => {
     setSchoolType(value);
+    setGrade('');
     setTimeout(() => {
       refetchEssays();
     }, 0);
