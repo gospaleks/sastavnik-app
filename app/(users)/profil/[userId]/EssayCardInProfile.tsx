@@ -42,7 +42,7 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
 
           {canEdit && (
             <div className="sm:hidden">
-              <EssayDropdown essayId={essay.id} />
+              <EssayDropdown essayId={essay.id} essayTitle={essay.title} />
             </div>
           )}
         </div>
@@ -69,7 +69,7 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
         </p>
         {canEdit && (
           <div className="hidden sm:block">
-            <EssayDropdown essayId={essay.id} />
+            <EssayDropdown essayId={essay.id} essayTitle={essay.title} />
           </div>
         )}
       </CardContent>

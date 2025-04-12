@@ -30,7 +30,7 @@ const YesNoAlert = ({
   title,
   description,
   action,
-  redirectUrl = '/',
+  redirectUrl,
 }: Props) => {
   const router = useRouter();
 
@@ -38,7 +38,7 @@ const YesNoAlert = ({
     toast.promise(
       action().then((res) => {
         setIsOpen(false); // <- zatvaranje dijaloga nakon uspeha
-        router.replace(redirectUrl);
+        if (redirectUrl) router.push(redirectUrl); // <- redirekcija na drugu stranicu
         return res;
       }),
       {

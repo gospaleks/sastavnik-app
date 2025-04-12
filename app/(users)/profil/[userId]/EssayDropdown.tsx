@@ -2,6 +2,8 @@
 
 import { useState } from 'react';
 
+import deleteEssay from '@/actions/deleteEssay';
+
 import YesNoAlert from '@/components/YesNoAlert';
 
 import {
@@ -11,19 +13,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { EditIcon, EllipsisVerticalIcon, Trash2Icon } from 'lucide-react';
-import deleteEssay from '@/actions/deleteEssay';
-import { ResponsiveDialog } from '@/components/responsive-dialog';
 
 type Props = {
   essayId: string;
+  essayTitle: string;
 };
 
-const EssayDropdown = ({ essayId }: Props) => {
+const EssayDropdown = ({ essayId, essayTitle }: Props) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
   return (
     <>
-      <DropdownMenu>
+      <DropdownMenu open={isDropdownOpen} onOpenChange={setIsDropdownOpen}>
         <DropdownMenuTrigger className="hover:bg-accent cursor-pointer rounded-full p-2 transition-colors">
           <EllipsisVerticalIcon />
         </DropdownMenuTrigger>
@@ -35,7 +37,10 @@ const EssayDropdown = ({ essayId }: Props) => {
 
           <DropdownMenuItem
             variant="destructive"
-            onClick={() => setIsDeleteOpen(true)}
+            onClick={() => {
+              setIsDropdownOpen(false);
+              setIsDeleteOpen(true);
+            }}
           >
             <Trash2Icon />
             Obriši
@@ -43,20 +48,13 @@ const EssayDropdown = ({ essayId }: Props) => {
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* <ResponsiveDialog
-        isOpen={isDeleteOpen}
-        setIsOpen={setIsDeleteOpen}
-        title="Obriši sastav"
-        description="Da li ste sigurni da želite da obrišete ovaj sastav? Ova akcija se ne može poništiti."
-        children={<h1>proba...</h1>}
-      /> */}
-
-      {/** Ovo kad se zatvori jebe nesto ostane kao overlay neki i nista se ne moz klikne nzm sta da mu radim! */}
       <YesNoAlert
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
-        title="Obriši sastav"
-        description="Da li ste sigurni da želite da obrišete ovaj sastav? Ova akcija se ne može poništiti."
+        title="Brisanje sastava"
+        description={`
+          Da li ste sigurni da želite da obrišete sastav "${essayTitle}"? Ova akcija je nepovratna.
+          `}
         action={() => deleteEssay(essayId)}
       />
     </>
