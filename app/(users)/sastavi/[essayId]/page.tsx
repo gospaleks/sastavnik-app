@@ -13,6 +13,8 @@ import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton'
 import { Badge } from '@/components/ui/badge';
 import EssaysWithSameCategory from './EssaysWithSameCategory';
 import { ExternalLinkIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import EssayActionButtons from './EssayActionButtons';
 
 export async function generateMetadata({
   params,
@@ -35,8 +37,11 @@ export const EssayPage = async ({
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
 
-  const { getUser } = getKindeServerSession();
+  const { getUser, getPermission } = getKindeServerSession();
   const user = await getUser();
+  const isAdmin = (await getPermission('admin:access'))?.isGranted;
+
+  const canEdit = user && (user.id === essay.authorId || isAdmin);
 
   const usersRating = user
     ? await prisma.rating.findFirst({
@@ -62,7 +67,7 @@ export const EssayPage = async ({
           </h1>
 
           <div className="flex flex-col gap-2">
-            <p className="text-muted-foreground flex items-center gap-2 text-center text-sm md:text-left md:text-base">
+            <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm md:justify-normal md:text-base">
               <span className="font-bold">Autor: </span>
               <Link
                 href={`/profil/${essay.authorId}`}
@@ -104,6 +109,9 @@ export const EssayPage = async ({
             averageInit={essay.averageRating}
             ratingCountInit={essay.ratingCount}
           />
+
+          {/** Dugmici za izmenu i brisanje ako korisnik ima permisije */}
+          {canEdit && <EssayActionButtons essayId={essayId} />}
 
           <div className="prose prose-invert dark:prose-invert lg:prose-lg mx-auto mt-8 max-w-none whitespace-pre-wrap">
             {essay.content}

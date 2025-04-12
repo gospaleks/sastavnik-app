@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { EditIcon, EllipsisVerticalIcon, Trash2Icon } from 'lucide-react';
 import deleteEssay from '@/actions/deleteEssay';
+import { ResponsiveDialog } from '@/components/responsive-dialog';
 
 type Props = {
   essayId: string;
@@ -29,7 +30,7 @@ const EssayDropdown = ({ essayId }: Props) => {
         <DropdownMenuContent align="end">
           <DropdownMenuItem>
             <EditIcon />
-            Uredi
+            Izmeni
           </DropdownMenuItem>
 
           <DropdownMenuItem
@@ -42,6 +43,15 @@ const EssayDropdown = ({ essayId }: Props) => {
         </DropdownMenuContent>
       </DropdownMenu>
 
+      {/* <ResponsiveDialog
+        isOpen={isDeleteOpen}
+        setIsOpen={setIsDeleteOpen}
+        title="Obriši sastav"
+        description="Da li ste sigurni da želite da obrišete ovaj sastav? Ova akcija se ne može poništiti."
+        children={<h1>proba...</h1>}
+      /> */}
+
+      {/** Ovo kad se zatvori jebe nesto ostane kao overlay neki i nista se ne moz klikne nzm sta da mu radim! */}
       <YesNoAlert
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}

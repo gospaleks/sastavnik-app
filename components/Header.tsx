@@ -11,19 +11,9 @@ import {
 
 import SearchBar from '@/components/SearchBar';
 import UserAvatar from '@/components/UserAvatar';
+import DesktopMenu from '@/components/DesktopMenu';
 import MobileMenu from '@/components/MobileMenu';
 
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  NavigationMenuViewport,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -67,40 +57,7 @@ const Header = async () => {
         </Link>
 
         {/* Navigacija DESKTOP */}
-        <NavigationMenu className="hidden sm:block">
-          <NavigationMenuList className="flex items-center gap-2">
-            <NavigationMenuItem>
-              <Link href="/sastavi" legacyBehavior passHref>
-                <NavigationMenuLink
-                  className={`${navigationMenuTriggerStyle()} hover:bg-muted rounded-lg px-4 py-2 transition-colors`}
-                >
-                  Sastavi
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-
-            <NavigationMenuItem>
-              <NavigationMenuTrigger>Kategorije</NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="w-[185px]">
-                  {categories.map((category) => (
-                    <li key={category.id}>
-                      <Link
-                        href={`/kategorije/${category.name}`}
-                        className={buttonVariants({
-                          variant: 'ghost',
-                          className: 'flex w-full justify-start',
-                        })}
-                      >
-                        {category.name}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-          </NavigationMenuList>
-        </NavigationMenu>
+        <DesktopMenu categories={categories} />
 
         <div className="flex items-center justify-center gap-4">
           <SearchBar />

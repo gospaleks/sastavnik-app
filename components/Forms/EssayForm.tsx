@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { essayFormSchema, EssayFormSchemaType } from '@/lib/schemas';
@@ -44,6 +45,8 @@ type Props = {
 };
 
 export function EssayForm({ categories }: Props) {
+  const router = useRouter();
+
   const form = useForm<EssayFormSchemaType>({
     resolver: zodResolver(essayFormSchema),
     defaultValues: {
@@ -65,6 +68,8 @@ export function EssayForm({ categories }: Props) {
     } else {
       toast.success(response.message);
       form.reset();
+      router.push(`/sastavi/${response.essayId}`); // Presumeri ga na stranicu sastava
+      router;
     }
   }
 

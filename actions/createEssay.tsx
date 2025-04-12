@@ -41,5 +41,6 @@ export default async function createEssay(values: EssayFormSchemaType) {
   return {
     success: true,
     message: 'Sastav je uspešno dodat',
+    essayId: essay.id,
   };
 }

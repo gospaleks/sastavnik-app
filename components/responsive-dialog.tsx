@@ -57,7 +57,7 @@ export function ResponsiveDialog({
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>{title}</DrawerTitle>
-          {description && <DialogDescription>{description}</DialogDescription>}
+          {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>
         {children}
         <DrawerFooter className="pt-2">

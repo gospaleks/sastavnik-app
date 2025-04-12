@@ -10,6 +10,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
+import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 
 type Props = {
@@ -20,6 +21,7 @@ type Props = {
   action: () => Promise<{
     message: string;
   }>;
+  redirectUrl?: string;
 };
 
 const YesNoAlert = ({
@@ -28,11 +30,15 @@ const YesNoAlert = ({
   title,
   description,
   action,
+  redirectUrl = '/',
 }: Props) => {
+  const router = useRouter();
+
   const handleAction = async () => {
     toast.promise(
       action().then((res) => {
         setIsOpen(false); // <- zatvaranje dijaloga nakon uspeha
+        router.replace(redirectUrl);
         return res;
       }),
       {
