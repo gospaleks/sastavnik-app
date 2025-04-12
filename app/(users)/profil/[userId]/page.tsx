@@ -2,6 +2,10 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import { getUserById } from '@/lib/services/userService';
+import Link from 'next/link';
+import { buttonVariants } from '@/components/ui/button';
+import { NotebookTextIcon, PlusIcon, UserIcon } from 'lucide-react';
+import EssayCardInProfile from './EssayCardInProfile';
 
 export async function generateMetadata({
   params,
@@ -24,21 +28,61 @@ export const ProfilPage = async ({
   // User's data
   const { userId } = await params;
   const userData = await getUserById(userId);
+  const usersEssays = userData?.essays || [];
 
   // Kinde
-  const { isAuthenticated, getUser } = getKindeServerSession();
+  const { isAuthenticated, getUser, getPermission } = getKindeServerSession();
   const isLoggedIn = await isAuthenticated();
   const user = await getUser();
+  const isAdmin = (await getPermission('admin:access'))?.isGranted;
 
-  const isUsersProfile = isLoggedIn && userId === user.id;
+  // Korisnik moze da uredjuje profil ako je njegov ili ako je admin
+  const canEdit = isLoggedIn && (userId === user.id || isAdmin);
 
   return (
     <ContentWrapper>
-      <p>
-        {isUsersProfile
-          ? 'Ovo je tvoj profil'
-          : `Profil korisnika ${userData?.firstName} ${userData?.lastName}`}
-      </p>
+      <div className="flex flex-col-reverse gap-8 md:flex-row">
+        {/** Leva strana - prikaz svih sastava korisnika */}
+        <div className="w-full md:w-8/12">
+          <div className="bg-accent mb-4 flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-lg">
+            <div className="flex items-center gap-2">
+              <NotebookTextIcon />
+              <span>Sastavi korisnika:</span>
+            </div>
+            <span>
+              {userData?.firstName} {userData?.lastName}
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-4">
+            {usersEssays.length > 0 ? (
+              usersEssays.map((essay) => (
+                <EssayCardInProfile
+                  key={essay.id}
+                  essay={essay}
+                  canEdit={canEdit}
+                />
+              ))
+            ) : (
+              <div className="mb-2 text-gray-500">
+                <p className="mb-2">Trenutno nemate ni jedan sastav.</p>
+                <Link href="/dodaj-sastav" className={buttonVariants()}>
+                  <PlusIcon />
+                  Dodaj sastav
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/** Desna strana - prikaz podataka o korisniku */}
+        <div className="w-full md:w-4/12">
+          <div className="bg-accent mb-4 flex w-full items-center gap-2 rounded-lg border px-4 py-2 text-lg">
+            <UserIcon />
+            <span>O korisniku</span>
+          </div>
+        </div>
+      </div>
     </ContentWrapper>
   );
 };

@@ -3,6 +3,7 @@
 import { prisma } from '@/lib/prisma';
 import { EssayFormSchemaType } from '@/lib/schemas';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { revalidateTag } from 'next/cache';
 
 export default async function createEssay(values: EssayFormSchemaType) {
   const { getUser } = getKindeServerSession();
@@ -34,6 +35,8 @@ export default async function createEssay(values: EssayFormSchemaType) {
       message: 'Došlo je do greške prilikom dodavanja sastava',
     };
   }
+
+  revalidateTag('essays');
 
   return {
     success: true,

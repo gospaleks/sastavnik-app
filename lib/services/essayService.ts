@@ -61,6 +61,7 @@ export async function getEssaysBasicByCategoryName(
 
 export async function getLatestEssays(limit = 5) {
   'use cache';
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
   cacheTag(`latest-essays-${limit}`);
 
   return await prisma.essay.findMany({
@@ -82,6 +83,7 @@ export async function getLatestEssays(limit = 5) {
 // Full podaci o sastavima po kategoriji (za card prikaz u /kategorija/categoryName)
 export async function getEssaysByCategoryName(categoryName: string) {
   'use cache';
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
   cacheTag(`essays-by-category-${categoryName}`); // Kad se doda novi sastav u kategoriji invalidiraj ovaj tag
 
   const essays = await prisma.essay.findMany({
@@ -114,6 +116,7 @@ export async function getEssaysByCategoryName(categoryName: string) {
 // Full podaci o sastavima sortirani po popularnosti (za home page prikaz u card-ovima)
 export async function getEssaysByPopularity(limit = 10) {
   'use cache';
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
 
   const essays = await prisma.essay.findMany({
     where: {

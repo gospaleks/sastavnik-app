@@ -45,18 +45,18 @@ const UserAvatar = ({ user }: Props) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem>
-          <Link href="/dodaj-sastav" className="flex w-full items-center gap-2">
-            <PlusIcon size={16} />
-            Dodaj sastav
-          </Link>
-        </DropdownMenuItem>
-
-        <DropdownMenuItem>
           <Link
             href={`/profil/${user.id}`}
             className="flex w-full items-center gap-2"
           >
             <UserIcon /> Profil
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem>
+          <Link href="/dodaj-sastav" className="flex w-full items-center gap-2">
+            <PlusIcon size={16} />
+            Dodaj sastav
           </Link>
         </DropdownMenuItem>
 

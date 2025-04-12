@@ -1,13 +1,22 @@
 import { prisma } from '@/lib/prisma';
+import { UserWithEssays } from '@/lib/types';
 
-// TODO: Vrati odgovarajuce podatke za korisnika
 export async function getUserById(userId: string) {
-  return await prisma.user.findUnique({
+  const userProfile = await prisma.user.findUnique({
     where: {
       id: userId,
     },
     include: {
-      essays: true,
+      essays: {
+        include: {
+          category: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      },
     },
   });
+
+  return userProfile as UserWithEssays;
 }

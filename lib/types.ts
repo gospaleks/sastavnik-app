@@ -1,5 +1,11 @@
 import { Prisma } from '@prisma/client';
 
+export type EssayWithCategory = Prisma.EssayGetPayload<{
+  include: {
+    category: true;
+  };
+}>;
+
 export type EssayWithAuthorCategory = Prisma.EssayGetPayload<{
   include: {
     author: {
@@ -11,5 +17,15 @@ export type EssayWithAuthorCategory = Prisma.EssayGetPayload<{
       };
     };
     category: true;
+  };
+}>;
+
+export type UserWithEssays = Prisma.UserGetPayload<{
+  include: {
+    essays: {
+      include: {
+        category: true;
+      };
+    };
   };
 }>;
