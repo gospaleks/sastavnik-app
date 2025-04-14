@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
 import deleteEssay from '@/actions/deleteEssay';
@@ -30,9 +31,14 @@ const EssayDropdown = ({ essayId, essayTitle }: Props) => {
           <EllipsisVerticalIcon />
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem>
-            <EditIcon />
-            Izmeni
+          <DropdownMenuItem asChild>
+            <Link
+              href={`/sastavi/${essayId}/izmena`}
+              className="cursor-pointer"
+            >
+              <EditIcon />
+              Izmeni
+            </Link>
           </DropdownMenuItem>
 
           <DropdownMenuItem

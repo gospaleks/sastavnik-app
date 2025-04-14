@@ -15,6 +15,7 @@ import EssaysWithSameCategory from './EssaysWithSameCategory';
 import { ExternalLinkIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import EssayActionButtons from './EssayActionButtons';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -36,6 +37,9 @@ export const EssayPage = async ({
 }) => {
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
+
+  // Proverava da li je sastav pronađen
+  if (!essay) return notFound();
 
   const { getUser, getPermission } = getKindeServerSession();
   const user = await getUser();

@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { EssayWithAuthorCategory } from '@/lib/types';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { Prisma, SchoolType } from '@prisma/client';
 import { unstable_cacheTag as cacheTag } from 'next/cache';
 
@@ -229,4 +230,26 @@ export async function getEssays(
     totalEssays: total,
     totalPages,
   };
+}
+
+// Da li je sastav pripada logovanom korisniku ili je korisnik admin
+export async function canEditEssay(essayId: string) {
+  const { isAuthenticated, getUser, getPermission } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
+  if (!isLoggedIn) return false;
+
+  const user = await getUser();
+  if (!user) return false;
+
+  // Ako je admin moze
+  const isAdmin = (await getPermission('admin:access'))?.isGranted;
+  if (isAdmin) return true;
+
+  // Ako nije admin, proveri da li je autor sastava
+  return await prisma.essay.findFirst({
+    where: {
+      id: essayId,
+      authorId: user.id,
+    },
+  });
 }

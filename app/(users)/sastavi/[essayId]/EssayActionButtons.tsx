@@ -5,8 +5,9 @@ import { useState } from 'react';
 import deleteEssay from '@/actions/deleteEssay';
 
 import YesNoAlert from '@/components/YesNoAlert';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { EditIcon, Trash2Icon } from 'lucide-react';
+import Link from 'next/link';
 
 type Props = {
   essayId: string;
@@ -25,10 +26,15 @@ const EssayActionButtons = ({ essayId }: Props) => {
         <Trash2Icon />
         Obriši
       </Button>
-      <Button variant={'outline'}>
+      <Link
+        href={`/sastavi/${essayId}/izmena`}
+        className={buttonVariants({
+          variant: 'outline',
+        })}
+      >
         <EditIcon />
         Izmeni
-      </Button>
+      </Link>
 
       <YesNoAlert
         isOpen={isDeleteOpen}
@@ -36,6 +42,7 @@ const EssayActionButtons = ({ essayId }: Props) => {
         title="Brisanje sastava"
         description="Da li ste sigurni da želite da obrišete ovaj sastav? Ova akcija se ne može poništiti."
         action={() => deleteEssay(essayId)}
+        redirectUrl="/sastavi"
       />
     </div>
   );

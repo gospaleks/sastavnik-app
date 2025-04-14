@@ -5,7 +5,13 @@ import { EssayFormSchemaType } from '@/lib/schemas';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { revalidateTag } from 'next/cache';
 
-export default async function createEssay(values: EssayFormSchemaType) {
+export default async function createEssay(
+  values: EssayFormSchemaType,
+): Promise<{
+  success: boolean;
+  message: string;
+  essayId?: string;
+}> {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
 

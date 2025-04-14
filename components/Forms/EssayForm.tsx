@@ -4,9 +4,13 @@ import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { cn } from '@/lib/utils';
 import { essayFormSchema, EssayFormSchemaType } from '@/lib/schemas';
-import { Category } from '@prisma/client';
+import { Category, Essay } from '@prisma/client';
 import { useForm } from 'react-hook-form';
 
+import updateEssay from '@/actions/updateEssay';
+import createEssay from '@/actions/createEssay';
+
+import TagInput from '../TagInput';
 import AlertCard from '@/components/AlertCard';
 
 import { Button } from '@/components/ui/button';
@@ -31,35 +35,46 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import {
+  EditIcon,
   GraduationCap,
   LoaderCircleIcon,
   PlusIcon,
   School,
 } from 'lucide-react';
-import TagInput from '../TagInput';
-import createEssay from '@/actions/createEssay';
 import { toast } from 'sonner';
 
 type Props = {
   categories: Category[];
+  essay?: Essay;
 };
 
-export function EssayForm({ categories }: Props) {
+export function EssayForm({ categories, essay }: Props) {
   const router = useRouter();
 
   const form = useForm<EssayFormSchemaType>({
     resolver: zodResolver(essayFormSchema),
-    defaultValues: {
-      title: '',
-      content: '',
-      tags: [],
-    },
+    defaultValues: essay
+      ? {
+          title: essay.title,
+          content: essay.content,
+          tags: essay.tags,
+          level: essay.level,
+          schoolType: essay.schoolType,
+          categoryId: essay.categoryId,
+        }
+      : {
+          title: '',
+          content: '',
+          tags: [],
+        },
   });
 
   const isSubmitting = form.formState.isSubmitting;
 
   async function onSubmit(values: EssayFormSchemaType) {
-    const response = await createEssay(values);
+    const response = essay
+      ? await updateEssay(essay.id, values)
+      : await createEssay(values);
 
     if (!response.success) {
       toast.error(response.message, {
@@ -74,15 +89,18 @@ export function EssayForm({ categories }: Props) {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col space-y-4 rounded-lg border p-2 sm:p-8">
-      <h1 className="text-2xl font-bold">Dodaj novi sastav</h1>
-
-      <AlertCard
-        title="NAPOMENA:"
-        description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe
-        učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
-        variant="destructive"
-      />
+    <div className="mx-auto flex max-w-2xl flex-col space-y-4 rounded-lg border p-3 sm:p-8">
+      <h1 className="text-2xl font-bold">
+        {essay ? (
+          <div className="flex items-center gap-2">
+            <EditIcon className="inline-block" /> Izmeni sastav
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <PlusIcon className="inline-block" /> Dodaj sastav
+          </div>
+        )}
+      </h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -245,20 +263,41 @@ export function EssayForm({ categories }: Props) {
             )}
           />
 
-          <Button type="submit" className="w-full" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            size={'lg'}
+            className="w-full text-lg"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? (
               <>
                 <LoaderCircleIcon className="animate-spin" />
-                Dodavanje...
+                {essay ? 'Čuvanje izmena...' : 'Dodavanje...'}
               </>
             ) : (
               <>
-                <PlusIcon />
-                Dodaj sastav
+                {essay ? (
+                  <>
+                    <EditIcon className="h-4 w-4" />
+                    Izmeni sastav
+                  </>
+                ) : (
+                  <>
+                    <PlusIcon className="h-4 w-4" />
+                    Dodaj sastav
+                  </>
+                )}
               </>
             )}
           </Button>
         </form>
+
+        <AlertCard
+          title="NAPOMENA:"
+          description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe
+        učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
+          variant="destructive"
+        />
       </Form>
     </div>
   );

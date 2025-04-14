@@ -11,6 +11,7 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { useRouter } from 'next/navigation';
+import { startTransition } from 'react';
 import { toast } from 'sonner';
 
 type Props = {
@@ -37,8 +38,13 @@ const YesNoAlert = ({
   const handleAction = async () => {
     toast.promise(
       action().then((res) => {
-        setIsOpen(false); // <- zatvaranje dijaloga nakon uspeha
-        if (redirectUrl) router.push(redirectUrl); // <- redirekcija na drugu stranicu
+        setIsOpen(false);
+        if (redirectUrl) {
+          // Transakcija da bi se izbego error da se revalidira stranica kad se obrise iz server-akcije a jos replace nije pozvan
+          startTransition(() => {
+            router.replace(redirectUrl);
+          });
+        }
         return res;
       }),
       {
