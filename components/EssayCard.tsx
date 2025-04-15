@@ -30,7 +30,7 @@ const EssayCard = ({ essay }: Props) => {
   const formattedDate = formatDate(essay.createdAt);
 
   return (
-    <Card>
+    <Card className="transition-transform hover:-translate-y-1">
       <CardHeader>
         <CardTitle className="cursor-pointer text-xl font-bold hover:underline">
           <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>

@@ -17,9 +17,10 @@ import {
 
 type Props = {
   categories: Category[];
+  isLoggedIn: boolean;
 };
 
-const DesktopMenu = ({ categories }: Props) => {
+const DesktopMenu = ({ categories, isLoggedIn }: Props) => {
   return (
     <NavigationMenu className="hidden sm:block">
       <NavigationMenuList className="flex items-center gap-2">
@@ -35,7 +36,7 @@ const DesktopMenu = ({ categories }: Props) => {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Kategorije</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="w-[185px]">
+            <ul className="w-[175px]">
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link
@@ -52,6 +53,17 @@ const DesktopMenu = ({ categories }: Props) => {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
+
+        {isLoggedIn && (
+          <NavigationMenuItem>
+            <Link
+              href="/dodaj-sastav"
+              className={`${navigationMenuTriggerStyle()} hidden sm:block`}
+            >
+              Dodaj sastav
+            </Link>
+          </NavigationMenuItem>
+        )}
       </NavigationMenuList>
     </NavigationMenu>
   );

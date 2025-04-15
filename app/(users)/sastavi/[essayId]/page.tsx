@@ -1,21 +1,24 @@
 import { Suspense } from 'react';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
+
 import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils';
 import { getEssayById } from '@/lib/services/essayService';
+
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-import StarRating from '@/components/StarRating';
+import StarRating from './StarRating';
 import EssaysByAuthor from './EssaysByAuthor';
+import EssayActionButtons from './EssayActionButtons';
+import EssaysWithSameCategory from './EssaysWithSameCategory';
+
+import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
 import ContentWrapper from '@/components/ContentWrapper';
 import AlertCard from '@/components/AlertCard';
-import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
+
 import { Badge } from '@/components/ui/badge';
-import EssaysWithSameCategory from './EssaysWithSameCategory';
 import { ExternalLinkIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import EssayActionButtons from './EssayActionButtons';
-import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -78,10 +81,7 @@ export const EssayPage = async ({
                 className="text-primary hover:text-primary/80 flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors"
               >
                 {essay.author.firstName} {essay.author.lastName}
-                <ExternalLinkIcon
-                  className="inline-block animate-pulse"
-                  size={17}
-                />
+                <ExternalLinkIcon className="inline-block" size={17} />
               </Link>
             </p>
 
@@ -91,10 +91,16 @@ export const EssayPage = async ({
           </div>
 
           <div className="flex flex-wrap gap-2 md:justify-start">
-            <div className="bg-muted text-muted-foreground w-full rounded-md px-3 py-2 text-sm md:w-fit">
-              <span className="text-primary font-semibold">Kategorija:</span>{' '}
-              {essay.category.name}
-            </div>
+            <Link
+              href={`/kategorije/${essay.category.name}`}
+              className="bg-muted text-muted-foreground group flex w-full items-center gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
+            >
+              <span className="text-primary font-semibold">Kategorija:</span>
+              <span className="group-hover:underline">
+                {essay.category.name}
+              </span>
+              <ExternalLinkIcon size={15} />
+            </Link>
 
             <div className="bg-muted text-muted-foreground w-full rounded-md px-3 py-2 text-sm md:w-fit">
               <span className="text-primary font-semibold">

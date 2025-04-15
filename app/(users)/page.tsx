@@ -1,13 +1,16 @@
 import { Suspense } from 'react';
-import Hero from '@/components/Hero';
-import ContentWrapper from '@/components/ContentWrapper';
-import PopularEssaysSlideShow from '@/components/PopularEssaysSlideShow';
-import EssayCardSlideshowSkeleton from '@/components/Loaders/EssayCardSlideshowSkeleton';
-import LatestEssays from '@/components/LatestEssays';
-import CategoriesCardList from '@/components/CategoriesCardList';
+
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
-import QuoteOfTheDay from '@/components/QuoteOfTheDay';
-import SubmitYourEssayCTA from '@/components/SubmitYourEssayCTA';
+import EssayCardSlideshowSkeleton from '@/components/Loaders/EssayCardSlideshowSkeleton';
+
+import Hero from '@/components/HomePage/Hero';
+import PopularEssaysSlideShow from '@/components/HomePage/PopularEssaysSlideShow';
+import LatestEssays from '@/components/HomePage/LatestEssays';
+import QuoteOfTheDay from '@/components/HomePage/QuoteOfTheDay';
+import SubmitYourEssayCTA from '@/components/HomePage/SubmitYourEssayCTA';
+
+import ContentWrapper from '@/components/ContentWrapper';
+import CategoriesCardList from '@/components/CategoriesCardList';
 
 const HomePage = async () => {
   return (
@@ -18,7 +21,7 @@ const HomePage = async () => {
       {/* Popularni sastavi */}
       <section className="bg-white py-12">
         <ContentWrapper>
-          <h2 className="mb-8 text-center text-4xl font-bold text-gray-800">
+          <h2 className="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
             🔥 Popularni sastavi
           </h2>
 
@@ -31,7 +34,7 @@ const HomePage = async () => {
       {/* Kategorije sastava */}
       <section className="bg-gray-50 py-12">
         <ContentWrapper>
-          <h2 className="mb-8 text-center text-4xl font-bold text-gray-800">
+          <h2 className="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
             📚 Istraži po kategorijama
           </h2>
           <CategoriesCardList />
@@ -42,10 +45,10 @@ const HomePage = async () => {
       <section className="bg-white py-12">
         <ContentWrapper>
           <div>
-            <h2 className="mb-3 text-center text-4xl font-bold text-gray-800">
+            <h2 className="mb-3 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
               📝 Najnoviji sastavi
             </h2>
-            <p className="mb-6 text-center text-lg text-gray-600">
+            <p className="text-md mb-6 text-center text-gray-600 sm:text-lg">
               Pogledajte najnovije sastave koje su napisali naši korisnici.
             </p>
           </div>

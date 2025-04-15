@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import updateEssay from '@/actions/updateEssay';
 import createEssay from '@/actions/createEssay';
 
-import TagInput from '../TagInput';
+import TagInput from './TagInput';
 import AlertCard from '@/components/AlertCard';
 
 import { Button } from '@/components/ui/button';
@@ -239,6 +239,10 @@ export function EssayForm({ categories, essay }: Props) {
                 <FormControl>
                   <TagInput value={field.value} onChange={field.onChange} />
                 </FormControl>
+                <FormDescription>
+                  Na primer: 'prijatelj', 'škola', 'porodica', 'priroda',
+                  'putovanje'...
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

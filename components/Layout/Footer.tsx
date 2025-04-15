@@ -7,7 +7,7 @@ import { getAllCategories } from '@/lib/services/categoryService';
 import { buttonVariants } from '@/components/ui/button';
 import ContentWrapper from '@/components/ContentWrapper';
 import { ArrowRight, FileTextIcon, FolderOpenIcon } from 'lucide-react';
-import AlertCard from './AlertCard';
+import AlertCard from '../AlertCard';
 
 export default async function Footer() {
   const [categories, latestEssays] = await Promise.all([

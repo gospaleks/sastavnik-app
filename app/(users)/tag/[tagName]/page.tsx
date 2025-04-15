@@ -1,3 +1,8 @@
+import { Suspense } from 'react';
+
+import EssaysByTagList from './EssaysByTagList';
+
+import EssayCardGridSkeleton from '@/components/Loaders/EssayCardGridSkeleton';
 import ContentWrapper from '@/components/ContentWrapper';
 
 export async function generateMetadata({
@@ -23,7 +28,16 @@ const TagPage = async ({
 
   return (
     <ContentWrapper>
-      <h1>Tag: {decodedTagName}</h1>
+      <div className="mb-8 space-y-2 text-center">
+        <p className="text-muted-foreground text-sm md:text-base">Tag</p>
+        <h1 className="text-primary text-4xl font-extrabold tracking-tight md:text-5xl">
+          {decodedTagName}
+        </h1>
+      </div>
+
+      <Suspense fallback={<EssayCardGridSkeleton />}>
+        <EssaysByTagList tagName={decodedTagName} />
+      </Suspense>
     </ContentWrapper>
   );
 };

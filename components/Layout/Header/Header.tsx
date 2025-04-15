@@ -9,10 +9,10 @@ import {
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
 
-import SearchBar from '@/components/SearchBar';
-import UserAvatar from '@/components/UserAvatar';
-import DesktopMenu from '@/components/DesktopMenu';
-import MobileMenu from '@/components/MobileMenu';
+import DesktopMenu from '@/components/Layout/Header/DesktopMenu';
+import MobileMenu from '@/components/Layout/Header/MobileMenu';
+import SearchBar from '@/components/Layout/Header/SearchBar';
+import UserAvatar from '@/components/Layout/Header/UserAvatar';
 
 import {
   DropdownMenu,
@@ -22,9 +22,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
 import { buttonVariants } from '@/components/ui/button';
-import { LogInIcon, User, UserCircleIcon } from 'lucide-react';
+import {
+  LogInIcon,
+  PlusCircleIcon,
+  PlusIcon,
+  User,
+  UserCircleIcon,
+} from 'lucide-react';
 
 const Header = async () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
@@ -57,15 +62,24 @@ const Header = async () => {
         </Link>
 
         {/* Navigacija DESKTOP */}
-        <DesktopMenu categories={categories} />
+        <DesktopMenu categories={categories} isLoggedIn={isLoggedIn} />
 
         <div className="flex items-center justify-center gap-4">
+          {isLoggedIn && (
+            <Link
+              href="/dodaj-sastav"
+              className="block text-gray-500 sm:hidden"
+            >
+              <PlusCircleIcon size={30} />
+            </Link>
+          )}
+
           <SearchBar />
 
           {isLoggedIn && <UserAvatar user={user} />}
 
           {/* Prijava i Registracija DESKTOP */}
-          <div className="hidden items-center gap-2 md:flex">
+          <div className="hidden items-center gap-2 lg:flex">
             {!isLoggedIn && (
               <>
                 <LoginLink
@@ -86,7 +100,7 @@ const Header = async () => {
 
           {/* Prijava i Registracija MOBILE */}
           {!isLoggedIn && (
-            <div className="flex items-center justify-center md:hidden">
+            <div className="flex items-center justify-center lg:hidden">
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <UserCircleIcon size={30} />

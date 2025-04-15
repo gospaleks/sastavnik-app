@@ -39,7 +39,7 @@ const EssayActionButtons = ({ essayId }: Props) => {
       <YesNoAlert
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
-        title="Brisanje sastava"
+        title="⚠️Brisanje sastava"
         description="Da li ste sigurni da želite da obrišete ovaj sastav? Ova akcija se ne može poništiti."
         action={() => deleteEssay(essayId)}
         redirectUrl="/sastavi"

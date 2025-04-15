@@ -1,8 +1,9 @@
 import Link from 'next/link';
 import { getLatestEssays } from '@/lib/services/essayService';
+
 import BasicEssayList from '@/components/BasicEssayList';
+import { buttonVariants } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { buttonVariants } from './ui/button';
 
 const LatestEssays = async () => {
   const latestEssays = await getLatestEssays(3);

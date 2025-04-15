@@ -114,6 +114,37 @@ export async function getEssaysByCategoryName(categoryName: string) {
   return essays as EssayWithAuthorCategory[];
 }
 
+// Full podaci o sastavima po tag-u (za card prikaz u /tag/tagName)
+export async function getEssaysByTagName(tagName: string) {
+  'use cache';
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
+  cacheTag(`essays-by-tag-${tagName}`); // Kad se doda novi sastav u tagu invalidiraj ovaj tag
+
+  const essays = await prisma.essay.findMany({
+    where: {
+      tags: {
+        has: tagName,
+      },
+    },
+    include: {
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+      category: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  return essays as EssayWithAuthorCategory[];
+}
+
 // Full podaci o sastavima sortirani po popularnosti (za home page prikaz u card-ovima)
 export async function getEssaysByPopularity(limit = 10) {
   'use cache';
