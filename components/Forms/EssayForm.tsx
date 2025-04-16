@@ -72,6 +72,21 @@ export function EssayForm({ categories, essay }: Props) {
   const isSubmitting = form.formState.isSubmitting;
 
   async function onSubmit(values: EssayFormSchemaType) {
+    // Proveri da li je korisnik uopste nesto promenio
+    const isSame = Object.entries(values).every(([key, value]) => {
+      if (key === 'tags') {
+        return JSON.stringify(value) === JSON.stringify(essay?.tags);
+      }
+      return value === essay?.[key as keyof Essay];
+    });
+
+    if (isSame) {
+      toast.error('Nema promena', {
+        description: 'Niste napravili nikakve izmene',
+      });
+      return;
+    }
+
     const response = essay
       ? await updateEssay(essay.id, values)
       : await createEssay(values);
@@ -80,6 +95,7 @@ export function EssayForm({ categories, essay }: Props) {
       toast.error(response.message, {
         description: 'Pokušajte ponovo kasnije',
       });
+      router.replace('/');
     } else {
       toast.success(response.message);
       form.reset();

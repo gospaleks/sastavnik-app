@@ -21,12 +21,13 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
     essay.content.length > 180
       ? essay.content.slice(0, 180) + '...'
       : essay.content;
+
   const formattedDate = formatDate(essay.createdAt);
 
   return (
     <Card
       key={essay.id}
-      className="flex flex-col items-start gap-4 p-4 transition-shadow hover:shadow-md sm:flex-row"
+      className="flex flex-col items-start gap-4 p-4 transition-all hover:-translate-y-1 hover:shadow-md sm:flex-row"
     >
       {/* Leva sekcija */}
       <div className="flex w-full flex-col gap-2 sm:w-1/3 sm:border-r">

@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { revalidateTag } from 'next/cache';
 
 export async function rateEssay(essayId: string, value: number) {
   const { getUser } = getKindeServerSession();
@@ -13,6 +14,17 @@ export async function rateEssay(essayId: string, value: number) {
 
   if (value < 1 || value > 5) {
     throw new Error('Ocena mora biti između 1 i 5');
+  }
+
+  // Provera da li sastav postoji
+  const essay = await prisma.essay.findUnique({
+    where: {
+      id: essayId,
+    },
+  });
+
+  if (!essay) {
+    throw new Error('Sastav ne postoji');
   }
 
   const rating = await prisma.rating.upsert({
@@ -59,7 +71,8 @@ export async function rateEssay(essayId: string, value: number) {
     },
   });
 
-  // TODO: Invalidirati cache zbog prikaza u karticama
+  revalidateTag('essays');
+  revalidateTag(`essay-${essayId}`);
 
   // Vracamo nove vrednosti zbog brzog azuriranja UI-a
   return {

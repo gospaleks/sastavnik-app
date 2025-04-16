@@ -39,7 +39,7 @@ const Filters = () => {
   );
 
   const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
+    setSearchTerm(() => value.toLowerCase());
     debouncedRefetch();
     setPage(1);
   };

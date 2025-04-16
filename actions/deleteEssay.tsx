@@ -34,6 +34,7 @@ export default async function deleteEssay(essayId: string) {
   });
 
   revalidateTag('essays');
+  revalidateTag(`essay-${deletedEssay.id}`);
 
   return {
     message: `Sastav "${deletedEssay.title}" je uspešno obrisan.`,

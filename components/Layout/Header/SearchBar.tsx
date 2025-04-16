@@ -29,7 +29,9 @@ const SearchBar = () => {
     const trimmed = searchValue.trim();
     if (!trimmed) return;
 
-    router.push(`/sastavi?searchTerm=${encodeURIComponent(trimmed)}`);
+    router.push(
+      `/sastavi?searchTerm=${encodeURIComponent(trimmed.toLowerCase())}`,
+    );
     setSearchValue('');
     setIsOpen(false); // zatvara drawer
   };
@@ -39,7 +41,9 @@ const SearchBar = () => {
     const trimmed = searchValue.trim();
     if (!trimmed) return;
 
-    router.push(`/sastavi?searchTerm=${encodeURIComponent(trimmed)}`);
+    router.push(
+      `/sastavi?searchTerm=${encodeURIComponent(trimmed.toLowerCase())}`,
+    );
     setSearchValue('');
     setIsOpen(false); // zatvara drawer
   };

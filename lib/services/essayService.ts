@@ -2,10 +2,16 @@ import { prisma } from '@/lib/prisma';
 import { EssayWithAuthorCategory } from '@/lib/types';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { Prisma, SchoolType } from '@prisma/client';
-import { unstable_cacheTag as cacheTag } from 'next/cache';
+import {
+  unstable_cacheTag as cacheTag,
+  unstable_cacheLife as cacheLife, // default for now!
+} from 'next/cache';
 
 // Full podaci o sastavi po ID-u
 export async function getEssayById(essayId: string) {
+  'use cache';
+  cacheTag(`essay-${essayId}`); // Kesiranje pojedinacnih sastava
+
   const essay = await prisma.essay.findUnique({
     where: {
       id: essayId,
@@ -23,11 +29,19 @@ export async function getEssayById(essayId: string) {
     },
   });
 
+  if (!essay) {
+    console.error(`[getEssayById] No essay found with ID: ${essayId}`);
+    return null;
+  }
+
   return essay as EssayWithAuthorCategory;
 }
 
 // Basic podaci o sastavima
 export async function getEssaysBasicByAuthor(authorId: string, limit = 10) {
+  'use cache';
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
+
   return await prisma.essay.findMany({
     where: {
       authorId: authorId,
@@ -45,6 +59,9 @@ export async function getEssaysBasicByCategoryName(
   categoryName: string,
   limit = 10,
 ) {
+  'use cache';
+  cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
+
   return await prisma.essay.findMany({
     where: {
       category: {
@@ -63,7 +80,6 @@ export async function getEssaysBasicByCategoryName(
 export async function getLatestEssays(limit = 5) {
   'use cache';
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
-  cacheTag(`latest-essays-${limit}`);
 
   return await prisma.essay.findMany({
     where: {
@@ -85,7 +101,6 @@ export async function getLatestEssays(limit = 5) {
 export async function getEssaysByCategoryName(categoryName: string) {
   'use cache';
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
-  cacheTag(`essays-by-category-${categoryName}`); // Kad se doda novi sastav u kategoriji invalidiraj ovaj tag
 
   const essays = await prisma.essay.findMany({
     where: {
@@ -118,7 +133,6 @@ export async function getEssaysByCategoryName(categoryName: string) {
 export async function getEssaysByTagName(tagName: string) {
   'use cache';
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
-  cacheTag(`essays-by-tag-${tagName}`); // Kad se doda novi sastav u tagu invalidiraj ovaj tag
 
   const essays = await prisma.essay.findMany({
     where: {
@@ -183,18 +197,8 @@ export async function getEssays(
   grade = '',
 ) {
   'use cache';
-
-  const tagKey = `essays-${[
-    page,
-    encodeURIComponent(searchTerm),
-    encodeURIComponent(schoolType),
-    encodeURIComponent(grade),
-  ].join('-')}`;
-
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
-  cacheTag(tagKey); // Tag za specificne filtere
-
-  // console.log('[getEssays]', { page, searchTerm, schoolType, grade });
+  // cacheTag(`essays-filters-${page}-${schoolType}-${grade}`); // mozda??
 
   const limit = 4;
   const offset = (page - 1) * limit;

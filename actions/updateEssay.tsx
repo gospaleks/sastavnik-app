@@ -25,6 +25,20 @@ export default async function updateEssay(
     };
   }
 
+  // Proverava da li je sastav pronadjen
+  const essay = await prisma.essay.findUnique({
+    where: {
+      id: essayId,
+    },
+  });
+
+  if (!essay) {
+    return {
+      success: false,
+      message: 'Sastav nije pronađen',
+    };
+  }
+
   const isUsersEssay = await prisma.essay.findUnique({
     where: {
       id: essayId,
@@ -56,6 +70,7 @@ export default async function updateEssay(
   });
 
   revalidateTag('essays');
+  revalidateTag(`essay-${updatedEssay.id}`); // Revalidacija za pojedinacni sastav
 
   return {
     success: true,

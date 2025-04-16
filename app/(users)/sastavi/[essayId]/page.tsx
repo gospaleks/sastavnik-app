@@ -28,6 +28,12 @@ export async function generateMetadata({
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
 
+  if (!essay) {
+    return {
+      title: 'Sastav nije pronađen',
+    };
+  }
+
   return {
     title: `${essay.title}`,
   };

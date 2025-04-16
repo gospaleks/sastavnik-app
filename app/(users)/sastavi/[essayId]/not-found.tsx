@@ -3,10 +3,6 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { ArrowRight, HomeIcon } from 'lucide-react';
 
-export const metadata = {
-  title: '404 - Sastav nije pronađen',
-};
-
 const NotFound = () => {
   return (
     <div className="mt-8 flex flex-col items-center justify-center gap-4 text-center">

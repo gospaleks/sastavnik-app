@@ -23,13 +23,15 @@ const EssaysWithSameCategory = async ({
     <>
       <BasicEssayList essays={essaysWithSameCategory} />
       {essaysWithSameCategory.length > 0 && (
-        <Link
-          href={`/kategorije/${categoryName}`}
-          className={`${buttonVariants({ variant: 'link' })} mt-4`}
-        >
-          Vidi sve iz ove kategorije
-          <ArrowRight />
-        </Link>
+        <div className="mt-4 text-center md:text-left">
+          <Link
+            href={`/kategorije/${categoryName}`}
+            className={`${buttonVariants({ variant: 'link' })}`}
+          >
+            Vidi sve iz ove kategorije
+            <ArrowRight />
+          </Link>
+        </div>
       )}
     </>
   );

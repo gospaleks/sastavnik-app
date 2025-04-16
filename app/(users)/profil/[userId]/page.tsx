@@ -6,6 +6,8 @@ import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { NotebookTextIcon, PlusIcon, UserIcon } from 'lucide-react';
 import EssayCardInProfile from './EssayCardInProfile';
+import UsersInfo from './UsersInfo';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export async function generateMetadata({
   params,
@@ -44,10 +46,10 @@ export const ProfilPage = async ({
       <div className="flex flex-col-reverse gap-8 md:flex-row">
         {/** Leva strana - prikaz svih sastava korisnika */}
         <div className="w-full md:w-8/12">
-          <div className="bg-accent mb-4 flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-lg">
+          <div className="bg-accent mb-4 flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-sm sm:text-lg">
             <div className="flex items-center gap-2">
               <NotebookTextIcon />
-              <span>Sastavi korisnika:</span>
+              <span>Sastavi korisnika ({usersEssays.length})</span>
             </div>
             <span>
               {userData?.firstName} {userData?.lastName}
@@ -65,11 +67,13 @@ export const ProfilPage = async ({
               ))
             ) : (
               <div className="mb-2 text-gray-500">
-                <p className="mb-2">Trenutno nemate ni jedan sastav.</p>
-                <Link href="/dodaj-sastav" className={buttonVariants()}>
-                  <PlusIcon />
-                  Dodaj sastav
-                </Link>
+                <p className="mb-2">Korisnik još nema sastava za prikaz.</p>
+                {canEdit && (
+                  <Link href="/dodaj-sastav" className={buttonVariants()}>
+                    <PlusIcon />
+                    Dodaj sastav
+                  </Link>
+                )}
               </div>
             )}
           </div>
@@ -77,10 +81,12 @@ export const ProfilPage = async ({
 
         {/** Desna strana - prikaz podataka o korisniku */}
         <div className="w-full md:w-4/12">
-          <div className="bg-accent mb-4 flex w-full items-center gap-2 rounded-lg border px-4 py-2 text-lg">
+          <div className="bg-accent text-md mb-4 flex w-full items-center gap-2 rounded-lg border px-4 py-2 sm:text-lg">
             <UserIcon />
             <span>O korisniku</span>
           </div>
+
+          <UsersInfo userData={userData} canEdit={canEdit} />
         </div>
       </div>
     </ContentWrapper>
