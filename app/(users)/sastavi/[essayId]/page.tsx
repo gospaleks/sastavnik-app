@@ -2,9 +2,9 @@ import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
-import { prisma } from '@/lib/prisma';
 import { formatDate } from '@/lib/utils';
 import { getEssayById } from '@/lib/services/essayService';
+import { getUsersRatingForEssay } from '@/lib/services/userService';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
@@ -57,15 +57,7 @@ export const EssayPage = async ({
   const canEdit = user && (user.id === essay.authorId || isAdmin);
 
   const usersRating = user
-    ? await prisma.rating.findFirst({
-        where: {
-          userId: user.id,
-          essayId: essay.id,
-        },
-        select: {
-          value: true,
-        },
-      })
+    ? await getUsersRatingForEssay(user.id, essayId)
     : null;
 
   const formattedDate = formatDate(essay.createdAt);

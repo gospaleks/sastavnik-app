@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma';
 import { UserWithEssays } from '@/lib/types';
+import { unstable_cacheTag as cacheTag } from 'next/cache';
 
 export async function getUserById(userId: string) {
   // TODO: kesiranje preko userId, i onda kad se promeni profil, ili neki sastav korisnika, invalidirati kes, mozda?!?!?!
@@ -21,4 +22,21 @@ export async function getUserById(userId: string) {
   });
 
   return userProfile as UserWithEssays;
+}
+
+export async function getUsersRatingForEssay(userId: string, essayId: string) {
+  'use cache';
+  cacheTag(`essay-${essayId}`);
+
+  const rating = await prisma.rating.findFirst({
+    where: {
+      userId,
+      essayId,
+    },
+    select: {
+      value: true,
+    },
+  });
+
+  return rating;
 }
