@@ -195,6 +195,7 @@ export async function getEssays(
   searchTerm = '',
   schoolType = '',
   grade = '',
+  sort = 'desc',
 ) {
   'use cache';
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
@@ -250,7 +251,7 @@ export async function getEssays(
       category: true,
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: sort === 'asc' ? 'asc' : 'desc',
     },
   });
 

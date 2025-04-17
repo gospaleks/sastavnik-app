@@ -5,6 +5,7 @@ export const filterSearchParams = {
   searchTerm: parseAsString.withDefault(''),
   schoolType: parseAsString.withDefault(''),
   grade: parseAsString.withDefault(''),
+  sort: parseAsString.withDefault('desc'),
 };
 
 export const loadSearchParams = createLoader(filterSearchParams);

@@ -8,14 +8,22 @@ type Props = {
   searchTerm: string;
   schoolType: string;
   grade: string;
+  sort: string;
 };
 
-const EssaysList = async ({ page, searchTerm, schoolType, grade }: Props) => {
+const EssaysList = async ({
+  page,
+  searchTerm,
+  schoolType,
+  grade,
+  sort,
+}: Props) => {
   const { essays, totalEssays, totalPages } = await getEssays(
     page,
     searchTerm,
     schoolType,
     grade,
+    sort,
   );
 
   return (

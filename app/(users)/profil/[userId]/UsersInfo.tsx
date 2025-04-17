@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { SaveIcon, Loader2Icon, PencilIcon, Edit3Icon } from 'lucide-react';
+import TooltipItem from '@/components/TooltipItem';
 
 type Props = {
   userData: UserWithEssays;
@@ -42,7 +43,7 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
   };
 
   return (
-    <Card className="w-full max-w-2xl p-6">
+    <Card className="w-full max-w-2xl">
       <CardHeader className="flex flex-col items-center gap-4">
         <Image
           src={userData.image!}
@@ -65,14 +66,19 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
           <div className="flex items-center justify-between">
             <Label htmlFor="bio">O meni:</Label>
             {canEdit && !editing && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setEditing(true)}
-              >
-                {/* Klikom na olovku se omogucava textarea i pojavljuje se save dugme */}
-                <Edit3Icon className="mr-1 h-4 w-4" />{' '}
-              </Button>
+              <TooltipItem
+                trigger={
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setEditing(true)}
+                  >
+                    {/* Klikom na olovku se omogucava textarea i pojavljuje se save dugme */}
+                    <Edit3Icon className="mr-1 h-4 w-4" />{' '}
+                  </Button>
+                }
+                content="Izmeni opis profila"
+              />
             )}
           </div>
 
@@ -89,7 +95,7 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
               {editing && (
                 <Button
                   onClick={handleSave}
-                  className="mt-2 w-full sm:w-auto"
+                  className="mt-2 w-full md:w-auto"
                   size="sm"
                   disabled={loading}
                 >

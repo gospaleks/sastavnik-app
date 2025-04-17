@@ -17,7 +17,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
     if (event.key === 'Enter') {
       event.preventDefault();
       if (inputValue.trim()) {
-        const newTags = [...value, inputValue.trim()];
+        const newTags = [...value, inputValue.trim().toLowerCase()];
         onChange(newTags);
         setInputValue('');
       }
@@ -49,7 +49,7 @@ export default function TagInput({ value, onChange }: TagInputProps) {
           onClick={(e) => {
             e.preventDefault();
             if (inputValue.trim()) {
-              const newTags = [...value, inputValue.trim()];
+              const newTags = [...value, inputValue.trim().toLowerCase()];
               onChange(newTags);
               setInputValue('');
             }

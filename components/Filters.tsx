@@ -16,7 +16,15 @@ import {
 } from '@/components/ui/select';
 import { refetchEssays } from '@/lib/services/refetchEssays';
 import { Button } from './ui/button';
-import { SearchIcon, XIcon } from 'lucide-react';
+import {
+  ArrowDownWideNarrow,
+  ArrowUpWideNarrow,
+  SearchIcon,
+  SortAsc,
+  SortDesc,
+  XIcon,
+} from 'lucide-react';
+import TooltipItem from './TooltipItem';
 
 const Filters = () => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -29,6 +37,9 @@ const Filters = () => {
   });
   const [grade, setGrade] = useQueryState('grade', {
     defaultValue: '',
+  });
+  const [sort, setSort] = useQueryState('sort', {
+    defaultValue: 'desc',
   });
 
   const debouncedRefetch = useCallback(
@@ -55,6 +66,14 @@ const Filters = () => {
 
   const handleGradeChange = (value: string) => {
     setGrade(value);
+    setTimeout(() => {
+      refetchEssays();
+    }, 0);
+    setPage(1);
+  };
+
+  const handleSortChange = (value: string) => {
+    setSort(value);
     setTimeout(() => {
       refetchEssays();
     }, 0);
@@ -126,17 +145,39 @@ const Filters = () => {
         )}
       </div>
 
-      {/** Resetovanje filtera */}
-      {(schoolType || searchTerm) && (
-        <Button
-          variant={'destructive'}
-          className="cursor-pointer"
-          onClick={handleResetFilters}
-        >
-          <XIcon />
-          Poništi
-        </Button>
-      )}
+      <div className="flex flex-col items-center gap-2 sm:flex-row">
+        {/* Sortiranje */}
+        <TooltipItem
+          trigger={
+            <Button
+              variant="outline"
+              onClick={() => handleSortChange(sort === 'desc' ? 'asc' : 'desc')}
+              className="w-auto"
+            >
+              {sort === 'desc' ? (
+                <>
+                  <ArrowDownWideNarrow className="h-4 w-4" />
+                  <span className="sm:hidden lg:inline">Najnoviji</span>
+                </>
+              ) : (
+                <>
+                  <ArrowUpWideNarrow className="h-4 w-4" />
+                  <span className="sm:hidden lg:inline">Najstariji</span>
+                </>
+              )}
+            </Button>
+          }
+          content="Sortiraj po datumu objave"
+        />
+
+        {/** Resetovanje filtera */}
+        {(schoolType || searchTerm) && (
+          <Button variant={'destructive'} onClick={handleResetFilters}>
+            <XIcon />
+            <span className="sm:hidden">Poništi</span>
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

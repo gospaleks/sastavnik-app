@@ -105,7 +105,7 @@ export function EssayForm({ categories, essay }: Props) {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col space-y-4 rounded-lg border p-3 sm:p-8">
+    <div className="mx-auto flex max-w-2xl flex-col space-y-4 rounded-lg p-0 sm:border sm:p-8 sm:shadow-sm">
       <h1 className="text-2xl font-bold">
         {essay ? (
           <div className="flex items-center gap-2">
@@ -278,7 +278,6 @@ export function EssayForm({ categories, essay }: Props) {
                     rows={10}
                   />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />

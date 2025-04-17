@@ -17,7 +17,7 @@ type Props = {
 };
 
 const AllEssaysPage = async ({ searchParams }: Props) => {
-  const { page, searchTerm, schoolType, grade } =
+  const { page, searchTerm, schoolType, grade, sort } =
     await loadSearchParams(searchParams);
 
   return (
@@ -34,6 +34,7 @@ const AllEssaysPage = async ({ searchParams }: Props) => {
           searchTerm={searchTerm}
           schoolType={schoolType}
           grade={grade}
+          sort={sort}
         />
       </Suspense>
     </ContentWrapper>
