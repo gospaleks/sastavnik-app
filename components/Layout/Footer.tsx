@@ -96,18 +96,17 @@ export default async function Footer() {
       </ContentWrapper>
 
       <div className="border-border text-muted-foreground border-t py-4 text-center text-xs">
-        &copy; {new Date().getFullYear()} Sastavnik. Sva prava zadržana.
+        Sastavnik &copy; {new Date().getFullYear()}.
         <br />
         Developed by{' '}
         <Link
           href="https://github.com/gospaleks"
           target="_blank"
           rel="noopener noreferrer"
-          className="hover:text-foreground transition-colors"
+          className="hover:text-foreground underline transition-colors"
         >
           gospaleks
         </Link>
-        .
       </div>
     </footer>
   );

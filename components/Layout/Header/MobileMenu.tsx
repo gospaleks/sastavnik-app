@@ -80,7 +80,7 @@ const MobileMenu = ({ categories, user }: Props) => {
 
           <Accordion type="single" collapsible className="w-full border-b">
             <AccordionItem value="kategorije">
-              <AccordionTrigger className="text-lg">
+              <AccordionTrigger className="text-lg font-normal">
                 Kategorije
               </AccordionTrigger>
               <AccordionContent>
@@ -106,28 +106,34 @@ const MobileMenu = ({ categories, user }: Props) => {
         </div>
 
         {user && (
-          <DrawerFooter className="flex flex-row items-center border-t px-0">
-            <Avatar>
-              {user?.picture?.includes('gravatar.com') === false ? (
-                <AvatarImage src={user?.picture || ''} />
-              ) : null}
+          <DrawerFooter className="border-t px-0">
+            <Link
+              href={`/profil/${user.id}`}
+              onClick={() => setIsOpen(false)}
+              className="flex flex-row items-center gap-2"
+            >
+              <Avatar>
+                {user?.picture?.includes('gravatar.com') === false ? (
+                  <AvatarImage src={user?.picture || ''} />
+                ) : null}
 
-              <AvatarFallback>
-                {user?.given_name ? user.given_name[0] : ''}
-                {user?.family_name ? user.family_name[0] : ''}
-              </AvatarFallback>
-            </Avatar>
-            <div className="grid flex-1 text-left text-sm leading-tight">
-              <span className="truncate font-semibold">
-                {user.given_name} {user.family_name}
-              </span>
-              <span className="truncate text-xs">{user.email}</span>
-            </div>
-            <div className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-gray-200">
-              <Link href={`/profil/${user.id}`}>
-                <ExternalLinkIcon size={25} />
-              </Link>
-            </div>
+                <AvatarFallback>
+                  {user?.given_name ? user.given_name[0] : ''}
+                  {user?.family_name ? user.family_name[0] : ''}
+                </AvatarFallback>
+              </Avatar>
+
+              <div className="grid flex-1 text-left text-sm leading-tight">
+                <span className="truncate font-semibold">
+                  {user.given_name} {user.family_name}
+                </span>
+                <span className="truncate text-xs">{user.email}</span>
+              </div>
+
+              <div className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-gray-200">
+                <ExternalLinkIcon size={20} />
+              </div>
+            </Link>
           </DrawerFooter>
         )}
       </DrawerContent>

@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { XIcon } from 'lucide-react';
+import { PlusIcon, XIcon } from 'lucide-react';
+import { Button } from '../ui/button';
 
 type TagInputProps = {
   value: string[];
@@ -32,15 +33,31 @@ export default function TagInput({ value, onChange }: TagInputProps) {
   return (
     <div className="flex flex-col gap-2">
       {/* Input za dodavanje tagova */}
-      <Input
-        type="text"
-        value={inputValue}
-        onChange={(e) =>
-          e.target.value.length <= 20 && setInputValue(e.target.value)
-        }
-        onKeyDown={handleKeyDown}
-        placeholder="Dodajte tagove (max 20 karaktera)"
-      />
+      <div className="flex items-center gap-2">
+        <Input
+          type="text"
+          value={inputValue}
+          onChange={(e) =>
+            e.target.value.length <= 20 && setInputValue(e.target.value)
+          }
+          onKeyDown={handleKeyDown}
+          placeholder="Dodaj novi tag"
+        />
+        <Button
+          size={'icon'}
+          variant={'outline'}
+          onClick={(e) => {
+            e.preventDefault();
+            if (inputValue.trim()) {
+              const newTags = [...value, inputValue.trim()];
+              onChange(newTags);
+              setInputValue('');
+            }
+          }}
+        >
+          <PlusIcon />
+        </Button>
+      </div>
 
       {/* Prikaz tagova */}
       <div className="flex flex-wrap items-center gap-2">
