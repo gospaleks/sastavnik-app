@@ -6,6 +6,8 @@ import { parseAsInteger, useQueryState } from 'nuqs';
 
 import { debounce } from 'lodash';
 
+import SortFilter from '@/components/SortFilter';
+
 import { Input } from '@/components/ui/input';
 import {
   Select,
@@ -15,16 +17,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { refetchEssays } from '@/lib/services/refetchEssays';
-import { Button } from './ui/button';
-import {
-  ArrowDownWideNarrow,
-  ArrowUpWideNarrow,
-  SearchIcon,
-  SortAsc,
-  SortDesc,
-  XIcon,
-} from 'lucide-react';
-import TooltipItem from './TooltipItem';
+import { Button } from '@/components/ui/button';
+import { SearchIcon, XIcon } from 'lucide-react';
 
 const Filters = () => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -37,9 +31,6 @@ const Filters = () => {
   });
   const [grade, setGrade] = useQueryState('grade', {
     defaultValue: '',
-  });
-  const [sort, setSort] = useQueryState('sort', {
-    defaultValue: 'desc',
   });
 
   const debouncedRefetch = useCallback(
@@ -66,14 +57,6 @@ const Filters = () => {
 
   const handleGradeChange = (value: string) => {
     setGrade(value);
-    setTimeout(() => {
-      refetchEssays();
-    }, 0);
-    setPage(1);
-  };
-
-  const handleSortChange = (value: string) => {
-    setSort(value);
     setTimeout(() => {
       refetchEssays();
     }, 0);
@@ -147,28 +130,7 @@ const Filters = () => {
 
       <div className="flex flex-col items-center gap-2 sm:flex-row">
         {/* Sortiranje */}
-        <TooltipItem
-          trigger={
-            <Button
-              variant="outline"
-              onClick={() => handleSortChange(sort === 'desc' ? 'asc' : 'desc')}
-              className="w-auto"
-            >
-              {sort === 'desc' ? (
-                <>
-                  <ArrowDownWideNarrow className="h-4 w-4" />
-                  <span className="sm:hidden lg:inline">Najnoviji</span>
-                </>
-              ) : (
-                <>
-                  <ArrowUpWideNarrow className="h-4 w-4" />
-                  <span className="sm:hidden lg:inline">Najstariji</span>
-                </>
-              )}
-            </Button>
-          }
-          content="Sortiraj po datumu objave"
-        />
+        <SortFilter />
 
         {/** Resetovanje filtera */}
         {(schoolType || searchTerm) && (

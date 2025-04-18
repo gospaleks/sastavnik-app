@@ -98,16 +98,29 @@ export async function getLatestEssays(limit = 5) {
 }
 
 // Full podaci o sastavima po kategoriji (za card prikaz u /kategorija/categoryName)
-export async function getEssaysByCategoryName(categoryName: string) {
+export async function getEssaysByCategoryName(
+  categoryName: string,
+  page = 1,
+  sort = 'desc',
+) {
   'use cache';
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
+  // cacheTag(`category-${categoryName}`); // Kesiranje po kategoriji mozda???
+
+  const limit = 8;
+  const offset = (page - 1) * limit;
+
+  const whereClause: Prisma.EssayWhereInput = {
+    published: true,
+    category: {
+      name: categoryName,
+    },
+  };
 
   const essays = await prisma.essay.findMany({
-    where: {
-      category: {
-        name: categoryName,
-      },
-    },
+    where: whereClause,
+    take: limit,
+    skip: offset,
     include: {
       author: {
         select: {
@@ -120,13 +133,21 @@ export async function getEssaysByCategoryName(categoryName: string) {
       category: true,
     },
     orderBy: {
-      createdAt: 'desc',
+      createdAt: sort === 'asc' ? 'asc' : 'desc',
     },
   });
 
-  // TODO: Paginacija!
+  const total = await prisma.essay.count({
+    where: whereClause,
+  });
 
-  return essays as EssayWithAuthorCategory[];
+  const totalPages = Math.ceil(total / limit);
+
+  return {
+    essays: essays as EssayWithAuthorCategory[],
+    totalEssays: total,
+    totalPages,
+  };
 }
 
 // Full podaci o sastavima po tag-u (za card prikaz u /tag/tagName)

@@ -1,7 +1,12 @@
+import { Suspense } from 'react';
+
+import { SearchParams } from 'nuqs/server';
+import { loadSearchParams } from '@/lib/searchParams';
+
+import SortFilter from '@/components/SortFilter';
 import ContentWrapper from '@/components/ContentWrapper';
 import EssaysByCategoryList from '@/components/EssaysByCategoryList';
 import EssayCardGridSkeleton from '@/components/Loaders/EssayCardGridSkeleton';
-import { Suspense } from 'react';
 
 export async function generateMetadata({
   params,
@@ -17,10 +22,14 @@ export async function generateMetadata({
 
 export const KategorijePage = async ({
   params,
+  searchParams,
 }: {
   params: Promise<{ categoryName: string }>;
+  searchParams: Promise<SearchParams>;
 }) => {
   const { categoryName } = await params;
+  const { page, sort } = await loadSearchParams(searchParams);
+
   const decodedCategoryName = decodeURIComponent(categoryName);
 
   return (
@@ -34,8 +43,14 @@ export const KategorijePage = async ({
         </h1>
       </div>
 
+      <SortFilter />
+
       <Suspense fallback={<EssayCardGridSkeleton />}>
-        <EssaysByCategoryList categoryName={decodedCategoryName} />
+        <EssaysByCategoryList
+          categoryName={decodedCategoryName}
+          page={page}
+          sort={sort}
+        />
       </Suspense>
     </ContentWrapper>
   );
