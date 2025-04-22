@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FileTextIcon } from 'lucide-react';
+import { getTextPreviewFromHtml } from '@/lib/utils';
 
 type Props = {
   essay: {
@@ -25,7 +26,7 @@ const BasicEssayCard = ({ essay }: Props) => {
           </div>
 
           <p className="text-sm text-gray-500">
-            {essay.content.slice(0, 80)}...
+            {getTextPreviewFromHtml(essay.content, 80)}
           </p>
         </div>
       </div>

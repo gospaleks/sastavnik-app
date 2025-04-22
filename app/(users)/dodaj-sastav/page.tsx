@@ -3,6 +3,7 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 import { getAllCategories } from '@/lib/services/categoryService';
 
+import { TooltipProvider } from '@/components/ui/tooltip';
 import ContentWrapper from '@/components/ContentWrapper';
 import { EssayForm } from '@/components/Forms/EssayForm';
 
@@ -19,8 +20,10 @@ const DodajSastavPage = async () => {
 
   return (
     <ContentWrapper>
-      <div className="my-8">
-        <EssayForm categories={categories} />
+      <div className="my-4">
+        <TooltipProvider>
+          <EssayForm categories={categories} />
+        </TooltipProvider>
       </div>
     </ContentWrapper>
   );

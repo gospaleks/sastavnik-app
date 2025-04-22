@@ -14,3 +14,20 @@ export function formatDate(date: Date) {
 
   return `${day}.${month}.${year}. ${hours}:${minutes}`;
 }
+
+export function getTextPreviewFromHtml(
+  html: string,
+  maxLength: number = 200,
+): string {
+  const text = html
+    .replace(/<\/p>/gi, '\n') // svaki paragraf novi red
+    .replace(/<p[^>]*>/gi, '')
+    .replace(/<br\s*\/?>/gi, '\n') // i <br> kao novi red
+    .replace(/<[^>]+>/g, '') // sve ostalo izbacujemo
+    .replace(/\n{2,}/g, '\n') // visestruki novi red -> jedan
+    .replace(/[ \t]+\n/g, '\n') // whitespace pre \n
+    .replace(/\n[ \t]+/g, '\n') // whitespace posle \n
+    .trim();
+
+  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+}

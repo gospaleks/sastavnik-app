@@ -14,18 +14,13 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { buttonVariants } from '@/components/ui/button';
 import { ArrowRight, Clock, Star, StarOffIcon } from 'lucide-react';
-import { formatDate } from '@/lib/utils';
+import { formatDate, getTextPreviewFromHtml } from '@/lib/utils';
 
 type Props = {
   essay: EssayWithAuthorCategory;
 };
 
 const EssayCard = ({ essay }: Props) => {
-  const previewContent =
-    essay.content.length > 400
-      ? essay.content.slice(0, 400) + '...'
-      : essay.content;
-
   // Samo createdAt prikazujemo jer se updatedAt promeni i kad se sastav oceni a ne kad ga autor izmeni
   const formattedDate = formatDate(essay.createdAt);
 
@@ -56,8 +51,8 @@ const EssayCard = ({ essay }: Props) => {
       </CardHeader>
 
       <CardContent className="flex-grow space-y-4">
-        <p className="text-sm whitespace-pre-wrap text-gray-700 dark:text-gray-300">
-          {previewContent}
+        <p className="text-sm whitespace-pre-line">
+          {getTextPreviewFromHtml(essay.content, 300)}
         </p>
 
         {essay.tags.length > 0 && (

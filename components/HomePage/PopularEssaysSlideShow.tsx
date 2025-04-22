@@ -31,7 +31,7 @@ const PopularEssaysSlideShow = async () => {
         {popularEssays.map((essay) => (
           <CarouselItem
             key={essay.id}
-            className="flex pl-2 lg:basis-1/2 lg:pl-4 xl:basis-1/3"
+            className="flex pt-2 pl-2 lg:basis-1/2 lg:pl-4 xl:basis-1/3"
           >
             <EssayCard essay={essay} />
           </CarouselItem>

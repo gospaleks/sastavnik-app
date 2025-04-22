@@ -20,6 +20,8 @@ import AlertCard from '@/components/AlertCard';
 import { Badge } from '@/components/ui/badge';
 import { ExternalLinkIcon } from 'lucide-react';
 
+import '@/components/minimal-tiptap/styles/index.css';
+
 export async function generateMetadata({
   params,
 }: {
@@ -121,9 +123,16 @@ export const EssayPage = async ({
           {/** Dugmici za izmenu i brisanje ako korisnik ima permisije */}
           {canEdit && <EssayActionButtons essayId={essayId} />}
 
-          <div className="prose prose-invert dark:prose-invert lg:prose-lg mx-auto mt-8 max-w-none whitespace-pre-wrap">
+          {/** Prikazivanje sadržaja sastava */}
+          <div
+            className="minimal-tiptap-content mt-4"
+            dangerouslySetInnerHTML={{ __html: essay.content }}
+          />
+
+          {/* staro prikazivanje */}
+          {/* <div className="prose prose-invert dark:prose-invert lg:prose-lg mx-auto mt-8 max-w-none whitespace-pre-wrap">
             {essay.content}
-          </div>
+          </div> */}
 
           {essay.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">

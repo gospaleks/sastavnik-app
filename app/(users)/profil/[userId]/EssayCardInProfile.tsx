@@ -1,7 +1,7 @@
 import { EssayWithCategory } from '@/lib/types';
 import Link from 'next/link';
 import EssayDropdown from './EssayDropdown';
-import { formatDate } from '@/lib/utils';
+import { formatDate, getTextPreviewFromHtml } from '@/lib/utils';
 import {
   Card,
   CardContent,
@@ -17,10 +17,7 @@ type Props = {
 };
 
 const EssayCardInProfile = ({ essay, canEdit }: Props) => {
-  const previewContent =
-    essay.content.length > 180
-      ? essay.content.slice(0, 180) + '...'
-      : essay.content;
+  const previewContent = getTextPreviewFromHtml(essay.content, 180);
 
   const formattedDate = formatDate(essay.createdAt);
 
@@ -65,7 +62,7 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
 
       {/* Desna sekcija */}
       <CardContent className="flex w-full justify-between p-0 pt-2 sm:w-2/3 sm:pt-0">
-        <p className="text-sm leading-relaxed text-gray-600">
+        <p className="text-sm leading-relaxed whitespace-pre-line text-gray-600">
           {previewContent}
         </p>
         {canEdit && (
