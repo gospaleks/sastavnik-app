@@ -26,10 +26,7 @@ const loading = () => {
 
               <div className="space-y-1">
                 <Skeleton className="h-4 w-1/8" />
-                <div className="flex flex-col items-center gap-4">
-                  <Skeleton className="h-14 w-full rounded-2xl" />
-                  <Skeleton className="h-14 w-full rounded-2xl" />
-                </div>
+                <Skeleton className="h-8 w-full" />
               </div>
 
               <div className="space-y-1">

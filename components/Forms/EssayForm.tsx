@@ -43,6 +43,7 @@ import {
   School,
 } from 'lucide-react';
 import { toast } from 'sonner';
+import { totalmem } from 'os';
 
 type Props = {
   categories: Category[];
@@ -181,43 +182,26 @@ export function EssayForm({ categories, essay }: Props) {
               <FormField
                 control={form.control}
                 name="schoolType"
-                render={({ field }) => {
-                  const selected = field.value;
-                  return (
-                    <FormItem>
-                      <FormLabel>Tip škole *</FormLabel>
-                      <div className="flex flex-col gap-4">
-                        <button
-                          type="button"
-                          onClick={() => field.onChange('OSNOVNA')}
-                          className={cn(
-                            'flex flex-1 items-center justify-center space-x-4 rounded-xl border p-4 transition hover:border-gray-400',
-                            selected === 'OSNOVNA'
-                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                              : 'border-gray-200 dark:border-gray-700',
-                          )}
-                        >
-                          <School className="h-6 w-6" />
-                          <span>Osnovna škola</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={() => field.onChange('SREDNJA')}
-                          className={cn(
-                            'flex flex-1 items-center justify-center space-x-4 rounded-xl border p-4 transition hover:border-gray-400',
-                            selected === 'SREDNJA'
-                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
-                              : 'border-gray-200 dark:border-gray-700',
-                          )}
-                        >
-                          <GraduationCap className="h-6 w-6" />
-                          <span>Srednja škola</span>
-                        </button>
-                      </div>
-                    </FormItem>
-                  );
-                }}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Tip škole *</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Izaberite tip škole" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="OSNOVNA">Osnovna škola</SelectItem>
+                        <SelectItem value="SREDNJA">Srednja škola</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
 
               {/* Razred */}
@@ -299,9 +283,9 @@ export function EssayForm({ categories, essay }: Props) {
                         output="html"
                         placeholder="Započnite pisanje..."
                         onCreate={handleCreate}
-                        autofocus={true}
                         editable={true}
                         editorClassName="focus:outline-hidden p-5 min-h-[200px]"
+                        immediatelyRender={false}
                       />
                     </FormControl>
                     <FormMessage />
