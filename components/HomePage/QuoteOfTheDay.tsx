@@ -24,8 +24,8 @@ const QuoteOfTheDay = () => {
             author="Maja Andželou"
           />
           <QuoteCard
-            text="Sastavi su ogledalo tvoje mašte i kreativnosti."
-            author="Nepoznat"
+            text="Obrazovanje je najmoćnije oružje koje možete upotrebiti da promenite svet."
+            author="Nelson Mandela"
           />
         </div>
       </ContentWrapper>

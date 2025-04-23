@@ -22,7 +22,7 @@ const HomePage = async () => {
       <section className="bg-white py-12">
         <ContentWrapper>
           <h2 className="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
-            🔥 Popularni sastavi
+            🔥 Popularno
           </h2>
 
           <Suspense fallback={<EssayCardSlideshowSkeleton />}>
@@ -46,10 +46,10 @@ const HomePage = async () => {
         <ContentWrapper>
           <div>
             <h2 className="mb-3 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
-              📝 Najnoviji sastavi
+              📝 Najnovije
             </h2>
             <p className="text-md mb-6 text-center text-gray-600 sm:text-lg">
-              Pogledajte najnovije sastave koje su napisali naši korisnici.
+              Pogledajte najnovije sastave koje su naši korisnici dodali
             </p>
           </div>
           <Suspense fallback={<EssaysByAuthorSkeleton />}>

@@ -98,6 +98,7 @@ export const MinimalTiptapEditor = ({
       <EditorContent
         editor={editor}
         className={cn('minimal-tiptap-editor', editorContentClassName)}
+        spellCheck={false} // ovo je sa se resim od crvenih linija ispod teksta u editoru
       />
       <LinkBubbleMenu editor={editor} />
     </MeasuredContainer>

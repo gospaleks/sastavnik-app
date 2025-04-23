@@ -7,6 +7,7 @@ import { getAllCategories } from '@/lib/services/categoryService';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import { EssayForm } from '@/components/Forms/EssayForm';
+import { TooltipProvider } from '@radix-ui/react-tooltip';
 
 type Props = {
   params: { essayId: string };
@@ -39,8 +40,10 @@ export default async function EditEssayPageasync({
 
   return (
     <ContentWrapper>
-      <div className="my-8">
-        <EssayForm essay={essay} categories={categories} />
+      <div className="my-4">
+        <TooltipProvider>
+          <EssayForm essay={essay} categories={categories} />
+        </TooltipProvider>
       </div>
     </ContentWrapper>
   );

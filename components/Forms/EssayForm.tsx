@@ -1,20 +1,22 @@
 'use client';
 
+import { useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { cn } from '@/lib/utils';
-import { essayFormSchema, EssayFormSchemaType } from '@/lib/schemas';
-import { Category, Essay } from '@prisma/client';
 import { useForm } from 'react-hook-form';
+
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Category, Essay } from '@prisma/client';
+import { essayFormSchema, EssayFormSchemaType } from '@/lib/schemas';
+import { cn } from '@/lib/utils';
 
 import updateEssay from '@/actions/updateEssay';
 import createEssay from '@/actions/createEssay';
 
-import { MinimalTiptapEditor } from '../minimal-tiptap';
-import { useCallback, useRef } from 'react';
+import { MinimalTiptapEditor } from '@/components/minimal-tiptap';
 import { Editor } from '@tiptap/react';
 
 import TagInput from './TagInput';
+import { SelectWithLabel } from '@/components/SelectWithLabel';
 import AlertCard from '@/components/AlertCard';
 
 import { Button } from '@/components/ui/button';
@@ -35,15 +37,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
-import {
-  EditIcon,
-  GraduationCap,
-  LoaderCircleIcon,
-  PlusIcon,
-  School,
-} from 'lucide-react';
 import { toast } from 'sonner';
-import { totalmem } from 'os';
+import { EditIcon, LoaderCircleIcon, PlusIcon } from 'lucide-react';
 
 type Props = {
   categories: Category[];
@@ -151,60 +146,29 @@ export function EssayForm({ categories, essay }: Props) {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="categoryId"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormLabel>Kategorija *</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Izaberite kategoriju" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        {categories.map((category) => (
-                          <SelectItem key={category.id} value={category.id}>
-                            {category.name}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormItem>
-                )}
+              {/* Kategorija */}
+              <SelectWithLabel<EssayFormSchemaType>
+                label="Kategorija *"
+                placeholder="Izaberite kategoriju"
+                nameInSchema="categoryId"
+                data={categories.map((category) => ({
+                  id: category.id,
+                  description: category.name,
+                }))}
               />
 
-              {/* Osnovna/srednja skola */}
-              <FormField
-                control={form.control}
-                name="schoolType"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tip škole *</FormLabel>
-                    <Select
-                      onValueChange={field.onChange}
-                      defaultValue={field.value}
-                    >
-                      <FormControl>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Izaberite tip škole" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>
-                        <SelectItem value="OSNOVNA">Osnovna škola</SelectItem>
-                        <SelectItem value="SREDNJA">Srednja škola</SelectItem>
-                      </SelectContent>
-                    </Select>
-                    <FormMessage />
-                  </FormItem>
-                )}
+              {/* Tip škole */}
+              <SelectWithLabel<EssayFormSchemaType>
+                label="Tip škole *"
+                placeholder="Izaberite tip škole"
+                nameInSchema="schoolType"
+                data={[
+                  { id: 'OSNOVNA', description: 'Osnovna škola' },
+                  { id: 'SREDNJA', description: 'Srednja škola' },
+                ]}
               />
 
-              {/* Razred */}
+              {/* Razred (TODO: treba da se proba i ovo da se zameni sa SelectWithLabel reusable komponentom) */}
               <FormField
                 control={form.control}
                 name="level"
@@ -271,8 +235,7 @@ export function EssayForm({ categories, essay }: Props) {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Sastav *</FormLabel>
-                    {/* TODO: na malim ekranima da bude full width (za sada pobegne van glavne kartice) */}
-                    <FormControl className="w-full">
+                    <FormControl className="w-full overflow-auto">
                       <MinimalTiptapEditor
                         {...field}
                         throttleDelay={0}

@@ -1,5 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { startTransition } from 'react';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,8 +13,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
-import { useRouter } from 'next/navigation';
-import { startTransition } from 'react';
+import { AlertOctagonIcon, TriangleAlert } from 'lucide-react';
 import { toast } from 'sonner';
 
 type Props = {
@@ -22,6 +24,7 @@ type Props = {
   action: () => Promise<{
     message: string;
   }>;
+  variant?: 'default' | 'destructive' | 'warning';
   redirectUrl?: string;
 };
 
@@ -31,6 +34,7 @@ const YesNoAlert = ({
   title,
   description,
   action,
+  variant = 'default',
   redirectUrl,
 }: Props) => {
   const router = useRouter();
@@ -61,14 +65,33 @@ const YesNoAlert = ({
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>{title}</AlertDialogTitle>
+          <AlertDialogTitle className="mb-2 flex items-center justify-center gap-2 sm:justify-start">
+            {variant === 'destructive' ? (
+              <AlertOctagonIcon className="text-red-600" />
+            ) : variant === 'warning' ? (
+              <TriangleAlert className="text-yellow-500" />
+            ) : null}
+
+            {title}
+          </AlertDialogTitle>
           <AlertDialogDescription>{description}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel onClick={() => setIsOpen(false)}>
             Otkaži
           </AlertDialogCancel>
-          <AlertDialogAction onClick={handleAction}>Potvrdi</AlertDialogAction>
+          <AlertDialogAction
+            onClick={handleAction}
+            className={
+              variant === 'destructive'
+                ? 'bg-red-600 hover:bg-red-700'
+                : variant === 'warning'
+                  ? 'bg-yellow-500 hover:bg-yellow-600'
+                  : ''
+            }
+          >
+            Potvrdi
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

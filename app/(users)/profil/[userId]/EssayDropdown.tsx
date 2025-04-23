@@ -57,11 +57,12 @@ const EssayDropdown = ({ essayId, essayTitle }: Props) => {
       <YesNoAlert
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
-        title="⚠️Brisanje sastava"
+        title="Brisanje sastava"
         description={`
           Da li ste sigurni da želite da obrišete sastav "${essayTitle}"? Ova akcija je nepovratna.
           `}
         action={() => deleteEssay(essayId)}
+        variant="destructive"
       />
     </>
   );

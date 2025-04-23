@@ -13,7 +13,7 @@ const loading = () => {
 
           {/* tema, kategorija, tip skole, razred */}
           <div className="flex flex-col items-start gap-4 md:flex-row md:gap-8">
-            <div className="flex-1/3 space-y-4">
+            <div className="w-full flex-1/3 space-y-4">
               <div className="space-y-1">
                 <Skeleton className="h-4 w-1/8" />
                 <Skeleton className="h-8 w-full" />
