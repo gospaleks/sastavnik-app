@@ -39,6 +39,7 @@ export default async function deleteCategory(categoryId: string) {
 
   revalidateTag('categories'); // Revalidira tag za sve kategorije
   revalidateTag(`essay-category-${deletedCategory.id}`); // Revalidira tag za sve sastave koji su u toj kategoriji
+  revalidateTag('essays'); // Revalidira tag za sve liste
 
   return {
     message: `Kategorija "${deletedCategory.name}" je uspešno obrisana. Obrisano je ${essaysCount} sastava.

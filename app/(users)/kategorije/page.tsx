@@ -26,7 +26,12 @@ const KategorijePage = async () => {
     <ContentWrapper>
       <div className="grid grid-cols-1 gap-0 gap-y-4 md:grid-cols-4 md:gap-4">
         <div>
-          <CategoryForm />
+          <div className="w-full rounded-lg border p-4 shadow-sm">
+            <h2 className="mb-4 text-lg font-semibold">
+              Dodaj novu kategoriju
+            </h2>
+            <CategoryForm />
+          </div>
         </div>
 
         <div className="col-span-3">

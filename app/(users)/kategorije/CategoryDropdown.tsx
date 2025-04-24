@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { EditIcon, EllipsisVerticalIcon, Trash2Icon } from 'lucide-react';
 import deleteCategory from '@/actions/deleteCategory';
+import { CategoryForm } from '@/components/Forms/CategoryForm';
 
 type Props = {
   category: Category;
@@ -71,7 +72,11 @@ const CategoryDropdown = ({ category }: Props) => {
         isOpen={isEditOpen}
         setIsOpen={setIsEditOpen}
         title={`Izmena kategorije: ${category.name}`}
-        children={<h1>forma...</h1>} // TODO: implement edit category form
+        children={
+          <div className="mx-4 md:mx-0">
+            <CategoryForm category={category} setIsOpen={setIsEditOpen} />
+          </div>
+        }
       />
     </>
   );
