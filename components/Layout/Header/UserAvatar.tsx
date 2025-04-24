@@ -12,13 +12,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LogOutIcon, PlusIcon, UserIcon } from 'lucide-react';
+import { FolderPenIcon, LogOutIcon, PlusIcon, UserIcon } from 'lucide-react';
 
 type Props = {
   user: KindeUser<Record<string, any>>;
+  isAdmin: boolean;
 };
 
-const UserAvatar = ({ user }: Props) => {
+const UserAvatar = ({ user, isAdmin }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer">
@@ -50,8 +51,22 @@ const UserAvatar = ({ user }: Props) => {
             className="flex w-full items-center gap-2"
           >
             <UserIcon /> Profil
+            {isAdmin && (
+              <span className="bg-primary ml-auto rounded-full px-2 py-1 text-xs text-white">
+                admin
+              </span>
+            )}
           </Link>
         </DropdownMenuItem>
+
+        {isAdmin && (
+          <DropdownMenuItem>
+            <Link href="/kategorije" className="flex w-full items-center gap-2">
+              <FolderPenIcon size={16} />
+              Uredi kategorije
+            </Link>
+          </DropdownMenuItem>
+        )}
 
         <DropdownMenuItem>
           <Link href="/dodaj-sastav" className="flex w-full items-center gap-2">

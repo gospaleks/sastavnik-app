@@ -49,8 +49,8 @@ export const EssayPage = async ({
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
 
-  // Proverava da li je sastav pronađen
-  if (!essay) return notFound();
+  // Proverava da li je sastav pronađen i da li je published
+  if (!essay || !essay.published) return notFound();
 
   const { getUser, getPermission } = getKindeServerSession();
   const user = await getUser();

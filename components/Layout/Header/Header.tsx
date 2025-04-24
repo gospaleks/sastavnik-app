@@ -32,12 +32,15 @@ import {
 } from 'lucide-react';
 
 const Header = async () => {
-  const { getUser, isAuthenticated } = getKindeServerSession();
-  const [isLoggedIn, user, categories] = await Promise.all([
+  const { getUser, isAuthenticated, getPermission } = getKindeServerSession();
+  const [isLoggedIn, user, categories, adminPermission] = await Promise.all([
     isAuthenticated(),
     getUser(),
     getAllCategories(),
+    getPermission('admin:access'),
   ]);
+
+  const isAdmin = adminPermission?.isGranted || false;
 
   return (
     <header className="sticky top-0 z-50 h-16 border-b bg-white">
@@ -76,7 +79,7 @@ const Header = async () => {
 
           <SearchBar />
 
-          {isLoggedIn && <UserAvatar user={user} />}
+          {isLoggedIn && <UserAvatar user={user} isAdmin={isAdmin} />}
 
           {/* Prijava i Registracija DESKTOP */}
           <div className="hidden items-center gap-2 lg:flex">

@@ -5,6 +5,7 @@ enum SchoolType {
   SREDNJA = 'Srednja',
 }
 
+// Sastav
 export const essayFormSchema = z.object({
   title: z
     .string()
@@ -17,3 +18,10 @@ export const essayFormSchema = z.object({
 });
 
 export type EssayFormSchemaType = z.infer<typeof essayFormSchema>;
+
+// Kategorije
+export const categoryFormSchema = z.object({
+  name: z.string().min(1, 'Naziv kategorije je obavezno polje'),
+});
+
+export type CategoryFormSchemaType = z.infer<typeof categoryFormSchema>;

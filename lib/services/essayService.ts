@@ -29,8 +29,11 @@ export async function getEssayById(essayId: string) {
     },
   });
 
+  // Kesiranje po kategoriji (kada se obrise kategorija ili promeni naziv kategorije ovo se revalidira da ne bi ostao u kesu sastav koji ne postoji vise)
+  cacheTag(`essay-category-${essay?.categoryId}`);
+
   if (!essay) {
-    console.error(`[getEssayById] No essay found with ID: ${essayId}`);
+    console.error(`[getEssayById] No essay found with ID: ${essayId}`); // for developer!
     return null;
   }
 
@@ -45,6 +48,7 @@ export async function getEssaysBasicByAuthor(authorId: string, limit = 10) {
   return await prisma.essay.findMany({
     where: {
       authorId: authorId,
+      published: true,
     },
     take: limit,
     select: {
@@ -67,6 +71,7 @@ export async function getEssaysBasicByCategoryName(
       category: {
         name: categoryName,
       },
+      published: true,
     },
     take: limit,
     select: {
@@ -160,6 +165,7 @@ export async function getEssaysByTagName(tagName: string) {
       tags: {
         has: tagName,
       },
+      published: true,
     },
     include: {
       author: {
@@ -303,10 +309,13 @@ export async function canEditEssay(essayId: string) {
   if (isAdmin) return true;
 
   // Ako nije admin, proveri da li je autor sastava
-  return await prisma.essay.findFirst({
+  const essay = await prisma.essay.findFirst({
     where: {
       id: essayId,
       authorId: user.id,
     },
   });
+
+  if (!essay) return false;
+  return true;
 }

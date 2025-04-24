@@ -7,6 +7,8 @@ import SortFilter from '@/components/SortFilter';
 import ContentWrapper from '@/components/ContentWrapper';
 import EssaysByCategoryList from '@/components/EssaysByCategoryList';
 import EssayCardGridSkeleton from '@/components/Loaders/EssayCardGridSkeleton';
+import { doesCategoryExist } from '@/lib/services/categoryService';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params,
@@ -31,6 +33,9 @@ export const KategorijePage = async ({
   const { page, sort } = await loadSearchParams(searchParams);
 
   const decodedCategoryName = decodeURIComponent(categoryName);
+
+  const doesExist = await doesCategoryExist(decodedCategoryName);
+  if (!doesExist) return notFound();
 
   return (
     <ContentWrapper>

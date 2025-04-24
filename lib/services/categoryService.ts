@@ -12,3 +12,16 @@ export async function getAllCategories() {
 
   return categories;
 }
+
+export async function doesCategoryExist(categoryName: string) {
+  'use cache';
+  cacheTag('categories');
+
+  const category = await prisma.category.findUnique({
+    where: {
+      name: categoryName,
+    },
+  });
+
+  return !!category;
+}
