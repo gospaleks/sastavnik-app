@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -19,7 +20,7 @@ import TagInput from './TagInput';
 import { SelectWithLabel } from '@/components/SelectWithLabel';
 import AlertCard from '@/components/AlertCard';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -38,7 +39,12 @@ import {
 } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { toast } from 'sonner';
-import { EditIcon, LoaderCircleIcon, PlusIcon } from 'lucide-react';
+import {
+  ArrowLeftIcon,
+  EditIcon,
+  LoaderCircleIcon,
+  PlusIcon,
+} from 'lucide-react';
 
 type Props = {
   categories: Category[];
@@ -115,6 +121,18 @@ export function EssayForm({ categories, essay }: Props) {
 
   return (
     <div className="flex flex-col gap-4 rounded-lg p-0 sm:border sm:p-8 sm:shadow-sm">
+      {essay && (
+        <div>
+          <Link
+            href={`/sastavi/${essay.id}`}
+            className={buttonVariants({ variant: 'link', size: 'sm' })}
+          >
+            <ArrowLeftIcon size={17} />
+            Vrati se na stranicu sastava
+          </Link>
+        </div>
+      )}
+
       <h1 className="text-2xl font-bold">
         {essay ? (
           <div className="flex items-center gap-2">

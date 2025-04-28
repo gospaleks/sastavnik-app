@@ -1,20 +1,25 @@
 import { Suspense } from 'react';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 import { SearchParams } from 'nuqs/server';
 import { loadSearchParams } from '@/lib/searchParams';
+
+import { doesCategoryExist } from '@/lib/services/categoryService';
 
 import SortFilter from '@/components/SortFilter';
 import ContentWrapper from '@/components/ContentWrapper';
 import EssaysByCategoryList from '@/components/EssaysByCategoryList';
 import EssayCardGridSkeleton from '@/components/Loaders/EssayCardGridSkeleton';
-import { doesCategoryExist } from '@/lib/services/categoryService';
-import { notFound } from 'next/navigation';
+
+type PageProps = {
+  params: Promise<{ categoryName: string }>;
+  searchParams: Promise<SearchParams>;
+};
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ categoryName: string }>;
-}) {
+}: PageProps): Promise<Metadata> {
   const { categoryName } = await params;
   const decodedCategoryName = decodeURIComponent(categoryName);
   return {
@@ -22,13 +27,7 @@ export async function generateMetadata({
   };
 }
 
-export const KategorijePage = async ({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ categoryName: string }>;
-  searchParams: Promise<SearchParams>;
-}) => {
+const KategorijaPage = async ({ params, searchParams }: PageProps) => {
   const { categoryName } = await params;
   const { page, sort } = await loadSearchParams(searchParams);
 
@@ -61,4 +60,4 @@ export const KategorijePage = async ({
   );
 };
 
-export default KategorijePage;
+export default KategorijaPage;

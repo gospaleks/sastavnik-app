@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
@@ -22,11 +23,13 @@ import { ExternalLinkIcon } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
 
+type PageProps = {
+  params: Promise<{ essayId: string }>;
+};
+
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ essayId: string }>;
-}) {
+}: PageProps): Promise<Metadata> {
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
 
@@ -41,11 +44,7 @@ export async function generateMetadata({
   };
 }
 
-export const EssayPage = async ({
-  params,
-}: {
-  params: Promise<{ essayId: string }>;
-}) => {
+const EssayPage = async ({ params }: PageProps) => {
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
 

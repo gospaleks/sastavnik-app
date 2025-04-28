@@ -1,19 +1,23 @@
+import Link from 'next/link';
+import { Metadata } from 'next';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-import ContentWrapper from '@/components/ContentWrapper';
 import { getUserById } from '@/lib/services/userService';
-import Link from 'next/link';
-import { buttonVariants } from '@/components/ui/button';
-import { NotebookTextIcon, PlusIcon, UserIcon } from 'lucide-react';
+
 import EssayCardInProfile from './EssayCardInProfile';
 import UsersInfo from './UsersInfo';
-import { Skeleton } from '@/components/ui/skeleton';
+
+import ContentWrapper from '@/components/ContentWrapper';
+import { buttonVariants } from '@/components/ui/button';
+import { NotebookTextIcon, PlusIcon, UserIcon } from 'lucide-react';
+
+type PageProps = {
+  params: Promise<{ userId: string }>;
+};
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ userId: string }>;
-}) {
+}: PageProps): Promise<Metadata> {
   const { userId } = await params;
   const userData = await getUserById(userId);
 
@@ -22,11 +26,7 @@ export async function generateMetadata({
   };
 }
 
-export const ProfilPage = async ({
-  params,
-}: {
-  params: Promise<{ userId: string }>;
-}) => {
+const ProfilPage = async ({ params }: PageProps) => {
   // User's data
   const { userId } = await params;
   const userData = await getUserById(userId);
