@@ -12,7 +12,14 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { FolderPenIcon, LogOutIcon, PlusIcon, UserIcon } from 'lucide-react';
+import {
+  FolderPenIcon,
+  LayoutDashboardIcon,
+  LogOutIcon,
+  PlusIcon,
+  UserIcon,
+  UsersIcon,
+} from 'lucide-react';
 
 type Props = {
   user: KindeUser<Record<string, any>>;
@@ -60,12 +67,34 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
         </DropdownMenuItem>
 
         {isAdmin && (
-          <DropdownMenuItem>
-            <Link href="/kategorije" className="flex w-full items-center gap-2">
-              <FolderPenIcon size={16} />
-              Uredi kategorije
-            </Link>
-          </DropdownMenuItem>
+          <>
+            <DropdownMenuItem>
+              <Link
+                href="/admin/korisnici"
+                className="flex w-full items-center gap-2"
+              >
+                <LayoutDashboardIcon size={16} />
+                Admin panel
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+          </>
+        )}
+
+        {isAdmin && (
+          <>
+            <DropdownMenuItem>
+              <Link
+                href="/admin/kategorije"
+                className="flex w-full items-center gap-2"
+              >
+                <FolderPenIcon size={16} />
+                Kategorije
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuSeparator />
+          </>
         )}
 
         <DropdownMenuItem>

@@ -2,9 +2,8 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-
 import { getAllCategories } from '@/lib/services/categoryService';
+import { isAdmin } from '../isAdmin';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import { CategoryForm } from '@/components/Forms/CategoryForm';
@@ -16,9 +15,8 @@ export const metadata: Metadata = {
 };
 
 const KategorijePage = async () => {
-  const { getPermission } = getKindeServerSession();
-  const isAdmin = (await getPermission('admin:access'))?.isGranted;
-  if (!isAdmin) redirect('/');
+  const isUserAdmin = await isAdmin();
+  if (!isUserAdmin) redirect('/');
 
   const categories = await getAllCategories();
 

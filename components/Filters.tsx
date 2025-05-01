@@ -19,6 +19,7 @@ import {
 import { refetchEssays } from '@/lib/services/refetchEssays';
 import { Button } from '@/components/ui/button';
 import { SearchIcon, XIcon } from 'lucide-react';
+import TooltipItem from './TooltipItem';
 
 const Filters = () => {
   const [page, setPage] = useQueryState('page', parseAsInteger.withDefault(1));
@@ -134,10 +135,15 @@ const Filters = () => {
 
         {/** Resetovanje filtera */}
         {(schoolType || searchTerm) && (
-          <Button variant={'destructive'} onClick={handleResetFilters}>
-            <XIcon />
-            <span className="sm:hidden">Poništi</span>
-          </Button>
+          <TooltipItem
+            trigger={
+              <Button variant={'destructive'} onClick={handleResetFilters}>
+                <XIcon />
+                <span className="sm:hidden">Poništi</span>
+              </Button>
+            }
+            content="Poništi filtere"
+          />
         )}
       </div>
     </div>
