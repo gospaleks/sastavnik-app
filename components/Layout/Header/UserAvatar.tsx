@@ -13,12 +13,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+  FileTextIcon,
   FolderPenIcon,
   LayoutDashboardIcon,
   LogOutIcon,
   PlusIcon,
   UserIcon,
-  UsersIcon,
 } from 'lucide-react';
 
 type Props = {
@@ -66,8 +66,11 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
           </Link>
         </DropdownMenuItem>
 
+        {/** Admin sekcija */}
         {isAdmin && (
           <>
+            <DropdownMenuSeparator />
+
             <DropdownMenuItem>
               <Link
                 href="/admin/korisnici"
@@ -77,12 +80,7 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
                 Admin panel
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
-          </>
-        )}
 
-        {isAdmin && (
-          <>
             <DropdownMenuItem>
               <Link
                 href="/admin/kategorije"
@@ -90,6 +88,16 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
               >
                 <FolderPenIcon size={16} />
                 Kategorije
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <Link
+                href="/admin/sastavi"
+                className="flex w-full items-center gap-2"
+              >
+                <FileTextIcon size={16} />
+                Sastavi
               </Link>
             </DropdownMenuItem>
 

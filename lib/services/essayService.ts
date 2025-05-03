@@ -6,6 +6,7 @@ import {
   unstable_cacheTag as cacheTag,
   unstable_cacheLife as cacheLife, // default for now!
 } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 // Full podaci o sastavi po ID-u
 export async function getEssayById(essayId: string) {
@@ -293,6 +294,38 @@ export async function getEssays(
     totalEssays: total,
     totalPages,
   };
+}
+
+export async function getUnpublishedEssays() {
+  // Samo admin moze da vidi neobjavljene sastave
+  const { isAuthenticated, getUser, getPermission } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
+  if (!isLoggedIn) return redirect('/');
+
+  const user = await getUser();
+  if (!user) return redirect('/');
+
+  const isAdmin = (await getPermission('admin:access'))?.isGranted;
+  if (!isAdmin) return redirect('/');
+
+  const essays = await prisma.essay.findMany({
+    where: {
+      published: false,
+    },
+    include: {
+      category: true,
+      author: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  return essays as EssayWithAuthorCategory[];
 }
 
 // Da li je sastav pripada logovanom korisniku ili je korisnik admin

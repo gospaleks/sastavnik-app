@@ -48,12 +48,13 @@ const EssayPage = async ({ params }: PageProps) => {
   const { essayId } = await params;
   const essay = await getEssayById(essayId);
 
-  // Proverava da li je sastav pronađen i da li je published
-  if (!essay || !essay.published) return notFound();
+  if (!essay) return notFound();
 
   const { getUser, getPermission } = getKindeServerSession();
   const user = await getUser();
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
+
+  if (!essay.published && !isAdmin) return notFound();
 
   const canEdit = user && (user.id === essay.authorId || isAdmin);
 
@@ -120,7 +121,9 @@ const EssayPage = async ({ params }: PageProps) => {
           />
 
           {/** Dugmici za izmenu i brisanje ako korisnik ima permisije */}
-          {canEdit && <EssayActionButtons essayId={essayId} />}
+          {canEdit && essay && (
+            <EssayActionButtons essay={essay} isAdmin={isAdmin} />
+          )}
 
           {/** Prikazivanje sadržaja sastava */}
           <div
