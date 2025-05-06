@@ -6,7 +6,12 @@ import { getAllCategories } from '@/lib/services/categoryService';
 
 import { buttonVariants } from '@/components/ui/button';
 import ContentWrapper from '@/components/ContentWrapper';
-import { ArrowRight, FileTextIcon, FolderOpenIcon } from 'lucide-react';
+import {
+  ArrowRight,
+  FileTextIcon,
+  FolderOpenIcon,
+  PlusCircleIcon,
+} from 'lucide-react';
 import AlertCard from '../AlertCard';
 
 export default async function Footer() {
@@ -20,7 +25,7 @@ export default async function Footer() {
       <ContentWrapper>
         <div className="grid gap-10 px-4 py-8 md:grid-cols-3">
           {/* Leva kolona: Logo i opis */}
-          <div className="flex flex-col items-center gap-4 text-center">
+          <div className="flex flex-col items-center gap-4 text-center md:items-start">
             <Link href="/" className="flex items-center gap-2">
               <Image
                 src="/logo_navbar.png"
@@ -29,10 +34,12 @@ export default async function Footer() {
                 height={50}
               />
             </Link>
-            <p className="text-sm leading-relaxed">
+
+            <p className="text-center text-sm leading-relaxed md:text-left">
               Sastavi za osnovnu i srednju školu. Inspiriši se, nauči i napiši
               svoj najbolji sastav do sada!
             </p>
+
             <AlertCard
               title="NAPOMENA:"
               description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe
@@ -40,6 +47,17 @@ export default async function Footer() {
               variant="destructive"
               className="text-left text-xs"
             />
+
+            <Link
+              className={buttonVariants({
+                variant: 'outline',
+                size: 'sm',
+              })}
+              href="/dodaj-sastav"
+            >
+              <PlusCircleIcon className="h-5 w-5" />
+              Dodaj sastav
+            </Link>
           </div>
 
           {/* Srednja kolona: Kategorije */}

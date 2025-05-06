@@ -84,12 +84,18 @@ const EssayCard = ({ essay }: Props) => {
           <div className="text-right text-sm text-gray-500">
             <span className="font-bold">Autor</span>
             <br />
-            <Link
-              href={`/profil/${essay.authorId}`}
-              className="hover:text-primary cursor-pointer underline transition-colors"
-            >
-              {essay.author.firstName || ''} {essay.author.lastName || ''}
-            </Link>
+            {essay.author.email === 'anonimni korisnik' ? (
+              <span>
+                {essay.author.firstName || ''} {essay.author.lastName || ''}
+              </span>
+            ) : (
+              <Link
+                href={`/profil/${essay.authorId}`}
+                className="hover:text-primary cursor-pointer underline transition-colors"
+              >
+                {essay.author.firstName || ''} {essay.author.lastName || ''}
+              </Link>
+            )}
           </div>
         </div>
 

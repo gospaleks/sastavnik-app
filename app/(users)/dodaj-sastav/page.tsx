@@ -14,7 +14,7 @@ export const metadata = {
 const DodajSastavPage = async () => {
   const { isAuthenticated } = getKindeServerSession();
   const isLoggedIn = await isAuthenticated();
-  if (!isLoggedIn) redirect('/api/auth/login');
+  // if (!isLoggedIn) redirect('/api/auth/login');
 
   const categories = await getAllCategories();
 
@@ -22,7 +22,7 @@ const DodajSastavPage = async () => {
     <ContentWrapper>
       <div className="my-4">
         <TooltipProvider>
-          <EssayForm categories={categories} />
+          <EssayForm categories={categories} isLoggedIn={isLoggedIn} />
         </TooltipProvider>
       </div>
     </ContentWrapper>

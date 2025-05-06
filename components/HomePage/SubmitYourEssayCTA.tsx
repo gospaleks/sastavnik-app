@@ -16,21 +16,20 @@ const SubmitYourEssayCTA = () => {
       </div>
 
       <p className="text-md text-gray-600 md:text-lg">
-        Podeli svoj sastav sa drugima i inspiriši ih! Prijavi se i dodaj svoj
-        sastav u našu bazu.
+        Podeli svoj sastav sa drugima i inspiriši ih!
+        <br /> Prijavi se i dodaj svoj sastav u našu bazu ili ga podeli
+        anonimno.
       </p>
 
       <Link
         className={buttonVariants({
           variant: 'default',
           size: 'lg',
-          className:
-            'flex items-center gap-2 rounded-full px-8 py-4 text-lg font-semibold',
         })}
         href="/dodaj-sastav"
       >
         <PlusCircleIcon className="h-5 w-5" />
-        Dodaj svoj sastav
+        Dodaj sastav
       </Link>
     </section>
   );

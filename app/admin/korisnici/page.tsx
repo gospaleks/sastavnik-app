@@ -5,6 +5,8 @@ import ContentWrapper from '@/components/ContentWrapper';
 import { isAdmin } from '../isAdmin';
 import { getAllUsers } from '@/lib/services/userService';
 import UsersList from './UsersList';
+import { Button } from '@/components/ui/button';
+import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Korisnici',

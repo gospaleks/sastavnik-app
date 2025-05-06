@@ -49,9 +49,10 @@ import {
 type Props = {
   categories: Category[];
   essay?: Essay;
+  isLoggedIn?: boolean;
 };
 
-export function EssayForm({ categories, essay }: Props) {
+export function EssayForm({ categories, essay, isLoggedIn }: Props) {
   const router = useRouter();
 
   const editorRef = useRef<Editor | null>(null);
@@ -114,7 +115,13 @@ export function EssayForm({ categories, essay }: Props) {
     } else {
       toast.success(response.message);
       form.reset();
-      router.push(`/sastavi/${response.essayId}`); // Presumeri ga na stranicu sastava
+
+      if (isLoggedIn) {
+        router.push(`/sastavi/${response.essayId}`); // Presumeri ga na stranicu sastava
+      } else {
+        router.push('/'); // Presumeri ga na stranicu sa svim sastavima
+      }
+
       router;
     }
   }
@@ -139,9 +146,17 @@ export function EssayForm({ categories, essay }: Props) {
             <EditIcon className="inline-block" /> Izmeni sastav
           </div>
         ) : (
-          <div className="flex items-center gap-2">
-            <PlusIcon className="inline-block" /> Dodaj sastav
-          </div>
+          <>
+            <div className="flex items-center gap-2">
+              <PlusIcon className="inline-block" /> Dodaj sastav
+              {!isLoggedIn && <span>(anonimno)</span>}
+            </div>
+            {!isLoggedIn && (
+              <p className="text-destructive text-sm font-normal">
+                Sastav će biti objavljen nakon odobrenja administratora.
+              </p>
+            )}
+          </>
         )}
       </h1>
 

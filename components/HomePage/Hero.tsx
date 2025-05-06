@@ -1,17 +1,9 @@
 import Link from 'next/link';
 
-import {
-  getKindeServerSession,
-  RegisterLink,
-} from '@kinde-oss/kinde-auth-nextjs/server';
-
-import { Button, buttonVariants } from '@/components/ui/button';
-import { PlusCircleIcon, UserIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { PlusCircleIcon } from 'lucide-react';
 
 const Hero = async () => {
-  const { isAuthenticated } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
-
   return (
     <section
       className="w-full bg-gray-100 px-6 py-10 text-center sm:py-20 dark:bg-gray-800"
@@ -36,24 +28,13 @@ const Hero = async () => {
           <Button size="lg" asChild>
             <Link href="/sastavi">📑 Pregledaj sastave</Link>
           </Button>
-          {isLoggedIn ? (
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/dodaj-sastav">
-                <PlusCircleIcon />
-                Dodaj svoj sastav
-              </Link>
-            </Button>
-          ) : (
-            <RegisterLink
-              className={buttonVariants({
-                variant: 'outline',
-                size: 'lg',
-              })}
-            >
-              <UserIcon />
-              Prijavi se i započni
-            </RegisterLink>
-          )}
+
+          <Button size="lg" variant="outline" asChild>
+            <Link href="/dodaj-sastav">
+              <PlusCircleIcon />
+              Dodaj sastav
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

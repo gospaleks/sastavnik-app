@@ -12,28 +12,59 @@ export default async function createEssay(
   message: string;
   essayId?: string;
 }> {
-  const { getUser } = getKindeServerSession();
+  const { getUser, isAuthenticated } = getKindeServerSession();
+  const isLoggedIn = await isAuthenticated();
   const user = await getUser();
 
-  if (!user) {
-    return {
-      success: false,
-      message: 'Korisnik nije prijavljen',
-    };
-  }
-
   const { title, content, tags, categoryId, schoolType, level } = values;
-  const essay = await prisma.essay.create({
-    data: {
-      title,
-      content,
-      tags,
-      categoryId,
-      schoolType,
-      level,
-      authorId: user.id,
-    },
-  });
+  let essay;
+
+  if (isLoggedIn) {
+    // Kreiranje sastava za prijavljenog korisnika
+    essay = await prisma.essay.create({
+      data: {
+        title,
+        content,
+        tags,
+        categoryId,
+        schoolType,
+        level,
+        authorId: user.id,
+        published: true,
+      },
+    });
+  } else {
+    // Pribavi anonimnog korisnika
+    const anonUser = await prisma.user.findUnique({
+      where: {
+        email: 'anonimni korisnik',
+      },
+      select: {
+        id: true,
+      },
+    });
+
+    if (!anonUser) {
+      return {
+        success: false,
+        message: 'Došlo je do greške prilikom dodavanja sastava',
+      };
+    }
+
+    // Kreiraj sastav kao anonimni korisnik
+    essay = await prisma.essay.create({
+      data: {
+        title,
+        content,
+        tags,
+        categoryId,
+        schoolType,
+        level,
+        authorId: anonUser.id,
+        published: false,
+      },
+    });
+  }
 
   if (!essay) {
     return {
@@ -46,7 +77,9 @@ export default async function createEssay(
 
   return {
     success: true,
-    message: 'Sastav je uspešno dodat',
+    message: isLoggedIn
+      ? 'Sastav je uspešno dodat.'
+      : 'Hvala Vam na dodavanju sastava. Vaš sastav će biti pregledan pre objavljivanja.',
     essayId: essay.id,
   };
 }

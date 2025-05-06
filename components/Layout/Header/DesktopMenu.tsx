@@ -54,16 +54,14 @@ const DesktopMenu = ({ categories, isLoggedIn }: Props) => {
           </NavigationMenuContent>
         </NavigationMenuItem>
 
-        {isLoggedIn && (
-          <NavigationMenuItem>
-            <Link
-              href="/dodaj-sastav"
-              className={`${navigationMenuTriggerStyle()} hidden sm:block`}
-            >
-              Dodaj sastav
-            </Link>
-          </NavigationMenuItem>
-        )}
+        <NavigationMenuItem>
+          <Link
+            href="/dodaj-sastav"
+            className={`${navigationMenuTriggerStyle()} hidden sm:block`}
+          >
+            Dodaj sastav
+          </Link>
+        </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
   );

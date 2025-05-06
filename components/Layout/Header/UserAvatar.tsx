@@ -32,7 +32,7 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
       <DropdownMenuTrigger className="cursor-pointer">
         <Avatar>
           {user?.picture?.includes('gravatar.com') === false ? (
-            <AvatarImage src={user?.picture || ''} />
+            <AvatarImage src={user?.picture || '/default_avatar.png'} />
           ) : null}
 
           <AvatarFallback>

@@ -76,13 +76,19 @@ const EssayPage = async ({ params }: PageProps) => {
           <div className="flex flex-col gap-2">
             <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm md:justify-normal md:text-base">
               <span className="font-bold">Autor: </span>
-              <Link
-                href={`/profil/${essay.authorId}`}
-                className="text-primary hover:text-primary/80 flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors"
-              >
-                {essay.author.firstName} {essay.author.lastName}
-                <ExternalLinkIcon className="inline-block" size={17} />
-              </Link>
+              {essay.author.email === 'anonimni korisnik' ? (
+                <span className="text-muted-foreground font-semibold">
+                  {essay.author.firstName} {essay.author.lastName}
+                </span>
+              ) : (
+                <Link
+                  href={`/profil/${essay.authorId}`}
+                  className="text-primary hover:text-primary/80 flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors"
+                >
+                  {essay.author.firstName} {essay.author.lastName}
+                  <ExternalLinkIcon className="inline-block" size={17} />
+                </Link>
+              )}
             </p>
 
             <p className="text-muted-foreground text-center text-xs italic md:text-left">
@@ -161,15 +167,17 @@ const EssayPage = async ({ params }: PageProps) => {
 
         {/** Desna strana: Sastavi istog autora i sastavi iste kategorije */}
         <div className="flex w-full flex-col gap-8 md:w-4/12">
-          <div>
-            <p className="text-xl font-semibold">🖋️ Ostali sastavi autora:</p>
-            <Suspense fallback={<EssaysByAuthorSkeleton />}>
-              <EssaysByAuthor
-                authorId={essay.author.id}
-                essayToSkipId={essayId}
-              />
-            </Suspense>
-          </div>
+          {essay.author.email !== 'anonimni korisnik' && (
+            <div>
+              <p className="text-xl font-semibold">🖋️ Ostali sastavi autora:</p>
+              <Suspense fallback={<EssaysByAuthorSkeleton />}>
+                <EssaysByAuthor
+                  authorId={essay.author.id}
+                  essayToSkipId={essayId}
+                />
+              </Suspense>
+            </div>
+          )}
 
           <div>
             <p className="text-xl font-semibold">

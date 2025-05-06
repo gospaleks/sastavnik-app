@@ -37,7 +37,7 @@ const columns: {
     className: 'w-[120px]',
     render: (user) => (
       <img
-        src={user.image || ''}
+        src={user.image || '/default_avatar.png'}
         alt="Profilna slika"
         className="ml-2 h-8 w-8 rounded-full"
       />

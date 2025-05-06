@@ -68,14 +68,9 @@ const Header = async () => {
         <DesktopMenu categories={categories} isLoggedIn={isLoggedIn} />
 
         <div className="flex items-center justify-center gap-4">
-          {isLoggedIn && (
-            <Link
-              href="/dodaj-sastav"
-              className="block text-gray-500 sm:hidden"
-            >
-              <PlusCircleIcon size={30} />
-            </Link>
-          )}
+          <Link href="/dodaj-sastav" className="block text-gray-500 sm:hidden">
+            <PlusCircleIcon size={30} />
+          </Link>
 
           <SearchBar />
 

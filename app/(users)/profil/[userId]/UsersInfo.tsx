@@ -46,7 +46,7 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
     <Card className="w-full max-w-2xl">
       <CardHeader className="flex flex-col items-center gap-4">
         <Image
-          src={userData.image!}
+          src={userData.image || '/default_avatar.png'}
           alt={`${userData.firstName} ${userData.lastName}`}
           width={96}
           height={96}
