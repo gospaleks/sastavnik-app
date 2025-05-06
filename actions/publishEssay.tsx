@@ -4,12 +4,15 @@ import { prisma } from '@/lib/prisma';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { revalidateTag } from 'next/cache';
 
-export default async function publishEssay(essayId: string) {
+export default async function tooglePublishEssay(
+  essayId: string,
+  isPublished = true, // Ako je true, objavljuje sastav, ako je false, sakriva ga
+) {
   const { getPermission } = getKindeServerSession();
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
 
   if (!isAdmin) {
-    throw new Error('Nemate dozvolu za objavljivanje sastava');
+    throw new Error('Nemate dozvolu za ovu operaciju');
   }
 
   // Proverava da li sastav postoji
@@ -20,21 +23,16 @@ export default async function publishEssay(essayId: string) {
   });
 
   if (!existingEssay) {
-    throw new Error('Sastav koji želite da objavite nije pronađen');
+    throw new Error('Sastav nije pronađen');
   }
 
-  // Proverava da li je sastav već objavljen
-  if (existingEssay.published) {
-    throw new Error('Sastav je već objavljen');
-  }
-
-  // Objavljuje sastav
+  // Postavlje published na true ili false
   const publishedEssay = await prisma.essay.update({
     where: {
       id: essayId,
     },
     data: {
-      published: true,
+      published: isPublished,
     },
   });
 
@@ -42,6 +40,6 @@ export default async function publishEssay(essayId: string) {
   revalidateTag(`essay-${publishedEssay.id}`); // Revalidira tag za taj sastav
 
   return {
-    message: `Sastav "${publishedEssay.title}" je uspešno objavljen.`,
+    message: `Sastav "${publishedEssay.title}" je uspešno ${isPublished ? 'objavljen' : 'sakriven'}.`,
   };
 }

@@ -1,15 +1,16 @@
 'use client';
 
+import Link from 'next/link';
 import { useState } from 'react';
 
+import { EssayWithAuthorCategory } from '@/lib/types';
+
 import deleteEssay from '@/actions/deleteEssay';
+import tooglePublishEssay from '@/actions/publishEssay';
 
 import YesNoAlert from '@/components/YesNoAlert';
 import { Button, buttonVariants } from '@/components/ui/button';
-import { EditIcon, Trash2Icon, UploadIcon } from 'lucide-react';
-import Link from 'next/link';
-import publishEssay from '@/actions/publishEssay';
-import { EssayWithAuthorCategory } from '@/lib/types';
+import { EditIcon, EyeOffIcon, Trash2Icon, UploadIcon } from 'lucide-react';
 
 type Props = {
   essay: EssayWithAuthorCategory;
@@ -19,6 +20,7 @@ type Props = {
 const EssayActionButtons = ({ essay, isAdmin }: Props) => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isPublishAlertOpen, setIsPublishAlertOpen] = useState(false);
+  const [isHideOpen, setIsHideOpen] = useState(false);
 
   console.log('isAdmin', isAdmin);
 
@@ -50,6 +52,14 @@ const EssayActionButtons = ({ essay, isAdmin }: Props) => {
         </Button>
       )}
 
+      {isAdmin && essay.published && (
+        <Button variant={'outline'} onClick={() => setIsHideOpen(true)}>
+          <EyeOffIcon />
+          Sakrij
+        </Button>
+      )}
+
+      {/** Delete Alert Dialog */}
       <YesNoAlert
         isOpen={isDeleteOpen}
         setIsOpen={setIsDeleteOpen}
@@ -60,12 +70,23 @@ const EssayActionButtons = ({ essay, isAdmin }: Props) => {
         variant="destructive"
       />
 
+      {/** Publish Alert Dialog */}
       <YesNoAlert
         isOpen={isPublishAlertOpen}
         setIsOpen={setIsPublishAlertOpen}
         title="NAPOMENA:"
         description="Da li ste sigurni da želite da objavite ovaj sastav? Sastav će biti vidljiv svim korisnicima."
-        action={() => publishEssay(essay.id)}
+        action={() => tooglePublishEssay(essay.id)}
+      />
+
+      {/** Hide Alert Dialog */}
+
+      <YesNoAlert
+        isOpen={isHideOpen}
+        setIsOpen={setIsHideOpen}
+        title="NAPOMENA:"
+        description="Da li ste sigurni da želite da sakrijete ovaj sastav? Sastav više neće biti vidljiv svim korisnicima."
+        action={() => tooglePublishEssay(essay.id, false)}
       />
     </div>
   );

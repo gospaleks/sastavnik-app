@@ -1,7 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 import { EssayWithAuthorCategory } from '@/lib/types';
+
+import tooglePublishEssay from '@/actions/publishEssay';
+
+import YesNoAlert from '@/components/YesNoAlert';
 import {
   Table,
   TableBody,
@@ -13,9 +19,6 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { FolderOpenIcon, StarIcon, UserIcon, UploadIcon } from 'lucide-react';
-import YesNoAlert from '@/components/YesNoAlert';
-import { useState } from 'react';
-import publishEssay from '@/actions/publishEssay';
 
 type Props = {
   essays: EssayWithAuthorCategory[];
@@ -120,7 +123,7 @@ const UnpublishedEssayList = ({ essays }: Props) => {
         setIsOpen={setIsPublishAlertOpen}
         title="NAPOMENA:"
         description={`Da li ste sigurni da želite da objavite sastav "${selectedEssay?.title}"? Sastav će biti vidljiv svim korisnicima.`}
-        action={() => publishEssay(selectedEssay?.id as string)}
+        action={() => tooglePublishEssay(selectedEssay?.id as string)}
       />
     </>
   );

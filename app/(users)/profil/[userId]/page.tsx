@@ -41,6 +41,11 @@ const ProfilPage = async ({ params }: PageProps) => {
   // Korisnik moze da uredjuje profil ako je njegov ili ako je admin
   const canEdit = isLoggedIn && (userId === user.id || isAdmin);
 
+  // Filtriranje na osnovu published statusa
+  const filteredEssays = canEdit
+    ? usersEssays
+    : usersEssays.filter((essay) => essay.published);
+
   return (
     <ContentWrapper>
       <div className="flex flex-col-reverse gap-8 md:flex-row">
@@ -49,7 +54,7 @@ const ProfilPage = async ({ params }: PageProps) => {
           <div className="bg-accent mb-4 flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-sm sm:text-lg">
             <div className="flex items-center gap-2">
               <NotebookTextIcon />
-              <span>Sastavi korisnika ({usersEssays.length})</span>
+              <span>Sastavi korisnika ({filteredEssays.length})</span>
             </div>
             <span>
               {userData?.firstName} {userData?.lastName}
@@ -57,8 +62,8 @@ const ProfilPage = async ({ params }: PageProps) => {
           </div>
 
           <div className="flex flex-col gap-4">
-            {usersEssays.length > 0 ? (
-              usersEssays.map((essay) => (
+            {filteredEssays.length > 0 ? (
+              filteredEssays.map((essay) => (
                 <EssayCardInProfile
                   key={essay.id}
                   essay={essay}
