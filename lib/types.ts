@@ -29,3 +29,13 @@ export type UserWithEssays = Prisma.UserGetPayload<{
     };
   };
 }>;
+
+export type UserWithNumberOfEssays = Prisma.UserGetPayload<{
+  include: {
+    _count: {
+      select: {
+        essays: true;
+      };
+    };
+  };
+}>;
