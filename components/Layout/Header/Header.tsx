@@ -43,7 +43,7 @@ const Header = async () => {
   const isAdmin = adminPermission?.isGranted || false;
 
   return (
-    <header className="sticky top-0 z-50 h-16 border-b bg-white">
+    <header className="bg-background sticky top-0 z-50 h-16 border-b">
       <div className="container mx-auto flex h-full items-center justify-between gap-4 px-4">
         {/* Navigacija MOBILE */}
         <div className="flex items-center justify-center sm:hidden">

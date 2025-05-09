@@ -42,7 +42,7 @@ const KategorijaPage = async ({ params, searchParams }: PageProps) => {
         <p className="text-muted-foreground text-sm md:text-base">
           Svi sastavi iz kategorije
         </p>
-        <h1 className="text-primary text-4xl font-extrabold tracking-tight md:text-5xl">
+        <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
           {decodedCategoryName}
         </h1>
       </div>

@@ -14,7 +14,7 @@ const PopularEssaysSlideShow = async () => {
 
   if (popularEssays.length === 0) {
     return (
-      <p className="my-4 text-center text-gray-500">
+      <p className="text-muted my-4 text-center">
         Trenutno nema sastava za prikaz.
       </p>
     );

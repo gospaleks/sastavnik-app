@@ -96,7 +96,7 @@ const Filters = () => {
           value={schoolType}
           onValueChange={(e) => handleSchoolTypeChange(e)}
         >
-          <SelectTrigger className="w-full sm:w-[160px]">
+          <SelectTrigger className="w-full sm:w-auto">
             <SelectValue placeholder="Osnovna/Srednja" />
           </SelectTrigger>
           <SelectContent>
@@ -108,7 +108,7 @@ const Filters = () => {
         {/** Razred */}
         {schoolType && (
           <Select value={grade} onValueChange={(e) => handleGradeChange(e)}>
-            <SelectTrigger className="w-full sm:w-[120px]">
+            <SelectTrigger className="w-full sm:w-auto">
               <SelectValue placeholder="Razred" />
             </SelectTrigger>
             <SelectContent>

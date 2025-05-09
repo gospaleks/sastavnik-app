@@ -19,7 +19,7 @@ const HomePage = async () => {
       <Hero />
 
       {/* Popularni sastavi */}
-      <section className="bg-white py-12">
+      <section className="py-12">
         <ContentWrapper>
           <h2 className="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
             🔥 Popularno

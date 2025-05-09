@@ -19,7 +19,7 @@ import ContentWrapper from '@/components/ContentWrapper';
 import AlertCard from '@/components/AlertCard';
 
 import { Badge } from '@/components/ui/badge';
-import { ExternalLinkIcon } from 'lucide-react';
+import { ArrowRight, ExternalLinkIcon } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
 
@@ -75,7 +75,6 @@ const EssayPage = async ({ params }: PageProps) => {
 
           <div className="flex flex-col gap-2">
             <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm md:justify-normal md:text-base">
-              <span className="font-bold">Autor: </span>
               {essay.author.email === 'anonimni korisnik' ? (
                 <span className="text-muted-foreground font-semibold">
                   {essay.author.firstName} {essay.author.lastName}
@@ -86,36 +85,38 @@ const EssayPage = async ({ params }: PageProps) => {
                   className="text-primary hover:text-primary/80 flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors"
                 >
                   {essay.author.firstName} {essay.author.lastName}
-                  <ExternalLinkIcon className="inline-block" size={17} />
+                  <ArrowRight className="inline-block" size={17} />
                 </Link>
               )}
             </p>
 
-            <p className="text-muted-foreground text-center text-xs italic md:text-left">
-              Objavljeno: {formattedDate}
+            <p className="text-muted-foreground text-center text-sm md:text-left">
+              {formattedDate}
             </p>
           </div>
 
           <div className="flex flex-wrap gap-2 md:justify-start">
             <Link
               href={`/kategorije/${essay.category.name}`}
-              className="bg-muted text-muted-foreground group flex w-full items-center gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
+              className="bg-muted text-muted-foreground flex w-full items-center gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
               <span className="text-primary font-semibold">Kategorija:</span>
-              <span className="group-hover:underline">
-                {essay.category.name}
-              </span>
-              <ExternalLinkIcon size={15} />
+              <span>{essay.category.name}</span>
+              <ArrowRight size={15} />
             </Link>
 
-            <div className="bg-muted text-muted-foreground w-full rounded-md px-3 py-2 text-sm md:w-fit">
+            <Link
+              href={`/sastavi?schoolType=${essay.schoolType}&grade=${essay.level}`}
+              className="bg-muted text-muted-foreground flex w-full items-center gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
+            >
               <span className="text-primary font-semibold">
                 {essay.schoolType === 'OSNOVNA'
                   ? 'Osnovna škola'
                   : 'Srednja škola'}
               </span>
-              , {essay.level}. razred
-            </div>
+              <span>, {essay.level}. razred</span>
+              <ArrowRight size={15} />
+            </Link>
           </div>
 
           <StarRating

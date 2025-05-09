@@ -38,8 +38,10 @@ const AdminNavbar = () => {
               href={item.href}
               className={cn(
                 buttonVariants({ variant: 'link', size: 'sm' }),
-                'rounded-none transition-colors hover:bg-gray-200 sm:border-r',
-                pathname.includes(item.href) ? 'bg-gray-200' : '',
+                'hover:bg-accent-foreground rounded-none transition-colors hover:text-white sm:border-r',
+                pathname.includes(item.href)
+                  ? 'bg-accent-foreground text-white'
+                  : '',
               )}
             >
               <item.icon className="mr-2 h-4 w-4" aria-hidden="true" />

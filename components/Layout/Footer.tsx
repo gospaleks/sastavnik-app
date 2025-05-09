@@ -21,7 +21,7 @@ export default async function Footer() {
   ]);
 
   return (
-    <footer className="bg-muted text-muted-foreground border-border border-t">
+    <footer className="bg-muted border-border border-t">
       <ContentWrapper>
         <div className="grid gap-10 px-4 py-8 md:grid-cols-3">
           {/* Leva kolona: Logo i opis */}
@@ -35,7 +35,7 @@ export default async function Footer() {
               />
             </Link>
 
-            <p className="text-center text-sm leading-relaxed md:text-left">
+            <p className="text-muted-foreground text-center text-sm leading-relaxed md:text-left">
               Sastavi za osnovnu i srednju školu. Inspiriši se, nauči i napiši
               svoj najbolji sastav do sada!
             </p>
@@ -55,22 +55,20 @@ export default async function Footer() {
               })}
               href="/dodaj-sastav"
             >
-              <PlusCircleIcon className="h-5 w-5" />
+              <PlusCircleIcon />
               Dodaj sastav
             </Link>
           </div>
 
           {/* Srednja kolona: Kategorije */}
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-primary mb-4 text-lg font-semibold">
-              Kategorije
-            </h4>
+            <h4 className="mb-4 text-lg font-semibold">Kategorije</h4>
             <ul className="space-y-2 text-sm">
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link
                     href={`/kategorije/${category.name}`}
-                    className="hover:text-foreground flex items-center gap-2 transition-colors"
+                    className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
                   >
                     <FolderOpenIcon size={15} />
                     {category.name}
@@ -80,17 +78,15 @@ export default async function Footer() {
             </ul>
           </div>
 
-          {/* Desna kolona: TODO */}
+          {/* Desna kolona */}
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="text-primary mb-4 text-lg font-semibold">
-              Najnoviji sastavi
-            </h4>
+            <h4 className="mb-4 text-lg font-semibold">Najnoviji sastavi</h4>
             <ul className="space-y-2 text-sm">
               {latestEssays.map((essay) => (
                 <li key={essay.id}>
                   <Link
                     href={`/sastavi/${essay.id}`}
-                    className="hover:text-foreground flex items-center gap-2 transition-colors"
+                    className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
                   >
                     <FileTextIcon size={15} />
                     {essay.title}

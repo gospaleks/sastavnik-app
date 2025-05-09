@@ -30,7 +30,7 @@ const TagPage = async ({
     <ContentWrapper>
       <div className="mb-8 space-y-2 text-center">
         <p className="text-muted-foreground text-sm md:text-base">Tag</p>
-        <h1 className="text-primary text-4xl font-extrabold tracking-tight md:text-5xl">
+        <h1 className="text-4xl font-extrabold tracking-tight md:text-5xl">
           {decodedTagName}
         </h1>
       </div>

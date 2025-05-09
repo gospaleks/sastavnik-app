@@ -36,7 +36,7 @@ const DesktopMenu = ({ categories, isLoggedIn }: Props) => {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Kategorije</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="w-[175px]">
+            <ul className="w-auto">
               {categories.map((category) => (
                 <li key={category.id}>
                   <Link

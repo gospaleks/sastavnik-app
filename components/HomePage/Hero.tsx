@@ -12,8 +12,8 @@ const Hero = async () => {
         backgroundSize: 'cover',
       }}
     >
-      <div className="mx-auto max-w-3xl">
-        <h1 className="mb-4 text-5xl font-extrabold text-gray-900 dark:text-white">
+      <div className="mx-auto max-w-2xl">
+        <h1 className="mb-4 text-5xl font-extrabold tracking-tight">
           <span className="hidden md:inline">📖</span>{' '}
           <span className="block md:inline">Kreiraj.</span>{' '}
           <span className="block md:inline">Uči.</span>{' '}

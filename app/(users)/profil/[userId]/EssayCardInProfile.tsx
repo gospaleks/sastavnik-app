@@ -10,6 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { ArrowRight } from 'lucide-react';
 
 type Props = {
   essay: EssayWithCategory;
@@ -33,7 +34,7 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
             href={`/sastavi/${essay.id}`}
             className="flex items-center gap-2"
           >
-            <CardTitle className="text-base font-semibold text-gray-800 hover:underline">
+            <CardTitle className="text-base font-semibold hover:underline">
               {essay.title}
             </CardTitle>
           </Link>
@@ -45,24 +46,22 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
           )}
         </div>
 
-        <CardDescription className="text-sm font-medium text-gray-600">
-          Kategorija:{' '}
-          <Link
-            href={`/kategorije/${essay.category.name}`}
-            className="text-gray-800 underline"
-          >
-            {essay.category.name}
-          </Link>
-        </CardDescription>
+        <Link
+          className="hover:text-primary hover:bg-accent flex cursor-pointer items-center gap-1 border-b p-2 text-sm transition-colors hover:rounded-md sm:mr-4"
+          href={`/kategorija/${essay.category.name}`}
+        >
+          {essay.category.name}
+          <ArrowRight size={15} />
+        </Link>
 
-        <p className="text-sm text-gray-600 italic">{formattedDate}</p>
+        <p className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 text-sm transition-colors hover:rounded-md sm:mr-4">
+          {formattedDate}
+        </p>
       </div>
-
-      <Separator className="sm:hidden" />
 
       {/* Desna sekcija */}
       <CardContent className="flex w-full justify-between p-0 pt-2 sm:w-2/3 sm:pt-0">
-        <p className="text-sm leading-relaxed whitespace-pre-line text-gray-600">
+        <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
           {previewContent}
         </p>
         {canEdit && (

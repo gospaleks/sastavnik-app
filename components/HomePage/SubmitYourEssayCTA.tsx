@@ -10,12 +10,12 @@ const SubmitYourEssayCTA = () => {
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
           <PenLine className="h-10 w-10" />
         </div>
-        <h2 className="text-3xl font-bold text-gray-800 md:text-4xl">
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
           Imaš svoj sastav?
         </h2>
       </div>
 
-      <p className="text-md text-gray-600 md:text-lg">
+      <p className="text-md text-muted-foreground md:text-lg">
         Podeli svoj sastav sa drugima i inspiriši ih!
         <br /> Prijavi se i dodaj svoj sastav u našu bazu ili ga podeli
         anonimno.

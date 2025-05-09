@@ -22,7 +22,7 @@ const AllEssaysPage = async ({ searchParams }: Props) => {
 
   return (
     <ContentWrapper>
-      <h1 className="text-primary mb-4 text-center text-4xl font-extrabold tracking-tight md:text-5xl">
+      <h1 className="mb-4 text-center text-4xl font-extrabold tracking-tight md:text-5xl">
         Svi sastavi
       </h1>
 

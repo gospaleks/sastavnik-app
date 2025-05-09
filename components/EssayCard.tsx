@@ -13,7 +13,14 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { buttonVariants } from '@/components/ui/button';
-import { ArrowRight, Clock, Star, StarOffIcon } from 'lucide-react';
+import {
+  ArrowRight,
+  Clock,
+  ExternalLinkIcon,
+  Star,
+  StarOffIcon,
+  UserIcon,
+} from 'lucide-react';
 import { formatDate, getTextPreviewFromHtml } from '@/lib/utils';
 
 type Props = {
@@ -27,15 +34,26 @@ const EssayCard = ({ essay }: Props) => {
   return (
     <Card className="transition-transform hover:-translate-y-1">
       <CardHeader>
-        <CardTitle className="cursor-pointer text-xl font-bold hover:underline">
+        <CardTitle className="cursor-pointer text-xl font-bold tracking-tight hover:underline">
           <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>
         </CardTitle>
-        <CardDescription className="text-sm text-gray-500">
-          Kategorija: {essay.category.name} <br />
-          {essay.schoolType === 'OSNOVNA'
-            ? 'Osnovna škola'
-            : 'Srednja škola'}, {essay.level}. razred
-          <br />
+
+        <CardDescription className="text-muted-foreground flex w-full flex-col gap-2 text-sm">
+          <Link
+            className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 transition-colors hover:rounded-md"
+            href={`/kategorija/${essay.category.name}`}
+          >
+            Kategorija: {essay.category.name}
+          </Link>
+
+          <Link
+            className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 transition-colors hover:rounded-md"
+            href={`/sastavi?schoolType=${essay.schoolType}&grade=${essay.level}`}
+          >
+            {essay.schoolType === 'OSNOVNA' ? 'Osnovna škola' : 'Srednja škola'}
+            , {essay.level}. razred
+          </Link>
+
           <div className="mt-2 flex items-center gap-1 text-sm">
             {essay.averageRating !== 0 ? (
               <>
@@ -73,16 +91,18 @@ const EssayCard = ({ essay }: Props) => {
 
       <CardFooter className="flex flex-col items-start gap-4">
         <div className="flex w-full items-center justify-between">
-          <div className="flex flex-col text-left text-sm text-gray-500">
+          <div className="text-muted-foreground flex flex-col text-left text-sm">
             <span className="flex items-center gap-1 font-bold">
-              <Clock className="h-4 w-4" />
+              <Clock size={16} />
               Objavljeno
             </span>
             {formattedDate}
           </div>
 
-          <div className="text-right text-sm text-gray-500">
-            <span className="font-bold">Autor</span>
+          <div className="text-muted-foreground flex flex-col items-end text-right text-sm">
+            <span className="flex items-center gap-1 font-bold">
+              Autor <UserIcon size={16} />
+            </span>
             <br />
             {essay.author.email === 'anonimni korisnik' ? (
               <span>
