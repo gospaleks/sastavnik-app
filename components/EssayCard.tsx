@@ -103,7 +103,7 @@ const EssayCard = ({ essay }: Props) => {
             <span className="flex items-center gap-1 font-bold">
               Autor <UserIcon size={16} />
             </span>
-            <br />
+
             {essay.author.email === 'anonimni korisnik' ? (
               <span>
                 {essay.author.firstName || ''} {essay.author.lastName || ''}

@@ -98,23 +98,27 @@ const EssayPage = async ({ params }: PageProps) => {
           <div className="flex flex-wrap gap-2 md:justify-start">
             <Link
               href={`/kategorije/${essay.category.name}`}
-              className="bg-muted text-muted-foreground flex w-full items-center gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
+              className="bg-muted text-muted-foreground flex w-full items-center justify-between gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
-              <span className="text-primary font-semibold">Kategorija:</span>
-              <span>{essay.category.name}</span>
+              <div>
+                <span className="text-primary font-semibold">Kategorija: </span>
+                <span>{essay.category.name}</span>
+              </div>
               <ArrowRight size={15} />
             </Link>
 
             <Link
               href={`/sastavi?schoolType=${essay.schoolType}&grade=${essay.level}`}
-              className="bg-muted text-muted-foreground flex w-full items-center gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
+              className="bg-muted text-muted-foreground flex w-full items-center justify-between gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
-              <span className="text-primary font-semibold">
-                {essay.schoolType === 'OSNOVNA'
-                  ? 'Osnovna škola'
-                  : 'Srednja škola'}
-              </span>
-              <span>, {essay.level}. razred</span>
+              <div>
+                <span className="text-primary font-semibold">
+                  {essay.schoolType === 'OSNOVNA'
+                    ? 'Osnovna škola'
+                    : 'Srednja škola'}
+                </span>
+                <span>, {essay.level}. razred</span>
+              </div>
               <ArrowRight size={15} />
             </Link>
           </div>
