@@ -41,7 +41,7 @@ const EssayCard = ({ essay }: Props) => {
         <CardDescription className="text-muted-foreground flex w-full flex-col gap-2 text-sm">
           <Link
             className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 transition-colors hover:rounded-md"
-            href={`/kategorija/${essay.category.name}`}
+            href={`/kategorije/${essay.category.name}`}
           >
             Kategorija: {essay.category.name}
           </Link>

@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ClockIcon } from 'lucide-react';
 
 type Props = {
   essay: EssayWithCategory;
@@ -47,16 +47,17 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
         </div>
 
         <Link
-          className="hover:text-primary hover:bg-accent flex cursor-pointer items-center gap-1 border-b p-2 text-sm transition-colors hover:rounded-md sm:mr-4"
-          href={`/kategorija/${essay.category.name}`}
+          className="hover:text-primary hover:bg-accent flex cursor-pointer items-center gap-1 border-b p-2 text-sm transition-colors hover:rounded-md sm:mr-4 sm:text-xs"
+          href={`/kategorije/${essay.category.name}`}
         >
           {essay.category.name}
           <ArrowRight size={15} />
         </Link>
 
-        <p className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 text-sm transition-colors hover:rounded-md sm:mr-4">
+        <span className="text-muted-foreground flex items-center gap-1 text-sm sm:mr-4">
+          <ClockIcon size={15} />
           {formattedDate}
-        </p>
+        </span>
       </div>
 
       {/* Desna sekcija */}
