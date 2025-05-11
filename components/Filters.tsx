@@ -78,7 +78,7 @@ const Filters = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-between gap-2 rounded-lg border p-4 shadow-sm sm:flex-row">
+    <div className="bg-card flex flex-col items-center justify-between gap-2 rounded-lg border p-4 shadow-sm sm:flex-row">
       <div className="flex flex-col items-center gap-2 sm:flex-row">
         {/** Pretraga */}
         <div className="relative flex items-center sm:w-auto">

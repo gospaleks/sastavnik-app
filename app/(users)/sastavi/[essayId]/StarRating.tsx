@@ -58,7 +58,7 @@ export default function StarRating({
       <div className="bg-muted text-muted-foreground w-full rounded-md px-3 py-2 text-sm md:w-fit">
         {average !== 0 ? (
           <>
-            <span className="text-primary font-semibold">Prosečna ocena:</span>{' '}
+            <span className="font-semibold">Prosečna ocena:</span>{' '}
             <span className="text-lg font-bold text-yellow-500">
               {average.toFixed(1)}
             </span>
@@ -76,7 +76,7 @@ export default function StarRating({
       {isLoggedIn && (
         <div className="bg-muted text-muted-foreground flex w-full items-center gap-4 rounded-md px-3 py-2 text-sm md:w-fit">
           <div className="flex items-center gap-1">
-            <span className="text-primary font-semibold">Vaša ocena:</span>{' '}
+            <span className="font-semibold">Vaša ocena:</span>{' '}
             {[1, 2, 3, 4, 5].map((star) => (
               <button
                 key={star}

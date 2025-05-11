@@ -12,7 +12,7 @@ const QuoteOfTheDay = () => {
   return (
     <section
       style={{
-        backgroundImage: "url('/quote_background.jpg')",
+        backgroundImage: "url('/quote2.jpg')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
@@ -35,15 +35,15 @@ const QuoteOfTheDay = () => {
 
 const QuoteCard = ({ text, author }: { text: string; author: string }) => {
   return (
-    <Card className="max-w-md border border-gray-200 bg-white shadow-lg">
+    <Card className="max-w-md border shadow-lg">
       <CardContent className="space-y-4 p-8 text-center">
         <div className="flex justify-center">
-          <div className="flex h-14 w-14 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+          <div className="bg-muted flex h-14 w-14 items-center justify-center rounded-full">
             <QuoteIcon className="h-8 w-8" />
           </div>
         </div>
-        <p className="text-xl font-semibold text-gray-800 italic">{text}</p>
-        <p className="text-lg font-medium text-gray-600">– {author}</p>
+        <p className="text-xl font-semibold italic">{text}</p>
+        <p className="text-muted-foreground text-lg font-medium">– {author}</p>
       </CardContent>
     </Card>
   );

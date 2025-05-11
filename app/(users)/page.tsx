@@ -21,7 +21,7 @@ const HomePage = async () => {
       {/* Popularni sastavi */}
       <section className="py-12">
         <ContentWrapper>
-          <h2 className="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
+          <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
             🔥 Popularno
           </h2>
 
@@ -32,9 +32,15 @@ const HomePage = async () => {
       </section>
 
       {/* Kategorije sastava */}
-      <section className="bg-gray-50 py-12">
-        <ContentWrapper>
-          <h2 className="mb-8 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
+      <section
+        style={{
+          backgroundImage: "url('/category_background3.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <ContentWrapper className="py-12">
+          <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
             📚 Istraži po kategorijama
           </h2>
           <CategoriesCardList />
@@ -42,13 +48,13 @@ const HomePage = async () => {
       </section>
 
       {/* Najnoviji sastavi */}
-      <section className="bg-white py-12">
+      <section className="py-12">
         <ContentWrapper>
           <div>
-            <h2 className="mb-3 text-center text-3xl font-bold text-gray-800 sm:text-4xl">
+            <h2 className="mb-3 text-center text-3xl font-bold tracking-tight sm:text-4xl">
               📝 Najnovije
             </h2>
-            <p className="text-md mb-6 text-center text-gray-600 sm:text-lg">
+            <p className="text-md text-muted-foreground mb-6 text-center sm:text-lg">
               Pogledajte najnovije sastave koje su naši korisnici dodali
             </p>
           </div>

@@ -25,22 +25,22 @@ const AdminNavbar = () => {
   const pathname = usePathname();
 
   return (
-    <div className="bg-accent border-b">
+    <div className="bg-muted sticky top-16 z-10 border-b">
       <ContentWrapper className="flex items-center overflow-x-auto py-2 sm:py-0">
         <h1 className="flex items-center gap-2 pr-4">
           <LayoutDashboardIcon size={17} />
           <span className="hidden sm:block">Admin Panel</span>
         </h1>
-        <nav className="flex text-sm font-medium text-gray-500">
+        <nav className="flex text-sm">
           {AdminNavigation.map((item) => (
             <Link
               key={item.name}
               href={item.href}
               className={cn(
-                buttonVariants({ variant: 'link', size: 'sm' }),
-                'hover:bg-accent-foreground rounded-none transition-colors hover:text-white sm:border-r',
+                buttonVariants({ variant: 'ghost', size: 'sm' }),
+                'hover:bg-primary hover:text-primary-foreground rounded-none transition-colors sm:border-r',
                 pathname.includes(item.href)
-                  ? 'bg-accent-foreground text-white'
+                  ? 'bg-primary text-primary-foreground'
                   : '',
               )}
             >

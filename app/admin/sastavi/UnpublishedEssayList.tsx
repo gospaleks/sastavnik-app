@@ -75,7 +75,7 @@ const UnpublishedEssayList = ({ essays }: Props) => {
             </p>
           )}
         </TableCaption>
-        <TableHeader className="bg-accent text-gray-500">
+        <TableHeader className="bg-muted">
           <TableRow>
             {columns.map((column) => (
               <TableHead key={column.key} className={column.className}>

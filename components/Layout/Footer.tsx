@@ -109,18 +109,23 @@ export default async function Footer() {
         </div>
       </ContentWrapper>
 
-      <div className="border-border text-muted-foreground border-t py-4 text-center text-xs">
-        Sastavnik &copy; {new Date().getFullYear()}.
-        <br />
-        Developed by{' '}
-        <Link
-          href="https://github.com/gospaleks"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hover:text-foreground underline transition-colors"
-        >
-          gospaleks
-        </Link>
+      <div className="bg-background border border-t text-center text-xs opacity-50">
+        <ContentWrapper className="flex flex-col items-center justify-between gap-2 md:flex-row">
+          <span> Copyright &copy; {new Date().getFullYear()} Sastavnik</span>
+
+          <div>
+            <span>Developed by </span>
+
+            <Link
+              href="https://github.com/gospaleks"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary underline transition-colors"
+            >
+              gospaleks
+            </Link>
+          </div>
+        </ContentWrapper>
       </div>
     </footer>
   );

@@ -1,5 +1,4 @@
 import { buttonVariants } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { PenLine, PlusCircleIcon } from 'lucide-react';
 import Link from 'next/link';
 
@@ -7,7 +6,7 @@ const SubmitYourEssayCTA = () => {
   return (
     <section className="mx-auto my-8 flex max-w-xl flex-col items-center justify-center gap-8 px-4 py-12 text-center">
       <div className="flex flex-col items-center justify-center gap-4">
-        <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 text-blue-600">
+        <div className="bg-muted flex h-16 w-16 items-center justify-center rounded-full">
           <PenLine className="h-10 w-10" />
         </div>
         <h2 className="text-3xl font-bold tracking-tight md:text-4xl">

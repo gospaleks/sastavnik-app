@@ -25,10 +25,7 @@ const DesktopMenu = ({ categories, isLoggedIn }: Props) => {
     <NavigationMenu className="hidden sm:block">
       <NavigationMenuList className="flex items-center gap-2">
         <NavigationMenuItem>
-          <Link
-            href="/sastavi"
-            className={`${navigationMenuTriggerStyle()} hover:bg-muted rounded-lg px-4 py-2 transition-colors`}
-          >
+          <Link href="/sastavi" className={`${navigationMenuTriggerStyle()}`}>
             Sastavi
           </Link>
         </NavigationMenuItem>

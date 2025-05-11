@@ -6,9 +6,9 @@ import { PlusCircleIcon } from 'lucide-react';
 const Hero = async () => {
   return (
     <section
-      className="w-full bg-gray-100 px-6 py-10 text-center sm:py-20 dark:bg-gray-800"
+      className="w-full px-6 py-10 text-center sm:py-20"
       style={{
-        backgroundImage: "url('/hero_background.jpg')",
+        backgroundImage: "url('/hero3.jpg')",
         backgroundSize: 'cover',
       }}
     >
@@ -20,7 +20,7 @@ const Hero = async () => {
           <span className="block md:inline">Inspiriši.</span>{' '}
           <span className="hidden md:inline">📖</span>
         </h1>
-        <p className="mb-6 text-base text-gray-700 sm:text-lg dark:text-gray-300">
+        <p className="mb-6 text-base sm:text-lg">
           Sastavi za osnovnu i srednju školu. Inspiriši se, nauči i napiši svoj
           najbolji sastav do sada!
         </p>

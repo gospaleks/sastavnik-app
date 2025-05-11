@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { ArrowRight, ClockIcon } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 type Props = {
   essay: EssayWithCategory;
@@ -61,15 +62,24 @@ const EssayCardInProfile = ({ essay, canEdit }: Props) => {
       </div>
 
       {/* Desna sekcija */}
-      <CardContent className="flex w-full justify-between p-0 pt-2 sm:w-2/3 sm:pt-0">
+      <CardContent className="flex w-full flex-col justify-between p-0 pt-2 sm:w-2/3 sm:flex-row sm:pt-0">
         <p className="text-muted-foreground text-sm leading-relaxed whitespace-pre-line">
           {previewContent}
         </p>
-        {canEdit && (
-          <div className="hidden sm:block">
-            <EssayDropdown essayId={essay.id} essayTitle={essay.title} />
-          </div>
-        )}
+
+        <div className="flex flex-row justify-end pl-2 sm:flex-col sm:justify-between">
+          {canEdit && (
+            <div className="hidden sm:block">
+              <EssayDropdown essayId={essay.id} essayTitle={essay.title} />
+            </div>
+          )}
+          <Button variant={'secondary'} size={'sm'} asChild>
+            <Link href={`/sastavi/${essay.id}`}>
+              <span className="inline sm:hidden">Pročitaj više</span>
+              <ArrowRight />
+            </Link>
+          </Button>
+        </div>
       </CardContent>
     </Card>
   );

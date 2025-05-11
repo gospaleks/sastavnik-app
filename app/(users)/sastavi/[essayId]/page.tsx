@@ -69,7 +69,7 @@ const EssayPage = async ({ params }: PageProps) => {
       <div className="flex flex-col gap-8 md:flex-row">
         {/** Leva strana: Sastav */}
         <div className="w-full space-y-2 md:w-8/12">
-          <h1 className="text-primary text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl">
+          <h1 className="text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl">
             {essay.title}
           </h1>
 
@@ -82,7 +82,7 @@ const EssayPage = async ({ params }: PageProps) => {
               ) : (
                 <Link
                   href={`/profil/${essay.authorId}`}
-                  className="text-primary hover:text-primary/80 flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors"
+                  className="flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors hover:opacity-80"
                 >
                   {essay.author.firstName} {essay.author.lastName}
                   <ArrowRight className="inline-block" size={17} />
@@ -101,7 +101,7 @@ const EssayPage = async ({ params }: PageProps) => {
               className="bg-muted text-muted-foreground flex w-full items-center justify-between gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
               <div>
-                <span className="text-primary font-semibold">Kategorija: </span>
+                <span className="font-semibold">Kategorija: </span>
                 <span>{essay.category.name}</span>
               </div>
               <ArrowRight size={15} />
@@ -112,7 +112,7 @@ const EssayPage = async ({ params }: PageProps) => {
               className="bg-muted text-muted-foreground flex w-full items-center justify-between gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
               <div>
-                <span className="text-primary font-semibold">
+                <span className="font-semibold">
                   {essay.schoolType === 'OSNOVNA'
                     ? 'Osnovna škola'
                     : 'Srednja škola'}

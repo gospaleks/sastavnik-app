@@ -81,7 +81,7 @@ const UnpublishedEssayList = ({ users }: Props) => {
             </p>
           )}
         </TableCaption>
-        <TableHeader className="bg-accent text-gray-500">
+        <TableHeader className="bg-muted">
           <TableRow>
             {columns.map((column) => (
               <TableHead key={column.key} className={column.className}>
@@ -110,7 +110,7 @@ const UnpublishedEssayList = ({ users }: Props) => {
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="icon"
                       onClick={(e) => e.stopPropagation()}
                     >

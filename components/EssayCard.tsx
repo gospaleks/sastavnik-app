@@ -38,32 +38,32 @@ const EssayCard = ({ essay }: Props) => {
           <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>
         </CardTitle>
 
-        <CardDescription className="text-muted-foreground flex w-full flex-col gap-2 text-sm">
+        <CardDescription className="text-muted-foreground flex w-full flex-col text-sm">
           <Link
-            className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 transition-colors hover:rounded-md"
+            className="hover:bg-muted cursor-pointer border-b p-2 transition-colors"
             href={`/kategorije/${essay.category.name}`}
           >
             Kategorija: {essay.category.name}
           </Link>
 
           <Link
-            className="hover:text-primary hover:bg-accent cursor-pointer border-b p-2 transition-colors hover:rounded-md"
+            className="hover:bg-muted cursor-pointer border-b p-2 transition-colors"
             href={`/sastavi?schoolType=${essay.schoolType}&grade=${essay.level}`}
           >
             {essay.schoolType === 'OSNOVNA' ? 'Osnovna škola' : 'Srednja škola'}
             , {essay.level}. razred
           </Link>
 
-          <div className="mt-2 flex items-center gap-1 text-sm">
+          <div className="mt-4 flex items-center gap-1 text-sm">
             {essay.averageRating !== 0 ? (
               <>
                 <Star className="fill-current text-yellow-400" />
                 {essay.averageRating.toFixed(1)}
               </>
             ) : (
-              <StarOffIcon className="text-gray-400" />
+              <StarOffIcon />
             )}
-            <span className="text-gray-400"> ({essay.ratingCount})</span>
+            <span> ({essay.ratingCount})</span>
           </div>
         </CardDescription>
       </CardHeader>
