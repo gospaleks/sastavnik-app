@@ -28,7 +28,7 @@ export default async function Footer() {
         <div className="grid gap-10 px-4 py-8 md:grid-cols-3">
           {/* Leva kolona: Logo i opis */}
           <div className="flex flex-col items-center gap-4 text-center md:items-start">
-            <Logo width={120} height={50} />
+            <Logo width={130} height={50} />
 
             <p className="text-muted-foreground text-center text-sm leading-relaxed md:text-left">
               Sastavi za osnovnu i srednju školu. Inspiriši se, nauči i napiši

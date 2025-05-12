@@ -114,11 +114,9 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
               )}
             </>
           ) : (
-            <p className="text-sm whitespace-pre-line text-gray-700">
+            <p className="text-muted-foreground text-sm whitespace-pre-line">
               {bio || (
-                <span className="text-muted-foreground italic">
-                  Korisnik još nije dodao opis.
-                </span>
+                <span className="italic">Korisnik još nije dodao opis.</span>
               )}
             </p>
           )}
