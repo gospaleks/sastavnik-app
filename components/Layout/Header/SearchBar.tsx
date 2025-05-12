@@ -61,14 +61,14 @@ const SearchBar = () => {
             placeholder="Pretraži..."
           />
         </form>
-        <SearchIcon size={20} className="absolute left-3 text-gray-500" />
+        <SearchIcon size={20} className="absolute left-3" />
       </div>
 
       {/* Mobile */}
       <div className="flex md:hidden">
         <Drawer direction="top" open={isOpen} onOpenChange={setIsOpen}>
           <DrawerTrigger asChild>
-            <SearchIcon size={29} className="text-gray-500" />
+            <SearchIcon size={29} className="" />
           </DrawerTrigger>
 
           <DrawerContent className="p-4">
@@ -76,7 +76,7 @@ const SearchBar = () => {
               <DrawerTitle className="text-base">Pretraga</DrawerTitle>
               <DrawerClose asChild>
                 <button onClick={() => setIsOpen(false)}>
-                  <X size={20} className="text-gray-500" />
+                  <X size={20} />
                 </button>
               </DrawerClose>
             </DrawerHeader>
@@ -93,7 +93,7 @@ const SearchBar = () => {
                 />
                 <SearchIcon
                   size={20}
-                  className="absolute top-1/2 left-3 -translate-y-1/2 text-gray-500"
+                  className="absolute top-1/2 left-3 -translate-y-1/2"
                 />
               </form>
             </div>

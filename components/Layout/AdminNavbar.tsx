@@ -37,8 +37,8 @@ const AdminNavbar = () => {
               key={item.name}
               href={item.href}
               className={cn(
-                buttonVariants({ variant: 'ghost', size: 'sm' }),
-                'hover:bg-primary hover:text-primary-foreground rounded-none transition-colors sm:border-r',
+                buttonVariants({ variant: 'link', size: 'sm' }),
+                'hover:bg-primary hover:text-primary-foreground text-foreground rounded-none transition-colors sm:border-r',
                 pathname.includes(item.href)
                   ? 'bg-primary text-primary-foreground'
                   : '',

@@ -30,6 +30,8 @@ import {
   User,
   UserCircleIcon,
 } from 'lucide-react';
+import Logo from '@/components/Logo';
+import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
 
 const Header = async () => {
   const { getUser, isAuthenticated, getPermission } = getKindeServerSession();
@@ -51,24 +53,13 @@ const Header = async () => {
         </div>
 
         {/* Logo */}
-        <Link href="/" passHref>
-          <div>
-            <Image
-              src="/logo_navbar.png"
-              alt="Sastavnik"
-              width={120}
-              height={50}
-              className="h-auto w-auto cursor-pointer"
-              priority
-            />
-          </div>
-        </Link>
+        <Logo width={120} height={50} />
 
         {/* Navigacija DESKTOP */}
         <DesktopMenu categories={categories} isLoggedIn={isLoggedIn} />
 
         <div className="flex items-center justify-center gap-4">
-          <Link href="/dodaj-sastav" className="block text-gray-500 sm:hidden">
+          <Link href="/dodaj-sastav" className="block sm:hidden">
             <PlusCircleIcon size={30} />
           </Link>
 
@@ -77,24 +68,23 @@ const Header = async () => {
           {isLoggedIn && <UserAvatar user={user} isAdmin={isAdmin} />}
 
           {/* Prijava i Registracija DESKTOP */}
-          <div className="hidden items-center gap-2 lg:flex">
-            {!isLoggedIn && (
-              <>
-                <LoginLink
-                  className={buttonVariants({
-                    variant: 'outline',
-                  })}
-                >
-                  <LogInIcon />
-                  Prijava
-                </LoginLink>
-                <RegisterLink className={buttonVariants()}>
-                  <User />
-                  Registracija
-                </RegisterLink>
-              </>
-            )}
-          </div>
+          {!isLoggedIn && (
+            <div className="hidden items-center gap-2 lg:flex">
+              <LoginLink
+                className={buttonVariants({
+                  variant: 'outline',
+                })}
+              >
+                <LogInIcon />
+                Prijava
+              </LoginLink>
+              <RegisterLink className={buttonVariants()}>
+                <User />
+                Registracija
+              </RegisterLink>
+              <ModeToggle2 />
+            </div>
+          )}
 
           {/* Prijava i Registracija MOBILE */}
           {!isLoggedIn && (
@@ -117,6 +107,9 @@ const Header = async () => {
                       Registracija
                     </RegisterLink>
                   </DropdownMenuItem>
+
+                  <DropdownMenuSeparator />
+                  <ModeToggle />
                 </DropdownMenuContent>
               </DropdownMenu>
             </div>

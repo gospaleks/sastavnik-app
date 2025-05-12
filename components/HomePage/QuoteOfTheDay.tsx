@@ -17,18 +17,20 @@ const QuoteOfTheDay = () => {
         backgroundPosition: 'center',
       }}
     >
-      <ContentWrapper>
-        <div className="my-16 flex flex-col items-center justify-center gap-8 md:flex-row">
-          <QuoteCard
-            text="Nema veće boli od one kada nosiš neispričanu priču u sebi."
-            author="Maja Andželou"
-          />
-          <QuoteCard
-            text="Obrazovanje je najmoćnije oružje koje možete upotrebiti da promenite svet."
-            author="Nelson Mandela"
-          />
-        </div>
-      </ContentWrapper>
+      <div className="dark:bg-muted border-foreground dark:border-b">
+        <ContentWrapper>
+          <div className="my-16 flex flex-col items-center justify-center gap-8 md:flex-row">
+            <QuoteCard
+              text="Nema veće boli od one kada nosiš neispričanu priču u sebi."
+              author="Maja Andželou"
+            />
+            <QuoteCard
+              text="Obrazovanje je najmoćnije oružje koje možete upotrebiti da promenite svet."
+              author="Nelson Mandela"
+            />
+          </div>
+        </ContentWrapper>
+      </div>
     </section>
   );
 };

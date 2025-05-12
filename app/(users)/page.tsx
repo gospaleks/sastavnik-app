@@ -19,7 +19,7 @@ const HomePage = async () => {
       <Hero />
 
       {/* Popularni sastavi */}
-      <section className="py-12">
+      <section className="border-foreground py-12 dark:border-b">
         <ContentWrapper>
           <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
             🔥 Popularno
@@ -39,16 +39,18 @@ const HomePage = async () => {
           backgroundPosition: 'center',
         }}
       >
-        <ContentWrapper className="py-12">
-          <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-            📚 Istraži po kategorijama
-          </h2>
-          <CategoriesCardList />
-        </ContentWrapper>
+        <div className="dark:bg-muted border-foreground dark:border-b">
+          <ContentWrapper className="py-12">
+            <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
+              📚 Istraži po kategorijama
+            </h2>
+            <CategoriesCardList />
+          </ContentWrapper>
+        </div>
       </section>
 
       {/* Najnoviji sastavi */}
-      <section className="py-12">
+      <section className="border-foreground py-12 dark:border-b">
         <ContentWrapper>
           <div>
             <h2 className="mb-3 text-center text-3xl font-bold tracking-tight sm:text-4xl">

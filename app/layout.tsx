@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
+import { ThemeProvider } from '@/components/ThemeProvider';
 
 export const metadata: Metadata = {
   title: {
@@ -18,10 +19,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body className={`antialiased`}>
-        <NuqsAdapter>{children}</NuqsAdapter>
-        <Toaster richColors closeButton />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <NuqsAdapter>{children}</NuqsAdapter>
+          <Toaster richColors closeButton />
+        </ThemeProvider>
       </body>
     </html>
   );

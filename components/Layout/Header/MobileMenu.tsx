@@ -25,6 +25,7 @@ import {
 
 import { ChevronRightIcon, ExternalLinkIcon, Menu, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Logo from '@/components/Logo';
 
 type Props = {
   categories: {
@@ -47,22 +48,11 @@ const MobileMenu = ({ categories, user }: Props) => {
         {/** Header navigacije */}
         <DrawerHeader className="mb-4 flex flex-row items-center justify-between px-0">
           <DrawerTitle className="text-base">
-            <Link href="/">
-              <div>
-                <Image
-                  src="/logo_navbar.png"
-                  alt="Sastavnik"
-                  width={120}
-                  height={50}
-                  className="h-auto w-auto cursor-pointer"
-                  priority
-                />
-              </div>
-            </Link>
+            <Logo width={120} height={50} />
           </DrawerTitle>
 
           <DrawerClose>
-            <div className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-gray-200">
+            <div className="hover:bg-accent flex items-center justify-center rounded-full p-2 transition-colors">
               <X size={25} />
             </div>
           </DrawerClose>
@@ -130,7 +120,7 @@ const MobileMenu = ({ categories, user }: Props) => {
                 <span className="truncate text-xs">{user.email}</span>
               </div>
 
-              <div className="flex items-center justify-center rounded-full p-2 transition-colors hover:bg-gray-200">
+              <div className="hover:bg-accent flex items-center justify-center rounded-full p-2 transition-colors">
                 <ExternalLinkIcon size={20} />
               </div>
             </Link>

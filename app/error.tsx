@@ -4,6 +4,9 @@ import Image from 'next/image';
 
 import AlertCard from '@/components/AlertCard';
 import { Button } from '@/components/ui/button';
+import Logo from '@/components/Logo';
+import Link from 'next/link';
+import { HomeIcon } from 'lucide-react';
 
 export default function Error({
   error,
@@ -16,13 +19,7 @@ export default function Error({
 
   return (
     <div className="flex h-screen flex-col items-center justify-center px-4 text-center">
-      <Image
-        src="/logo_navbar.png" // zameniti ako koristiš neki drugi logo path
-        alt="Logo"
-        width={150}
-        height={80}
-        className="mb-6"
-      />
+      <Logo width={180} height={50} className="mb-4" />
 
       <AlertCard
         variant="destructive"
@@ -31,9 +28,15 @@ export default function Error({
         description="Nažalost, došlo je do greške prilikom učitavanja stranice. Pokušajte ponovo kasnije."
       />
 
-      <Button onClick={reset} className="mt-6">
-        Pokušaj ponovo
-      </Button>
+      <div className="mt-6 flex items-center gap-2">
+        <Button onClick={reset}>Pokušaj ponovo</Button>
+
+        <Button asChild variant="outline">
+          <Link href="/">
+            <HomeIcon /> Početna
+          </Link>
+        </Button>
+      </div>
     </div>
   );
 }

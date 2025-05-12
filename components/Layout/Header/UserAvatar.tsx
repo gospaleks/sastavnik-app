@@ -20,6 +20,8 @@ import {
   PlusIcon,
   UserIcon,
 } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
+import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
 
 type Props = {
   user: KindeUser<Record<string, any>>;
@@ -59,9 +61,9 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
           >
             <UserIcon /> Profil
             {isAdmin && (
-              <span className="bg-primary ml-auto rounded-full px-2 py-1 text-xs text-white">
-                admin
-              </span>
+              <div className="ml-auto">
+                <Badge className="mx-0">admin</Badge>
+              </div>
             )}
           </Link>
         </DropdownMenuItem>
@@ -111,6 +113,10 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
             Dodaj sastav
           </Link>
         </DropdownMenuItem>
+
+        <DropdownMenuSeparator />
+
+        <ModeToggle />
 
         <DropdownMenuSeparator />
 
