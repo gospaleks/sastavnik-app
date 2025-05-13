@@ -11,15 +11,15 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 import StarRating from './StarRating';
 import EssaysByAuthor from './EssaysByAuthor';
-import EssayActionButtons from './EssayActionButtons';
 import EssaysWithSameCategory from './EssaysWithSameCategory';
 
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
+import EssayDropdown from '@/components/EssayDropdown';
 import ContentWrapper from '@/components/ContentWrapper';
 import AlertCard from '@/components/AlertCard';
 
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight, ExternalLinkIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
 
@@ -69,9 +69,16 @@ const EssayPage = async ({ params }: PageProps) => {
       <div className="flex flex-col gap-8 md:flex-row">
         {/** Leva strana: Sastav */}
         <div className="w-full space-y-2 md:w-8/12">
-          <h1 className="text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl">
-            {essay.title}
-          </h1>
+          <div className="relative">
+            <h1 className="mr-8 text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl">
+              {essay.title}
+            </h1>
+            {canEdit && essay && (
+              <div className="absolute top-0 right-0">
+                <EssayDropdown essay={essay} isAdmin={isAdmin} />
+              </div>
+            )}
+          </div>
 
           <div className="flex flex-col gap-2">
             <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm md:justify-normal md:text-base">
@@ -131,21 +138,11 @@ const EssayPage = async ({ params }: PageProps) => {
             ratingCountInit={essay.ratingCount}
           />
 
-          {/** Dugmici za izmenu i brisanje ako korisnik ima permisije */}
-          {canEdit && essay && (
-            <EssayActionButtons essay={essay} isAdmin={isAdmin} />
-          )}
-
           {/** Prikazivanje sadržaja sastava */}
           <div
             className="minimal-tiptap-content mt-4"
             dangerouslySetInnerHTML={{ __html: essay.content }}
           />
-
-          {/* staro prikazivanje */}
-          {/* <div className="prose prose-invert dark:prose-invert lg:prose-lg mx-auto mt-8 max-w-none whitespace-pre-wrap">
-            {essay.content}
-          </div> */}
 
           {essay.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">

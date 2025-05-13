@@ -68,6 +68,7 @@ const ProfilPage = async ({ params }: PageProps) => {
                   key={essay.id}
                   essay={essay}
                   canEdit={canEdit}
+                  isAdmin={isAdmin}
                 />
               ))
             ) : (
