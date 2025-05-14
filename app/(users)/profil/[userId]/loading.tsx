@@ -14,6 +14,7 @@ const loading = () => {
             <Skeleton className="mb-2 h-28 w-full rounded-2xl" />
           </div>
         </div>
+
         <div className="w-full md:w-4/12">
           <Skeleton className="mb-4 h-11 w-full" />
           <div className="flex flex-col items-center justify-center p-6">
@@ -28,6 +29,9 @@ const loading = () => {
           <div className="px-6 py-2">
             <Skeleton className="mb-2 h-32 w-full" />
           </div>
+
+          {/** Omiljeni sastavi */}
+          <Skeleton className="mb-4 h-11 w-full" />
         </div>
       </div>
     </ContentWrapper>

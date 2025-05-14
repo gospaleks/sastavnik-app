@@ -68,7 +68,7 @@ export default function StarRating({
           </>
         ) : (
           <span className="text-muted-foreground italic">
-            Još uvek nema ocena za ovaj sastav.
+            Ovaj sastav još nije ocenjen.
           </span>
         )}
       </div>

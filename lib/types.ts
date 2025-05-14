@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Essay, Prisma } from '@prisma/client';
 
 export type EssayWithCategory = Prisma.EssayGetPayload<{
   include: {
@@ -20,9 +20,18 @@ export type EssayWithAuthorCategory = Prisma.EssayGetPayload<{
   };
 }>;
 
+export type EssayWithAuthorCategoryFavorite = EssayWithAuthorCategory & {
+  isFavorite: boolean;
+};
+
 export type UserWithEssays = Prisma.UserGetPayload<{
   include: {
     essays: {
+      include: {
+        category: true;
+      };
+    };
+    favoriteEssays: {
       include: {
         category: true;
       };

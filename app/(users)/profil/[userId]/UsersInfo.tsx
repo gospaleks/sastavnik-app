@@ -8,10 +8,23 @@ import { UserWithEssays } from '@/lib/types';
 
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { SaveIcon, Loader2Icon, PencilIcon, Edit3Icon } from 'lucide-react';
+import {
+  SaveIcon,
+  Loader2Icon,
+  PencilIcon,
+  Edit3Icon,
+  HeartIcon,
+  ThumbsUpIcon,
+  ThumbsDownIcon,
+} from 'lucide-react';
 import TooltipItem from '@/components/TooltipItem';
 
 type Props = {
@@ -122,6 +135,16 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
           )}
         </div>
       </CardContent>
+
+      {/** TODO: Ocenjivanje korisnika */}
+      {/* <CardFooter className="flex items-center justify-end gap-2">
+        <Button variant={'outline'}>
+          <ThumbsUpIcon /> (0)
+        </Button>
+        <Button variant={'outline'}>
+          <ThumbsDownIcon /> (0)
+        </Button>
+      </CardFooter> */}
     </Card>
   );
 };

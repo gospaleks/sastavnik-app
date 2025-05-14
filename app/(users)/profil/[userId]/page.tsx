@@ -10,6 +10,7 @@ import UsersInfo from './UsersInfo';
 import ContentWrapper from '@/components/ContentWrapper';
 import { buttonVariants } from '@/components/ui/button';
 import { NotebookTextIcon, PlusIcon, UserIcon } from 'lucide-react';
+import Favorites from './Favorites';
 
 type PageProps = {
   params: Promise<{ userId: string }>;
@@ -86,13 +87,18 @@ const ProfilPage = async ({ params }: PageProps) => {
         </div>
 
         {/** Desna strana - prikaz podataka o korisniku */}
-        <div className="w-full md:w-4/12">
-          <div className="bg-accent text-md mb-4 flex w-full items-center gap-2 rounded-lg border px-4 py-2 sm:text-lg">
+        <div className="flex w-full flex-col gap-4 md:w-4/12">
+          <div className="bg-accent text-md flex w-full items-center gap-2 rounded-lg border px-4 py-2 sm:text-lg">
             <UserIcon />
             <span>O korisniku</span>
           </div>
 
           <UsersInfo userData={userData} canEdit={canEdit} />
+
+          {/** Prikaz omiljenih sastava (korisnik ili admin moze da vidi) */}
+          {canEdit && (
+            <Favorites userId={userId} essays={userData.favoriteEssays} />
+          )}
         </div>
       </div>
     </ContentWrapper>

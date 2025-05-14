@@ -5,7 +5,10 @@ import Link from 'next/link';
 
 import { formatDate } from '@/lib/utils';
 import { getEssayById } from '@/lib/services/essayService';
-import { getUsersRatingForEssay } from '@/lib/services/userService';
+import {
+  getUsersRatingForEssay,
+  isEssayFavoriteForUser,
+} from '@/lib/services/userService';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
@@ -22,6 +25,7 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
+import { FavoriteToggleButton } from './FavoriteToggleButton';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;
@@ -58,9 +62,15 @@ const EssayPage = async ({ params }: PageProps) => {
 
   const canEdit = user && (user.id === essay.authorId || isAdmin);
 
+  // Pribavi rating
   const usersRating = user
     ? await getUsersRatingForEssay(user.id, essayId)
     : null;
+
+  // Vidi da li je korisniku sastav u listi omiljenih
+  const isFavorite = user
+    ? await isEssayFavoriteForUser(essayId, user.id)
+    : false;
 
   const formattedDate = formatDate(essay.createdAt);
 
@@ -136,6 +146,12 @@ const EssayPage = async ({ params }: PageProps) => {
             usersRating={usersRating?.value}
             averageInit={essay.averageRating}
             ratingCountInit={essay.ratingCount}
+          />
+
+          {/** Dugme za Favorite */}
+          <FavoriteToggleButton
+            essayId={essay.id}
+            initiallyFavorite={isFavorite}
           />
 
           {/** Prikazivanje sadržaja sastava */}
