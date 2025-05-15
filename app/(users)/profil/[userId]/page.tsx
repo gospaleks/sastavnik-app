@@ -8,9 +8,15 @@ import EssayCardInProfile from './EssayCardInProfile';
 import UsersInfo from './UsersInfo';
 
 import ContentWrapper from '@/components/ContentWrapper';
-import { buttonVariants } from '@/components/ui/button';
-import { NotebookTextIcon, PlusIcon, UserIcon } from 'lucide-react';
+import { Button, buttonVariants } from '@/components/ui/button';
+import {
+  NotebookTextIcon,
+  PlusCircleIcon,
+  PlusIcon,
+  UserIcon,
+} from 'lucide-react';
 import Favorites from './Favorites';
+import InfoBox from '@/components/InfoBox';
 
 type PageProps = {
   params: Promise<{ userId: string }>;
@@ -73,13 +79,17 @@ const ProfilPage = async ({ params }: PageProps) => {
                 />
               ))
             ) : (
-              <div className="mb-2 text-gray-500">
-                <p className="mb-2">Korisnik još nema sastava za prikaz.</p>
+              <div className="mb-2">
+                <InfoBox message="Korisnik još nema sastava za prikaz." />
                 {canEdit && (
-                  <Link href="/dodaj-sastav" className={buttonVariants()}>
-                    <PlusIcon />
-                    Dodaj sastav
-                  </Link>
+                  <div className="flex w-full items-center justify-center p-4">
+                    <Button variant={'default'} asChild>
+                      <Link href={`/dodaj-sastav`}>
+                        <PlusCircleIcon />
+                        Dodaj sastav
+                      </Link>
+                    </Button>
+                  </div>
                 )}
               </div>
             )}

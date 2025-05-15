@@ -79,6 +79,13 @@ const EssayPage = async ({ params }: PageProps) => {
       <div className="flex flex-col gap-8 md:flex-row">
         {/** Leva strana: Sastav */}
         <div className="w-full space-y-2 md:w-8/12">
+          {!essay.published && (
+            <AlertCard
+              title="Neobjavljeni sastav"
+              description="Ovaj sastav nije objavljen i može ga videti samo admin."
+            />
+          )}
+
           <div className="relative">
             <h1 className="mr-8 text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl">
               {essay.title}

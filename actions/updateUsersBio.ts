@@ -2,6 +2,7 @@
 
 import { prisma } from '@/lib/prisma';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { revalidatePath } from 'next/cache';
 
 export default async function updateUsersBio(userId: string, newBio: string) {
   // Kinde
@@ -24,23 +25,6 @@ export default async function updateUsersBio(userId: string, newBio: string) {
     };
   }
 
-  // Proveri da li je newBio isti kao stari bio
-  const isBioChanged = await prisma.user.findUnique({
-    where: {
-      id: userId,
-    },
-    select: {
-      bio: true,
-    },
-  });
-
-  if (isBioChanged?.bio === newBio) {
-    return {
-      success: false,
-      message: 'Promenite opis pre čuvanja',
-    };
-  }
-
   // Izmena biografije
   await prisma.user.update({
     where: {
@@ -50,6 +34,8 @@ export default async function updateUsersBio(userId: string, newBio: string) {
       bio: newBio,
     },
   });
+
+  revalidatePath(`/users/${userId}`);
 
   return {
     success: true,

@@ -24,8 +24,10 @@ import {
   HeartIcon,
   ThumbsUpIcon,
   ThumbsDownIcon,
+  XIcon,
 } from 'lucide-react';
 import TooltipItem from '@/components/TooltipItem';
+import InfoBox from '@/components/InfoBox';
 
 type Props = {
   userData: UserWithEssays;
@@ -38,11 +40,6 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
   const [loading, setLoading] = useState(false);
 
   const handleSave = async () => {
-    if (!bio) {
-      toast.error('Morate uneti opis pre čuvanja');
-      return;
-    }
-
     setLoading(true);
     const response = await updateUsersBio(userData.id, bio);
     setLoading(false);
@@ -78,7 +75,7 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <Label htmlFor="bio">O meni:</Label>
-            {canEdit && !editing && (
+            {canEdit && !editing ? (
               <TooltipItem
                 trigger={
                   <Button
@@ -86,31 +83,57 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
                     size="icon"
                     onClick={() => setEditing(true)}
                   >
-                    {/* Klikom na olovku se omogucava textarea i pojavljuje se save dugme */}
+                    {/* Prikaži textarea za izmenu opisa */}
                     <Edit3Icon className="mr-1 h-4 w-4" />{' '}
                   </Button>
                 }
                 content="Izmeni opis profila"
               />
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setEditing(false)}
+              >
+                {/* Sakrij textarea */}
+                <XIcon className="mr-1 h-4 w-4" />{' '}
+              </Button>
             )}
           </div>
 
           {canEdit ? (
             <>
-              <Textarea
-                id="bio"
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Napiši nešto o sebi..."
-                className="min-h-[120px]"
-                disabled={!editing}
-              />
+              {editing ? (
+                <Textarea
+                  id="bio"
+                  value={bio}
+                  onChange={(e) => {
+                    if (e.target.value.length <= 500) {
+                      setBio(e.target.value);
+                    }
+                  }}
+                  placeholder="Napiši nešto o sebi..."
+                  className="min-h-[120px]"
+                  disabled={!editing}
+                />
+              ) : (
+                <div className="text-muted-foreground text-sm whitespace-pre-line">
+                  {bio}
+                </div>
+              )}
+
+              {editing && (
+                <p className="text-muted-foreground text-right text-sm">
+                  {bio.length}/500
+                </p>
+              )}
+
               {editing && (
                 <Button
                   onClick={handleSave}
                   className="mt-2 w-full md:w-auto"
                   size="sm"
-                  disabled={loading}
+                  disabled={loading || bio.length === 0 || bio === userData.bio}
                 >
                   {loading ? (
                     <>
@@ -127,11 +150,11 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
               )}
             </>
           ) : (
-            <p className="text-muted-foreground text-sm whitespace-pre-line">
+            <div className="text-muted-foreground text-sm whitespace-pre-line">
               {bio || (
-                <span className="italic">Korisnik još nije dodao opis.</span>
+                <InfoBox message="Korisnik još uvek nema opis profila." />
               )}
-            </p>
+            </div>
           )}
         </div>
       </CardContent>
