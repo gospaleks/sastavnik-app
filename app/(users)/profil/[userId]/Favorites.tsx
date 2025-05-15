@@ -1,60 +1,44 @@
-'use client';
-
-import { useState } from 'react';
 import { EssayWithCategory } from '@/lib/types';
 
 import BasicEssayCard from '@/components/BasicEssayCard';
+import InfoBox from '@/components/InfoBox';
 
-import { BookmarkIcon, ChevronDown, ChevronUp, Edit3Icon } from 'lucide-react';
-import TooltipItem from '@/components/TooltipItem';
-import { Button } from '@/components/ui/button';
+import { BookmarkIcon } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 type Props = {
-  userId: string;
+  userId: string; // TODO???: ako se resim da dodam brisanje odma iz kartice -> treba napraviti nove kartice
   essays: EssayWithCategory[];
 };
 
 const Favorites = ({ userId, essays }: Props) => {
-  const [show, setShow] = useState(false);
-
   return (
-    <>
-      <div className="bg-accent flex w-full items-center justify-between gap-2 rounded-lg border px-4 py-2 text-sm sm:text-lg">
-        <div className="flex items-center gap-2">
-          <BookmarkIcon />
-          <span>Omiljeni sastavi ({essays.length})</span>
-        </div>
-        <div
-          className="hover:bg-muted rounded-md p-1 transition-colors"
-          onClick={() => setShow(!show)}
-        >
-          {show ? (
-            <TooltipItem
-              trigger={<ChevronUp />}
-              content="Sakrij omiljene sastave"
-            />
-          ) : (
-            <TooltipItem
-              trigger={<ChevronDown />}
-              content="Prikaži omiljene sastave"
-            />
-          )}
-        </div>
-      </div>
-      {show && (
-        <>
+    <Accordion type="single" collapsible>
+      <AccordionItem value="omiljeni">
+        <AccordionTrigger className="bg-accent flex w-full items-center rounded-lg px-4 py-2 sm:text-lg">
+          <div className="flex items-center gap-2 font-normal">
+            <BookmarkIcon />
+            <span>Omiljeni sastavi ({essays.length})</span>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent className="mt-4">
           {essays.length > 0 ? (
-            essays.map((essay) => (
-              <BasicEssayCard key={essay.id} essay={essay} />
-            ))
-          ) : (
-            <div className="text-muted-foreground text-center text-sm">
-              Nemate omiljenih sastava.
+            <div className="flex flex-col gap-4">
+              {essays.map((essay) => (
+                <BasicEssayCard key={essay.id} essay={essay} />
+              ))}
             </div>
+          ) : (
+            <InfoBox message="Nemate omiljenih sastava." />
           )}
-        </>
-      )}
-    </>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   );
 };
 

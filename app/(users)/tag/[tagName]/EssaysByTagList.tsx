@@ -1,6 +1,7 @@
-import EssayCard from '@/components/EssayCard';
 import { getEssaysByTagName } from '@/lib/services/essayService';
-import React from 'react';
+
+import EssayCard from '@/components/EssayCard';
+import InfoBox from '@/components/InfoBox';
 
 type Props = {
   tagName: string;
@@ -18,9 +19,7 @@ const EssaysByTagList = async ({ tagName }: Props) => {
           ))}
         </div>
       ) : (
-        <p className="text-gray-500">
-          📄 Trenutno nema sastava u ovoj kategoriji.
-        </p>
+        <InfoBox message="📄 Trenutno nema sastava sa ovim tagom." />
       )}
     </div>
   );

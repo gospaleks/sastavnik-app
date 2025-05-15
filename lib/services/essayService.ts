@@ -253,6 +253,24 @@ export async function getEssays(
             has: searchTerm,
           },
         },
+        {
+          author: {
+            OR: [
+              {
+                firstName: {
+                  contains: searchTerm,
+                  mode: Prisma.QueryMode.insensitive,
+                },
+              },
+              {
+                lastName: {
+                  contains: searchTerm,
+                  mode: Prisma.QueryMode.insensitive,
+                },
+              },
+            ],
+          },
+        },
       ],
     }),
     ...(schoolType && {

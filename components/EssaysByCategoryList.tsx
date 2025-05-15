@@ -1,6 +1,8 @@
 import { getEssaysByCategoryName } from '@/lib/services/essayService';
+
+import PagePagination from '@/components/PagePagination';
 import EssayCard from '@/components/EssayCard';
-import PagePagination from './PagePagination';
+import InfoBox from '@/components/InfoBox';
 
 type Props = {
   categoryName: string;
@@ -24,9 +26,7 @@ const EssaysByCategoryList = async ({ categoryName, page, sort }: Props) => {
           ))}
         </div>
       ) : (
-        <p className="text-gray-500">
-          📄 Trenutno nema sastava u ovoj kategoriji.
-        </p>
+        <InfoBox message="📄 Trenutno nema sastava u ovoj kategoriji." />
       )}
 
       {totalPages > 0 && (

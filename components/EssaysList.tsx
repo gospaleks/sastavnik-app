@@ -1,5 +1,6 @@
 import { getEssays } from '@/lib/services/essayService';
 
+import InfoBox from '@/components/InfoBox';
 import EssayCard from '@/components/EssayCard';
 import PagePagination from '@/components/PagePagination';
 
@@ -36,9 +37,7 @@ const EssaysList = async ({
             ))}
           </div>
         ) : (
-          <p className="text-gray-500">
-            📄 Nijedan sastav nije pronađen. Pokušajte da promenite filtere.
-          </p>
+          <InfoBox message="Nijedan sastav nije pronađen. Pokušajte da promenite filtere." />
         )}
       </div>
 
