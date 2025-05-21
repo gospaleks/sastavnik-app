@@ -1,11 +1,13 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 
 import { CommentWithAuthor } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
 import CommentForm from '@/components/Forms/CommentForm';
+import CommentDropdown from './CommentDropdown';
 import CommentsList from './CommentsList';
 
 import {
@@ -16,10 +18,9 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ChevronDown, Reply } from 'lucide-react';
-import CommentDropdown from './CommentDropdown';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ChevronDown, Reply } from 'lucide-react';
 
 type Props = {
   userId?: string;
@@ -54,36 +55,49 @@ const CommentCard = ({
 
   return (
     <>
-      <Card className="relative gap-2 py-2">
+      <Card className="gap-4 py-4 shadow-none">
         <CardHeader className="text-muted-foreground text-xs">
-          <CardTitle className="flex flex-col gap-1">
-            <span className="">{formattedDate}</span>
-
+          <CardTitle className="flex items-center gap-2">
             <Link
               href={`/profil/${comment.author?.id}`}
-              className="flex items-center gap-1 underline underline-offset-4 transition-colors hover:opacity-80"
+              className="group flex cursor-pointer items-center gap-2"
             >
-              {comment.author?.firstName} {comment.author?.lastName}
-              <ArrowRight className="inline-block" size={13} />
+              <Avatar className="rounded-full border">
+                <AvatarImage
+                  src={comment.author?.image || '/default_avatar.png'}
+                  alt="avatar"
+                />
+                <AvatarFallback>
+                  {comment.author?.firstName?.[0]}
+                  {comment.author?.lastName?.[0]}
+                </AvatarFallback>
+              </Avatar>
+
+              <div className="flex flex-col gap-1 font-normal">
+                <span className="">{formattedDate}</span>
+                <span className="underline-offset-4 group-hover:underline">
+                  {comment.author?.firstName} {comment.author?.lastName}
+                </span>
+              </div>
             </Link>
+
+            {(isAdmin || (userId && userId === comment.author?.id)) && (
+              <div className="ml-auto">
+                <CommentDropdown essayId={essayId} comment={comment} />
+              </div>
+            )}
           </CardTitle>
         </CardHeader>
 
         <CardContent>{comment.content}</CardContent>
 
-        <CardFooter className="flex flex-col items-start">
-          {userId && (
-            <Button variant={'link'} onClick={toggleReplyForm} size="sm">
-              <Reply />
-              Odgovori
-              {isReplyFormOpen && <ChevronDown />}
-            </Button>
-          )}
-
+        <CardFooter className="flex items-start justify-between gap-2">
           {/* Show/Hide replies button */}
           {childComments.length > 0 && (
-            <button
-              className="text-muted-foreground/80 hover:text-muted-foreground mt-2 text-xs transition-colors hover:underline"
+            <Button
+              variant="link"
+              className="text-muted-foreground text-xs"
+              size={'sm'}
               onMouseEnter={() => setIsRepliesHovered(true)}
               onMouseLeave={() => setIsRepliesHovered(false)}
               onClick={toggleReplies}
@@ -92,15 +106,24 @@ const CommentCard = ({
               {isRepliesVisible
                 ? 'Sakrij odgovore'
                 : `Prikaži odgovore (${childComments.length})`}
-            </button>
+
+              {isRepliesVisible && <ChevronDown size={15} />}
+            </Button>
+          )}
+
+          {userId && (
+            <Button
+              variant={'outline'}
+              onClick={toggleReplyForm}
+              size="sm"
+              className="ml-auto"
+            >
+              <Reply />
+              Odgovori
+              {isReplyFormOpen && <ChevronDown />}
+            </Button>
           )}
         </CardFooter>
-
-        {(isAdmin || (userId && userId === comment.author?.id)) && (
-          <div className="absolute top-2 right-2">
-            <CommentDropdown essayId={essayId} comment={comment} />
-          </div>
-        )}
       </Card>
 
       {(isRepliesVisible || isReplyFormOpen) && (
@@ -114,7 +137,7 @@ const CommentCard = ({
 
           <div className="flex w-full flex-col gap-2">
             {isReplyFormOpen && (
-              <div className="ml-4">
+              <div className="mb-2 ml-4">
                 <CommentForm
                   essayId={essayId}
                   parentId={comment.id}
