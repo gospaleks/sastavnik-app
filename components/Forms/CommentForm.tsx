@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CommentWithAuthor } from '@/lib/types';
 
+import { commentFormSchema, CommentFormSchemaType } from '@/lib/schemas';
+
 import {
   Form,
   FormControl,
@@ -18,6 +20,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Loader2, Send } from 'lucide-react';
 import { toast } from 'sonner';
+import { createComment, editComment } from '@/actions/comments';
 
 type Props = {
   essayId: string;
@@ -26,15 +29,9 @@ type Props = {
   onSubmitHandle?: () => void;
 };
 
-const formSchema = z.object({
-  content: z.string().min(3, 'Komentar mora imati makar 3 karaktera'),
-});
-
-type FormSchemaType = z.infer<typeof formSchema>;
-
 const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
-  const form = useForm<FormSchemaType>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<CommentFormSchemaType>({
+    resolver: zodResolver(commentFormSchema),
     defaultValues: {
       content: comment?.content || '',
     },
@@ -42,14 +39,18 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
 
   const isSubmitting = form.formState.isSubmitting;
 
-  async function onSubmit(values: FormSchemaType) {
-    console.log(values);
-    toast.loading('Slanje komentara...');
+  async function onSubmit(values: CommentFormSchemaType) {
+    const response = comment
+      ? await editComment(comment.id, values.content)
+      : await createComment(essayId, values.content, parentId);
 
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    toast.dismiss();
-    toast.success('Uspešno ste poslali komentar!');
+    if (response.success) {
+      toast.success(response.message);
+      onSubmitHandle?.();
+      form.reset();
+    } else {
+      toast.error(response.message);
+    }
   }
 
   const charCount = form.watch('content')?.length || 0;
@@ -68,7 +69,11 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
                   <FormControl>
                     <div className="relative">
                       <Textarea
-                        placeholder="Napiši komentar..."
+                        placeholder={
+                          parentId
+                            ? 'Napiši odgovor na komentar...'
+                            : 'Napiši komentar...'
+                        }
                         {...field}
                         disabled={isSubmitting}
                         maxLength={100}
@@ -90,7 +95,12 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
           </CardContent>
 
           <CardFooter className="flex justify-end">
-            <Button type="submit" disabled={isSubmitting} size={'sm'}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              size={'sm'}
+              className="w-full md:w-fit"
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="animate-spin" />
@@ -99,7 +109,7 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
               ) : (
                 <>
                   <Send />
-                  Pošalji
+                  {parentId ? 'Odgovori' : comment ? 'Izmeni' : 'Pošalji'}
                 </>
               )}
             </Button>

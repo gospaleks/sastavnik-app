@@ -28,6 +28,8 @@ import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
+import { CommentWithAuthor } from '@/lib/types';
+import CommentsList from './CommentsList';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;
@@ -57,24 +59,37 @@ const EssayPage = async ({ params }: PageProps) => {
   if (!essay) return notFound();
 
   const { getUser, getPermission } = getKindeServerSession();
-  const user = await getUser();
-  const isAdmin = (await getPermission('admin:access'))?.isGranted;
+  const [user, adminPermission] = await Promise.all([
+    getUser(),
+    getPermission('admin:access'),
+  ]);
+  const isAdmin = adminPermission?.isGranted;
 
   if (!essay.published && !isAdmin) return notFound();
 
   const canEdit = user && (user.id === essay.authorId || isAdmin);
 
-  // Pribavi rating
-  const usersRating = user
-    ? await getUsersRatingForEssay(user.id, essayId)
-    : null;
-
-  // Vidi da li je korisniku sastav u listi omiljenih
-  const isFavorite = user
-    ? await isEssayFavoriteForUser(essayId, user.id)
-    : false;
+  // Pribavi rating i favorite paralelno
+  const [usersRating, isFavorite] = user
+    ? await Promise.all([
+        getUsersRatingForEssay(user.id, essayId),
+        isEssayFavoriteForUser(essayId, user.id),
+      ])
+    : [null, false];
 
   const formattedDate = formatDate(essay.createdAt);
+
+  // Grupisi komentare
+  const commentsByParentId = {} as Record<string, CommentWithAuthor[]>;
+  essay.comments.forEach((comment) => {
+    if (!commentsByParentId[comment.parentId || '']) {
+      commentsByParentId[comment.parentId || ''] = [];
+    }
+    commentsByParentId[comment.parentId || ''].push(comment);
+  });
+
+  // Komentari koji su na vrhu (bez roditelja)
+  const topLevelComments = commentsByParentId[''] || [];
 
   return (
     <ContentWrapper>
@@ -193,7 +208,15 @@ const EssayPage = async ({ params }: PageProps) => {
 
             {user && <CommentForm essayId={essay.id} />}
 
-            {essay.comments.length === 0 && (
+            {essay.comments.length > 0 ? (
+              <CommentsList
+                userId={user?.id}
+                isAdmin={isAdmin}
+                essayId={essay.id}
+                comments={topLevelComments}
+                commentsByParentId={commentsByParentId}
+              />
+            ) : (
               <InfoBox message="Nema komentara za ovaj sastav." />
             )}
 

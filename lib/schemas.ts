@@ -25,3 +25,10 @@ export const categoryFormSchema = z.object({
 });
 
 export type CategoryFormSchemaType = z.infer<typeof categoryFormSchema>;
+
+// Komentar
+export const commentFormSchema = z.object({
+  content: z.string().min(3, 'Komentar mora imati makar 3 karaktera'),
+});
+
+export type CommentFormSchemaType = z.infer<typeof commentFormSchema>;

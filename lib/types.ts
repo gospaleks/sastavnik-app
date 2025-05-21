@@ -30,7 +30,12 @@ export type CommentWithAuthor = {
   content: string;
   createdAt: Date;
   updatedAt: Date;
-  author: { id: string; firstName: string; lastName: string } | null;
+  author: {
+    id: string;
+    firstName: string;
+    lastName: string;
+    image: string;
+  } | null;
   parentId: string | null;
   parent: {
     id: string;
