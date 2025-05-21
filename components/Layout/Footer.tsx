@@ -19,7 +19,7 @@ import {
 export default async function Footer() {
   const [categories, latestEssays] = await Promise.all([
     getAllCategories(),
-    getLatestEssays(5),
+    getLatestEssays(8),
   ]);
 
   return (

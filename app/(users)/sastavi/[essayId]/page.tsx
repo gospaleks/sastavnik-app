@@ -15,17 +15,19 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import StarRating from './StarRating';
 import EssaysByAuthor from './EssaysByAuthor';
 import EssaysWithSameCategory from './EssaysWithSameCategory';
+import { FavoriteToggleButton } from './FavoriteToggleButton';
 
+import CommentForm from '@/components/Forms/CommentForm';
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
 import EssayDropdown from '@/components/EssayDropdown';
 import ContentWrapper from '@/components/ContentWrapper';
 import AlertCard from '@/components/AlertCard';
+import InfoBox from '@/components/InfoBox';
 
 import { Badge } from '@/components/ui/badge';
 import { ArrowRight } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
-import { FavoriteToggleButton } from './FavoriteToggleButton';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;
@@ -167,6 +169,7 @@ const EssayPage = async ({ params }: PageProps) => {
             dangerouslySetInnerHTML={{ __html: essay.content }}
           />
 
+          {/** Prikazivanje tagova */}
           {essay.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
               {essay.tags.map((tag, index) => (
@@ -182,12 +185,22 @@ const EssayPage = async ({ params }: PageProps) => {
             </div>
           )}
 
-          <AlertCard
-            title="NAPOMENA:"
-            description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
-            variant="destructive"
-            className="mt-4"
-          />
+          {/** Comment sekcija */}
+          <div className="my-8 space-y-4">
+            <h1 className="text-xl font-semibold tracking-tight">
+              💬 Komentari ({essay.comments.length}):
+            </h1>
+
+            {user && <CommentForm essayId={essay.id} />}
+
+            {essay.comments.length === 0 && (
+              <InfoBox message="Nema komentara za ovaj sastav." />
+            )}
+
+            {!user && (
+              <AlertCard title="Da bi mogao/la da komentarišeš, moraš biti prijavljen/a." />
+            )}
+          </div>
         </div>
 
         {/** Desna strana: Sastavi istog autora i sastavi iste kategorije */}

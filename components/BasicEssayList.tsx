@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import BasicEssayCard from './BasicEssayCard';
+import InfoBox from './InfoBox';
 
 type Props = {
   essays: {
@@ -15,9 +16,7 @@ const BasicEssayList = ({ essays }: Props) => {
       {essays.length > 0 ? (
         essays.map((essay) => <BasicEssayCard key={essay.id} essay={essay} />)
       ) : (
-        <p className="text-muted-foreground text-sm">
-          😔 Trenutno nema sastava za prikaz
-        </p>
+        <InfoBox message="😔 Trenutno nema sastava za prikaz" />
       )}
     </div>
   );

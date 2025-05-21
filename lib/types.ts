@@ -1,5 +1,6 @@
 import { Essay, Prisma } from '@prisma/client';
 
+// Essay types
 export type EssayWithCategory = Prisma.EssayGetPayload<{
   include: {
     category: true;
@@ -20,10 +21,33 @@ export type EssayWithAuthorCategory = Prisma.EssayGetPayload<{
   };
 }>;
 
+export type EssayById = EssayWithAuthorCategory & {
+  comments: CommentWithAuthor[];
+};
+
+export type CommentWithAuthor = {
+  id: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  author: { id: string; firstName: string; lastName: string } | null;
+  parentId: string | null;
+  parent: {
+    id: string;
+    content: string;
+    createdAt: Date;
+    updatedAt: Date;
+    essayId: string | null;
+    authorId: string | null;
+    parentId: string | null;
+  } | null;
+};
+
 export type EssayWithAuthorCategoryFavorite = EssayWithAuthorCategory & {
   isFavorite: boolean;
 };
 
+// User types
 export type UserWithEssays = Prisma.UserGetPayload<{
   include: {
     essays: {
