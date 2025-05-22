@@ -1,7 +1,6 @@
 'use client';
 
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CommentWithAuthor } from '@/lib/types';
@@ -15,7 +14,6 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Loader2, Send } from 'lucide-react';
@@ -27,9 +25,16 @@ type Props = {
   parentId?: string;
   comment?: CommentWithAuthor;
   onSubmitHandle?: () => void;
+  autoFocus?: boolean;
 };
 
-const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
+const CommentForm = ({
+  essayId,
+  parentId,
+  comment,
+  onSubmitHandle,
+  autoFocus = false,
+}: Props) => {
   const form = useForm<CommentFormSchemaType>({
     resolver: zodResolver(commentFormSchema),
     defaultValues: {
@@ -56,10 +61,10 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
   const charCount = form.watch('content')?.length || 0;
 
   return (
-    <Card className="shadow-none">
+    <div className="shadow-none">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-          <CardContent>
+          <div>
             <FormField
               control={form.control}
               name="content"
@@ -75,6 +80,7 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
                             : 'Napiši komentar...'
                         }
                         {...field}
+                        autoFocus={autoFocus}
                         disabled={isSubmitting}
                         maxLength={100}
                         onChange={(e) => {
@@ -92,9 +98,9 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
                 </FormItem>
               )}
             />
-          </CardContent>
+          </div>
 
-          <CardFooter className="flex justify-end">
+          <div className="flex justify-end">
             <Button
               type="submit"
               disabled={isSubmitting}
@@ -113,10 +119,10 @@ const CommentForm = ({ essayId, parentId, comment, onSubmitHandle }: Props) => {
                 </>
               )}
             </Button>
-          </CardFooter>
+          </div>
         </form>
       </Form>
-    </Card>
+    </div>
   );
 };
 

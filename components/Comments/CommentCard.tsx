@@ -7,7 +7,6 @@ import { CommentWithAuthor } from '@/lib/types';
 import { formatDate } from '@/lib/utils';
 
 import CommentForm from '@/components/Forms/CommentForm';
-import CommentDropdown from './CommentDropdown';
 import CommentsList from './CommentsList';
 
 import {
@@ -21,6 +20,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronDown, Reply } from 'lucide-react';
+import CommentDropdown from './CommentDropdown';
 
 type Props = {
   userId?: string;
@@ -141,6 +141,7 @@ const CommentCard = ({
                 <CommentForm
                   essayId={essayId}
                   parentId={comment.id}
+                  autoFocus={true}
                   onSubmitHandle={() => {
                     setIsRepliesVisible(true);
                     setIsReplyFormOpen(false);

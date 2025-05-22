@@ -56,11 +56,11 @@ model Comment {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  author   User?   @relation(fields: [authorId], references: [id], onDelete: Cascade)
-  authorId String?
+  author   User   @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId String
 
-  essay   Essay?  @relation(fields: [essayId], references: [id], onDelete: Cascade)
-  essayId String?
+  essay   Essay  @relation(fields: [essayId], references: [id], onDelete: Cascade)
+  essayId String
 
   parent   Comment?  @relation("ParentChild", fields: [parentId], references: [id], onDelete: Cascade)
   children Comment[] @relation("ParentChild")

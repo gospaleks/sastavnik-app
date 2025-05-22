@@ -13,12 +13,14 @@ import {
   FolderPenIcon,
   LayoutDashboardIcon,
   FileTextIcon,
+  MessageSquareIcon,
 } from 'lucide-react';
 
 const AdminNavigation = [
   { name: 'Korisnici', icon: Users, href: '/admin/korisnici' },
   { name: 'Kategorije', icon: FolderPenIcon, href: '/admin/kategorije' },
   { name: 'Sastavi', icon: FileTextIcon, href: '/admin/sastavi' },
+  { name: 'Komentari', icon: MessageSquareIcon, href: '/admin/komentari' },
 ];
 
 const AdminNavbar = () => {
@@ -38,10 +40,10 @@ const AdminNavbar = () => {
               href={item.href}
               className={cn(
                 buttonVariants({ variant: 'link', size: 'sm' }),
-                'hover:bg-primary hover:text-primary-foreground text-foreground rounded-none transition-colors sm:border-r',
+                'text-foreground rounded-none transition-colors sm:border-r',
                 pathname.includes(item.href)
                   ? 'bg-primary text-primary-foreground'
-                  : '',
+                  : 'hover:bg-accent',
               )}
             >
               <item.icon className="mr-2 h-4 w-4" aria-hidden="true" />

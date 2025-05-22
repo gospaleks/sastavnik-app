@@ -17,6 +17,7 @@ import {
   FolderPenIcon,
   LayoutDashboardIcon,
   LogOutIcon,
+  MessageSquareIcon,
   PlusIcon,
   UserIcon,
 } from 'lucide-react';
@@ -100,6 +101,16 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
               >
                 <FileTextIcon size={16} />
                 Sastavi
+              </Link>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <Link
+                href="/admin/komentari"
+                className="flex w-full items-center gap-2"
+              >
+                <MessageSquareIcon size={16} />
+                Komentari
               </Link>
             </DropdownMenuItem>
 

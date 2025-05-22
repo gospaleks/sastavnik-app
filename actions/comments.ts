@@ -19,6 +19,18 @@ export const createComment = async (
     };
   }
 
+  if (parentId) {
+    const parentComment = await prisma.comment.findUnique({
+      where: { id: parentId },
+    });
+    if (!parentComment) {
+      return {
+        success: false,
+        message: 'Komentar na koji odgovarate ne postoji',
+      };
+    }
+  }
+
   const comment = await prisma.comment.create({
     data: {
       content,

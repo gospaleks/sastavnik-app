@@ -29,7 +29,7 @@ import { ArrowRight } from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
 import { CommentWithAuthor } from '@/lib/types';
-import CommentsList from './CommentsList';
+import CommentsList from '@/components/Comments/CommentsList';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;

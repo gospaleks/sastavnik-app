@@ -48,6 +48,12 @@ export type CommentWithAuthor = {
   } | null;
 };
 
+export type EssayWithComments = {
+  id: string;
+  title: string;
+  comments: CommentWithAuthor[];
+};
+
 export type EssayWithAuthorCategoryFavorite = EssayWithAuthorCategory & {
   isFavorite: boolean;
 };
