@@ -63,7 +63,7 @@ const CommentsPage = async () => {
                 <AccordionTrigger className="underline-offset-4">
                   <div>
                     <div className="flex items-center gap-2">
-                      <h1 className="text-lg font-bold tracking-tight md:text-2xl">
+                      <h1 className="font-semibold tracking-tight md:text-xl">
                         {essay.title}
                       </h1>
                       <Link

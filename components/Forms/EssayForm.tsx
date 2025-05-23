@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 
@@ -76,6 +76,23 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
   });
 
   const isSubmitting = form.formState.isSubmitting;
+
+  // TODO: PROMENA RUTE NE HVATA OVO (DAKLE NADJI NACIN DA SE OVO RESI) (+ NAPRAVI CUSTOM HOOK)
+  // Kada se refresh-uje, ugasi tab ili gasi browser prikazi alert neki
+  useEffect(() => {
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      // Proveri da li je forma izmenjena
+      if (form.formState.isDirty) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+    };
+  }, [form.formState.isDirty]);
 
   const handleCreate = useCallback(
     ({ editor }: { editor: Editor }) => {

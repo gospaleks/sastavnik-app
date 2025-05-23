@@ -26,6 +26,7 @@ import {
 import { ChevronRightIcon, ExternalLinkIcon, Menu, X } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Logo from '@/components/Logo';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 type Props = {
   categories: {
@@ -59,41 +60,56 @@ const MobileMenu = ({ categories, user }: Props) => {
         </DrawerHeader>
 
         {/** Navigacija */}
-        <div className="flex flex-col gap-2">
-          <Link
-            href="/sastavi"
-            className="w-full border-b pb-4 text-lg hover:underline"
-            onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na link
-          >
-            Sastavi
-          </Link>
-
-          <Accordion type="single" collapsible className="w-full border-b">
-            <AccordionItem value="kategorije">
-              <AccordionTrigger className="text-lg font-normal">
-                Kategorije
-              </AccordionTrigger>
-              <AccordionContent>
-                <ul>
-                  {categories.map((category) => (
-                    <li
-                      key={category.id}
-                      className="py-1"
-                      onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na kategoriju
-                    >
-                      <Link
-                        href={`/kategorije/${category.name}`}
-                        className="hover:bg-accent flex w-full items-center justify-start rounded-lg p-2 transition-colors"
+        <ScrollArea className="h-[calc(100vh-200px)]">
+          <div className="flex flex-col gap-2">
+            <Link
+              href="/sastavi"
+              className="w-full border-b pb-4 text-lg hover:underline"
+              onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na link
+            >
+              Sastavi
+            </Link>
+            <Accordion type="single" collapsible className="w-full border-b">
+              <AccordionItem value="kategorije">
+                <AccordionTrigger className="text-lg font-normal">
+                  Kategorije
+                </AccordionTrigger>
+                <AccordionContent>
+                  <ul>
+                    {categories.map((category) => (
+                      <li
+                        key={category.id}
+                        className="py-1"
+                        onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na kategoriju
                       >
-                        {category.name} <ChevronRightIcon size={15} />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </AccordionContent>
-            </AccordionItem>
-          </Accordion>
-        </div>
+                        <Link
+                          href={`/kategorije/${category.name}`}
+                          className="hover:bg-accent flex w-full items-center justify-start rounded-lg p-2 transition-colors"
+                        >
+                          {category.name} <ChevronRightIcon size={15} />
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </AccordionContent>
+              </AccordionItem>
+            </Accordion>
+            <Link
+              href="/o-nama"
+              className="mt-4 w-full border-b pb-4 text-lg hover:underline"
+              onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na link
+            >
+              O platformi Sastavnik
+            </Link>
+            <Link
+              href="/privatnost"
+              className="mt-4 w-full border-b pb-4 text-lg hover:underline"
+              onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na link
+            >
+              Pravila privatnosti
+            </Link>
+          </div>
+        </ScrollArea>
 
         {user && (
           <DrawerFooter className="border-t px-0">

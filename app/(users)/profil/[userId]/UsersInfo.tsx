@@ -84,20 +84,22 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
                     onClick={() => setEditing(true)}
                   >
                     {/* Prikaži textarea za izmenu opisa */}
-                    <Edit3Icon className="mr-1 h-4 w-4" />{' '}
+                    <Edit3Icon className="h-4 w-4" />
                   </Button>
                 }
                 content="Izmeni opis profila"
               />
             ) : (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setEditing(false)}
-              >
-                {/* Sakrij textarea */}
-                <XIcon className="mr-1 h-4 w-4" />{' '}
-              </Button>
+              canEdit && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setEditing(false)}
+                >
+                  {/* Sakrij textarea */}
+                  <XIcon className="h-4 w-4" />
+                </Button>
+              )
             )}
           </div>
 
@@ -116,10 +118,12 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
                   className="min-h-[120px]"
                   disabled={!editing}
                 />
-              ) : (
+              ) : bio.length > 0 ? (
                 <div className="text-muted-foreground text-sm whitespace-pre-line">
                   {bio}
                 </div>
+              ) : (
+                <InfoBox message="Korisnik još uvek nema opis profila." />
               )}
 
               {editing && (

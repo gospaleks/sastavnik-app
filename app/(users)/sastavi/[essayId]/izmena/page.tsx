@@ -42,7 +42,11 @@ export default async function EditEssayPageasync({
     <ContentWrapper>
       <div className="my-4">
         <TooltipProvider>
-          <EssayForm essay={essay} categories={categories} />
+          <EssayForm
+            essay={essay}
+            categories={categories}
+            isLoggedIn={isLoggedIn}
+          />
         </TooltipProvider>
       </div>
     </ContentWrapper>

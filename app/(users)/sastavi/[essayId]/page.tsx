@@ -221,7 +221,12 @@ const EssayPage = async ({ params }: PageProps) => {
             )}
 
             {!user && (
-              <AlertCard title="Da bi mogao/la da komentarišeš, moraš biti prijavljen/a." />
+              <div className="w-full">
+                <AlertCard
+                  title="Nisi prijavljen/a"
+                  description="Da bi mogao/la da komentarišeš, moraš biti prijavljen/a."
+                />
+              </div>
             )}
           </div>
         </div>
