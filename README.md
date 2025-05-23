@@ -26,19 +26,21 @@ Pored korisničkog dela, platforma poseduje i **admin panel** sa punim CRUD oper
 
 ---
 
+## 🚀 Demo
+
+[Uskoro dostupno]
+
+---
+
 ## 📸 Screenshot
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
   <img src="public/ss1.png" alt="Screenshot 1" />
   <img src="public/ss2.png" alt="Screenshot 2" />
   <img src="public/ss3.png" alt="Screenshot 3" />
+  <img src="public/ss4.png" alt="Screenshot 4" />
+  <img src="public/ss5.png" alt="Screenshot 5" />
 </div>
-
----
-
-## 🚀 Demo
-
-[Uskoro dostupno]
 
 ---
 

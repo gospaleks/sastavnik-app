@@ -1,6 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { UserWithNumberOfEssays } from '@/lib/types';
 
 import {
   Popover,
@@ -17,8 +20,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { MailIcon, InfoIcon, FileTextIcon, UserIcon } from 'lucide-react';
-import { UserWithNumberOfEssays } from '@/lib/types';
+import { MailIcon, InfoIcon, FileTextIcon, TrashIcon } from 'lucide-react';
+import YesNoAlert from '@/components/YesNoAlert';
+import { deleteUser } from '@/actions/users';
 
 type Props = {
   users: UserWithNumberOfEssays[];
@@ -67,6 +71,10 @@ const columns: {
 const UnpublishedEssayList = ({ users }: Props) => {
   const router = useRouter();
 
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [userToDelete, setUserToDelete] =
+    useState<UserWithNumberOfEssays | null>(null);
+
   return (
     <>
       <Table className="border">
@@ -106,7 +114,7 @@ const UnpublishedEssayList = ({ users }: Props) => {
                     : (user as any)[column.key]}
                 </TableCell>
               ))}
-              <TableCell className="text-right">
+              <TableCell className="flex items-center justify-end gap-2">
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -117,15 +125,36 @@ const UnpublishedEssayList = ({ users }: Props) => {
                       <InfoIcon className="h-4 w-4" />
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent align="end">
+                  <PopoverContent align="end" className="text-sm">
                     {user.bio ? user.bio : 'Korisnik trenutno nema biografiju'}
                   </PopoverContent>
                 </Popover>
+                <Button
+                  variant="destructive"
+                  size="icon"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setUserToDelete(user);
+                    setIsDeleteOpen(true);
+                  }}
+                >
+                  <TrashIcon className="h-4 w-4" />
+                </Button>
               </TableCell>
             </TableRow>
           ))}
         </TableBody>
       </Table>
+
+      {/** Delete alert dialog */}
+      <YesNoAlert
+        isOpen={isDeleteOpen}
+        setIsOpen={setIsDeleteOpen}
+        title={`Brisanje korisnika: ${userToDelete?.email}`}
+        description="Da li ste sigurni da želite da obrišete ovog korisnika? Svi njegovi sastavi, komentari i ocene će biti obrisani."
+        variant="destructive"
+        action={() => deleteUser(userToDelete!.id)}
+      />
     </>
   );
 };

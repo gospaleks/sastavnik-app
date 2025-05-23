@@ -24,7 +24,17 @@ const PrivacyPage = () => {
             <p className="text-muted-foreground text-sm">
               Prikupljamo informacije koje nam dobrovoljno pružate prilikom
               registracije, slanja sastava i komentarisanja. Ove informacije
-              mogu uključivati vaše ime, e-mail adresu...
+              mogu uključivati vaše ime, e-mail adresu... <br /> <br />
+              Za autentifikaciju i pristup našoj web stranici koristimo{' '}
+              <a
+                href="https://kinde.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary underline underline-offset-4"
+              >
+                Kinde Auth
+              </a>
+              . Kinde prikuplja vašu e-mail adresu i ime i prezime koje unesete.
             </p>
           </section>
 
