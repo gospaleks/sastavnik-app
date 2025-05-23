@@ -1,9 +1,6 @@
 <div align="center">
   <img src="public/logo_navbar_dark.png" alt="Sastavnik logo" width="320"/>
 
-  <h1>Sastavnik</h1>
-  <i>Kreiraj. Uči. Inspiriši.</i>
-
   <p>Sastavi za osnovnu i srednju školu. Inspirši se, nauči i napiši svoj najbolji sastav do sada!</p>
 
 <a href="#-o-projektu">O projektu</a> •
@@ -23,7 +20,7 @@
 - Filtrirati sastave po kategoriji, tipu škole i razredu
 - Dodavati omiljene sastave i inspirisati se za pismene zadatke
 
-Platforma je **open source** i nastala je sa ciljem da podrži učenike u razvijanju veštine pisanja kroz međusobnu razmenu znanja.
+Platforma je nastala sa ciljem da podrži učenike u razvijanju veštine pisanja kroz međusobnu razmenu znanja.
 
 Pored korisničkog dela, platforma poseduje i **admin panel** sa punim CRUD operacijama, što omogućava administraciju sastava, korisnika, kategorija i komentara, radi bolje kontrole i moderacije sadržaja.
 
@@ -32,9 +29,9 @@ Pored korisničkog dela, platforma poseduje i **admin panel** sa punim CRUD oper
 ## 📸 Screenshot
 
 <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-  <img src="public/ss1.png" alt="Screenshot 1" width="300" />
-  <img src="public/ss2.png" alt="Screenshot 2" width="300" />
-  <img src="public/ss3.png" alt="Screenshot 3" width="300" />
+  <img src="public/ss1.png" alt="Screenshot 1" />
+  <img src="public/ss2.png" alt="Screenshot 2" />
+  <img src="public/ss3.png" alt="Screenshot 3" />
 </div>
 
 ---
@@ -46,8 +43,6 @@ Pored korisničkog dela, platforma poseduje i **admin panel** sa punim CRUD oper
 ---
 
 ## 🛠️ Tech Stack
-
-**Frontend:**
 
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
