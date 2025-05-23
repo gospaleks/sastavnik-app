@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { MoonStar, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { DropdownMenuItem } from './ui/dropdown-menu';
 import { Button } from './ui/button';
@@ -24,7 +24,7 @@ export function ModeToggle() {
 
   return (
     <DropdownMenuItem onClick={toggleTheme}>
-      {theme === 'light' ? <Sun /> : <Moon />}
+      {theme === 'light' ? <MoonStar fill="currentColor" /> : <Sun />}
       Promena teme
     </DropdownMenuItem>
   );
@@ -48,7 +48,11 @@ export function ModeToggle2() {
 
   return (
     <Button variant={'outline'} onClick={toggleTheme}>
-      {theme === 'light' ? <Sun /> : <Moon />}
+      {theme === 'light' ? (
+        <MoonStar fill="currentColor" className="opacity-80" />
+      ) : (
+        <Sun />
+      )}
       <span className="sr-only">Promena teme</span>
     </Button>
   );
