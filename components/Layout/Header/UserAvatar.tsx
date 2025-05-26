@@ -3,7 +3,10 @@ import Link from 'next/link';
 import { KindeUser } from '@kinde-oss/kinde-auth-nextjs/types';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import MyAvatar from '@/components/MyAvatar';
+import { ModeToggle } from '@/components/ModeToggle';
+
+import { Badge } from '@/components/ui/badge';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -21,8 +24,6 @@ import {
   PlusIcon,
   UserIcon,
 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
 
 type Props = {
   user: KindeUser<Record<string, any>>;
@@ -33,24 +34,22 @@ const UserAvatar = ({ user, isAdmin }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer">
-        <Avatar>
-          {user?.picture?.includes('gravatar.com') === false ? (
-            <AvatarImage src={user?.picture || '/default_avatar.png'} />
-          ) : null}
-
-          <AvatarFallback>
-            {user?.given_name ? user.given_name[0] : ''}
-            {user?.family_name ? user.family_name[0] : ''}
-          </AvatarFallback>
-        </Avatar>
+        <MyAvatar
+          imageUrl={user.picture}
+          fallbackText={
+            (user.given_name ? user.given_name[0] : '') +
+            (user.family_name ? user.family_name[0] : '')
+          }
+          className="border"
+        />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuLabel>
-          <span className="text-sm font-semibold">
+        <DropdownMenuLabel className="text-sm">
+          <span className="font-semibold">
             {user?.given_name} {user?.family_name}
           </span>
           <br />
-          {user?.email}
+          <span className="font-normal">{user?.email}</span>
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />

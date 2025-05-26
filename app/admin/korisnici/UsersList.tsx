@@ -4,6 +4,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { UserWithNumberOfEssays } from '@/lib/types';
+import { deleteUser } from '@/actions/users';
+
+import YesNoAlert from '@/components/YesNoAlert';
+import MyAvatar from '@/components/MyAvatar';
 
 import {
   Popover,
@@ -21,8 +25,6 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { MailIcon, InfoIcon, FileTextIcon, TrashIcon } from 'lucide-react';
-import YesNoAlert from '@/components/YesNoAlert';
-import { deleteUser } from '@/actions/users';
 
 type Props = {
   users: UserWithNumberOfEssays[];
@@ -40,9 +42,12 @@ const columns: {
     label: 'Profilna',
     className: 'w-[120px]',
     render: (user) => (
-      <img
-        src={user.image || '/default_avatar.png'}
-        alt="Profilna slika"
+      <MyAvatar
+        imageUrl={user.image}
+        fallbackText={
+          (user.firstName ? user.firstName[0] : '') +
+          (user.lastName ? user.lastName[0] : '')
+        }
         className="ml-2 h-8 w-8 rounded-full"
       />
     ),

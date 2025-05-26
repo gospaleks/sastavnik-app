@@ -6,6 +6,10 @@ import Image from 'next/image';
 import updateUsersBio from '@/actions/updateUsersBio';
 import { UserWithEssays } from '@/lib/types';
 
+import TooltipItem from '@/components/TooltipItem';
+import InfoBox from '@/components/InfoBox';
+import MyAvatar from '@/components/MyAvatar';
+
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,8 +30,6 @@ import {
   ThumbsDownIcon,
   XIcon,
 } from 'lucide-react';
-import TooltipItem from '@/components/TooltipItem';
-import InfoBox from '@/components/InfoBox';
 
 type Props = {
   userData: UserWithEssays;
@@ -55,12 +57,10 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
   return (
     <Card className="w-full max-w-2xl">
       <CardHeader className="flex flex-col items-center gap-4">
-        <Image
-          src={userData.image || '/default_avatar.png'}
-          alt={`${userData.firstName} ${userData.lastName}`}
-          width={96}
-          height={96}
-          className="h-24 w-24 rounded-full border object-cover"
+        <MyAvatar
+          imageUrl={userData.image}
+          fallbackText={`${userData.firstName?.[0] || ''}${userData.lastName?.[0] || ''}`}
+          className="h-24 w-24 border"
         />
       </CardHeader>
 

@@ -21,6 +21,7 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ChevronDown, Reply } from 'lucide-react';
 import CommentDropdown from './CommentDropdown';
+import MyAvatar from '../MyAvatar';
 
 type Props = {
   userId?: string;
@@ -62,16 +63,16 @@ const CommentCard = ({
               href={`/profil/${comment.author?.id}`}
               className="group flex cursor-pointer items-center gap-2"
             >
-              <Avatar className="rounded-full border">
-                <AvatarImage
-                  src={comment.author?.image || '/default_avatar.png'}
-                  alt="avatar"
-                />
-                <AvatarFallback>
-                  {comment.author?.firstName?.[0]}
-                  {comment.author?.lastName?.[0]}
-                </AvatarFallback>
-              </Avatar>
+              <MyAvatar
+                imageUrl={comment.author?.image}
+                fallbackText={
+                  (comment.author?.firstName
+                    ? comment.author.firstName[0]
+                    : '') +
+                  (comment.author?.lastName ? comment.author.lastName[0] : '')
+                }
+                className="border"
+              />
 
               <div className="flex flex-col gap-1 font-normal">
                 <span className="">{formattedDate}</span>
