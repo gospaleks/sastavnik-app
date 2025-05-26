@@ -65,7 +65,10 @@ const CommentForm = ({
   return (
     <div className="shadow-none">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="flex flex-col gap-3"
+        >
           <div>
             <FormField
               control={form.control}
@@ -109,7 +112,7 @@ const CommentForm = ({
                 disabled={isSubmitting}
                 variant="outline"
                 size={'sm'}
-                className="w-full md:w-fit"
+                className="w-1/4 md:w-fit"
                 tabIndex={-1}
                 onClick={onCancelHandle}
               >
@@ -121,7 +124,7 @@ const CommentForm = ({
               type="submit"
               disabled={isSubmitting}
               size={'sm'}
-              className="w-full md:w-fit"
+              className={`${comment ? 'w-full md:w-fit' : 'w-1/2 md:w-fit'}`}
             >
               {isSubmitting ? (
                 <>
