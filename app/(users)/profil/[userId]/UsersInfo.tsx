@@ -69,7 +69,7 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
           <h2 className="text-xl font-semibold">
             {userData.firstName} {userData.lastName}
           </h2>
-          <p className="text-muted-foreground">{userData.email}</p>
+          {canEdit && <p className="text-muted-foreground">{userData.email}</p>}
         </div>
 
         <div className="space-y-2">

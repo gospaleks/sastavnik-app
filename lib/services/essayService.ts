@@ -158,6 +158,11 @@ export async function getEssaysByCategoryName(
         },
       },
       category: true,
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
     orderBy: {
       createdAt: sort === 'asc' ? 'asc' : 'desc',
@@ -199,6 +204,11 @@ export async function getEssaysByTagName(tagName: string) {
         },
       },
       category: true,
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
     orderBy: {
       createdAt: 'desc',
@@ -231,6 +241,11 @@ export async function getEssaysByPopularity(limit = 10) {
           email: true,
         },
       },
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
   });
 
@@ -250,7 +265,7 @@ export async function getEssays(
   cacheTag('essays'); // Univerzalni tag (invalidira se kad se doda novi sastav ili se desi neka promena)
   // cacheTag(`essays-filters-${page}-${schoolType}-${grade}`); // mozda??
 
-  const limit = 4;
+  const limit = 6;
   const offset = (page - 1) * limit;
 
   const whereClause: Prisma.EssayWhereInput = {
@@ -316,6 +331,11 @@ export async function getEssays(
         },
       },
       category: true,
+      _count: {
+        select: {
+          comments: true,
+        },
+      },
     },
     orderBy: {
       createdAt: sort === 'asc' ? 'asc' : 'desc',
@@ -359,6 +379,11 @@ export async function getUnpublishedEssays() {
           firstName: true,
           lastName: true,
           email: true,
+        },
+      },
+      _count: {
+        select: {
+          comments: true,
         },
       },
     },

@@ -8,6 +8,7 @@ import ContentWrapper from '@/components/ContentWrapper';
 import AlertCard from '@/components/AlertCard';
 import Logo from '@/components/Logo';
 
+import { Separator } from '@/components/ui/separator';
 import { buttonVariants } from '@/components/ui/button';
 import {
   ArrowRight,
@@ -26,7 +27,7 @@ export default async function Footer() {
   return (
     <footer className="bg-muted border-border border-t">
       <ContentWrapper>
-        <div className="grid gap-10 px-4 py-8 md:grid-cols-3">
+        <div className="grid gap-6 px-4 py-8 md:grid-cols-3">
           {/* Prva kolona: Logo i opis */}
           <div className="flex flex-col items-center gap-4 text-center md:items-start">
             <Logo width={130} height={50} />
@@ -54,6 +55,8 @@ export default async function Footer() {
               <PlusCircleIcon />
               Dodaj sastav
             </Link>
+
+            <Separator className="dark:bg-accent mt-2 md:hidden" />
           </div>
 
           {/* Druga kolona: Najnoviji sastavi */}
@@ -83,26 +86,32 @@ export default async function Footer() {
               Prikaži sve sastave
               <ArrowRight />
             </Link>
+
+            <Separator className="dark:bg-accent mt-2 md:hidden" />
           </div>
 
           {/* Treca kolona: Kategorije i ostali linkovi */}
           <div className="flex flex-col items-center md:items-start">
-            <h4 className="mb-4 text-lg font-semibold">Kategorije</h4>
-            <ul className="space-y-2 text-sm">
-              {categories.map((category) => (
-                <li key={category.id}>
-                  <Link
-                    href={`/kategorije/${category.name}`}
-                    className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
-                  >
-                    <FolderOpenIcon size={15} />
-                    {category.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div>
+              <h4 className="mb-4 text-lg font-semibold">Kategorije</h4>
+              <ul className="space-y-2 text-sm">
+                {categories.map((category) => (
+                  <li key={category.id}>
+                    <Link
+                      href={`/kategorije/${category.name}`}
+                      className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
+                    >
+                      <FolderOpenIcon size={15} />
+                      {category.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            <div className="mt-4 flex flex-col items-center md:items-start">
+            <Separator className="dark:bg-accent my-4" />
+
+            <div className="flex flex-col items-center md:items-start">
               <h4 className="mb-4 text-lg font-semibold">Ostali linkovi</h4>
 
               <Link

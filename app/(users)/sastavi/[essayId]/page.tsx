@@ -44,11 +44,30 @@ export async function generateMetadata({
   if (!essay) {
     return {
       title: 'Sastav nije pronađen',
+      description: 'Ovaj sastav ne postoji ili je obrisan.',
     };
   }
 
+  const baseUrl = process.env.BASE_URL || '';
+
   return {
     title: `${essay.title}`,
+    description: essay.content.replace(/<[^>]+>/g, '').slice(0, 80) + '...',
+    authors: [
+      {
+        name: `${essay.author.firstName} ${essay.author.lastName}`,
+        url:
+          essay.author.email !== 'anonimni korisnik'
+            ? `${baseUrl}/profil/${essay.authorId}`
+            : undefined,
+      },
+    ],
+    keywords: [
+      essay.category.name,
+      essay.schoolType,
+      `${essay.level}. razred`,
+      ...essay.tags,
+    ],
   };
 }
 
@@ -104,9 +123,12 @@ const EssayPage = async ({ params }: PageProps) => {
           )}
 
           <div className="relative">
-            <h1 className="mr-8 text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl">
+            <h1
+              className={`${canEdit && essay ? 'mr-8' : ''} text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl`}
+            >
               {essay.title}
             </h1>
+
             {canEdit && essay && (
               <div className="absolute top-0 right-0">
                 <EssayDropdown essay={essay} isAdmin={isAdmin} />

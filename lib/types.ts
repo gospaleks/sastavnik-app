@@ -18,6 +18,11 @@ export type EssayWithAuthorCategory = Prisma.EssayGetPayload<{
       };
     };
     category: true;
+    _count: {
+      select: {
+        comments: true;
+      };
+    };
   };
 }>;
 

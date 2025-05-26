@@ -9,7 +9,7 @@ type Props = {
 
 const MyAvatar = ({ imageUrl, fallbackText, className }: Props) => {
   return (
-    <Avatar className={className}>
+    <Avatar className={`${className || ''} dark:border-accent`}>
       <AvatarImage src={imageUrl || '/default_avatar.svg'} />
       <AvatarFallback>{fallbackText}</AvatarFallback>
     </Avatar>

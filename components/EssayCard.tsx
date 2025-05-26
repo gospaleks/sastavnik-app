@@ -16,7 +16,8 @@ import { buttonVariants } from '@/components/ui/button';
 import {
   ArrowRight,
   Clock,
-  ExternalLinkIcon,
+  MessageSquareIcon,
+  MessageSquareOffIcon,
   Star,
   StarOffIcon,
   UserIcon,
@@ -34,7 +35,7 @@ const EssayCard = ({ essay }: Props) => {
   return (
     <Card className="transition-transform hover:-translate-y-1">
       <CardHeader>
-        <CardTitle className="cursor-pointer text-xl font-bold tracking-tight hover:underline">
+        <CardTitle className="cursor-pointer text-xl font-bold tracking-tight underline-offset-4 hover:underline">
           <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>
         </CardTitle>
 
@@ -54,16 +55,31 @@ const EssayCard = ({ essay }: Props) => {
             , {essay.level}. razred
           </Link>
 
-          <div className="mt-4 flex items-center gap-1 text-sm">
-            {essay.averageRating !== 0 ? (
-              <>
-                <Star className="fill-current text-yellow-400" />
-                {essay.averageRating.toFixed(1)}
-              </>
-            ) : (
-              <StarOffIcon />
-            )}
-            <span> ({essay.ratingCount})</span>
+          <div className="mt-4 flex items-center gap-4 text-sm">
+            <div className="flex items-center gap-1">
+              {essay.averageRating !== 0 ? (
+                <>
+                  <Star className="fill-current text-yellow-400" />
+                  {essay.averageRating.toFixed(1)}
+                </>
+              ) : (
+                <StarOffIcon />
+              )}
+              <span>({essay.ratingCount})</span>
+            </div>
+
+            <div className="relative opacity-80">
+              {essay._count.comments === 0 ? (
+                <MessageSquareOffIcon />
+              ) : (
+                <>
+                  <MessageSquareIcon />
+                  <span className="bg-primary text-primary-foreground absolute -top-2 -right-1 rounded-full px-1 py-0.5 text-xs">
+                    {essay._count.comments}
+                  </span>
+                </>
+              )}
+            </div>
           </div>
         </CardDescription>
       </CardHeader>

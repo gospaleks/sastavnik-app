@@ -38,14 +38,14 @@ const EssayCardInProfile = ({ essay, canEdit, isAdmin }: Props) => {
             href={`/sastavi/${essay.id}`}
             className="flex items-center gap-2"
           >
-            <CardTitle className="text-base font-semibold underline">
+            <CardTitle className="text-base font-semibold underline-offset-4 hover:underline">
               {essay.title}
             </CardTitle>
           </Link>
         </div>
 
         <Link
-          className="text-sm underline"
+          className="text-sm underline underline-offset-4 hover:opacity-80"
           href={`/kategorije/${essay.category.name}`}
         >
           {essay.category.name}

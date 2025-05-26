@@ -160,12 +160,12 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
       <h1 className="text-2xl font-bold">
         {essay ? (
           <div className="flex items-center gap-2">
-            <EditIcon className="inline-block" /> Izmeni sastav
+            <EditIcon className="inline-block" /> Izmena sastava
           </div>
         ) : (
           <>
             <div className="flex items-center gap-2">
-              <PlusIcon className="inline-block" /> Dodaj sastav
+              <PlusIcon className="inline-block" /> Dodavanje sastava
               {!isLoggedIn && <span>(anonimno)</span>}
             </div>
             {!isLoggedIn && (
@@ -342,6 +342,7 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
           description="Sastavi nisu namenjeni prepisivanju. Ovi tekstovi su primeri i služe
         učenju i shvatanju kako sastav ili pismeni rad treba biti napisan."
           variant="destructive"
+          className="mt-4"
         />
       </Form>
     </div>
