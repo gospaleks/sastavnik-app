@@ -147,6 +147,9 @@ const CommentCard = ({
                     setIsRepliesVisible(true);
                     setIsReplyFormOpen(false);
                   }}
+                  onCancelHandle={() => {
+                    setIsReplyFormOpen(false);
+                  }}
                 />
               </div>
             )}

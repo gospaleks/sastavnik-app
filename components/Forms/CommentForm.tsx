@@ -25,6 +25,7 @@ type Props = {
   parentId?: string;
   comment?: CommentWithAuthor;
   onSubmitHandle?: () => void;
+  onCancelHandle?: () => void;
   autoFocus?: boolean;
 };
 
@@ -33,6 +34,7 @@ const CommentForm = ({
   parentId,
   comment,
   onSubmitHandle,
+  onCancelHandle,
   autoFocus = false,
 }: Props) => {
   const form = useForm<CommentFormSchemaType>({
@@ -100,7 +102,21 @@ const CommentForm = ({
             />
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-end gap-2">
+            {/* Otkazi dugme ako je forma otvorena za odgovaranje na komentar */}
+            {parentId && (
+              <Button
+                disabled={isSubmitting}
+                variant="outline"
+                size={'sm'}
+                className="w-full md:w-fit"
+                tabIndex={-1}
+                onClick={onCancelHandle}
+              >
+                Otkaži
+              </Button>
+            )}
+
             <Button
               type="submit"
               disabled={isSubmitting}
