@@ -11,6 +11,12 @@
 
 ---
 
+## 🚀 Dostupno na
+
+[sastavnik.gospaleks.rs](https://sastavnik.gospaleks.rs)
+
+---
+
 ## 📝 O projektu
 
 **Sastavnik** je web platforma za učenike osnovnih i srednjih škola, gde mogu:
@@ -23,12 +29,6 @@
 Platforma je nastala sa ciljem da podrži učenike u razvijanju veštine pisanja kroz međusobnu razmenu znanja.
 
 Pored korisničkog dela, platforma poseduje i **admin panel** sa punim CRUD operacijama, što omogućava administraciju sastava, korisnika, kategorija i komentara, radi bolje kontrole i moderacije sadržaja.
-
----
-
-## 🚀 Demo
-
-[Uskoro dostupno]
 
 ---
 

@@ -10,7 +10,34 @@ export const metadata: Metadata = {
     default: 'Sastavnik - Kreiraj. Uči. Inspiriši.',
   },
   description:
-    'Sastavnik je platforma koja omogućava učenicima da pogledaju radove svojih drugara i da postave svoje radove.',
+    'Sastavnik je inovativna platforma za učenike i nastavnike, omogućava pregled, deljenje i inspiraciju kroz školske radove. Pridruži se zajednici, uči i inspiriši druge svojim radovima.',
+  keywords: [
+    'sastavi',
+    'srpski jezik',
+    'srednja škola',
+    'osnovna škola',
+    'Sastavnik',
+    'školski radovi',
+    'učenici',
+    'nastavnici',
+    'obrazovanje',
+    'deljenje radova',
+    'inspiracija',
+    'učenje',
+    'platforma za učenike',
+    'kreativnost',
+  ],
+  openGraph: {
+    title: 'Sastavnik - Kreiraj. Uči. Inspiriši.',
+    description:
+      'Pronađi i podeli školske radove, inspiriši se i inspiriši druge na Sastavniku. Zajednica za učenike i nastavnike.',
+    url: 'https://sastavnik.gospaleks.rs',
+    siteName: 'Sastavnik',
+    locale: 'sr_RS',
+    type: 'website',
+  },
+
+  metadataBase: new URL('https://sastavnik.gospaleks.rs'),
 };
 
 export default function RootLayout({

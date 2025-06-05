@@ -73,9 +73,7 @@ const CategoryDropdown = ({ category }: Props) => {
         setIsOpen={setIsEditOpen}
         title={`Izmena kategorije: ${category.name}`}
         children={
-          <div className="mx-4 md:mx-0">
-            <CategoryForm category={category} setIsOpen={setIsEditOpen} />
-          </div>
+          <CategoryForm category={category} setIsOpen={setIsEditOpen} />
         }
       />
     </>

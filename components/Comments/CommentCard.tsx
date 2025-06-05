@@ -92,7 +92,7 @@ const CommentCard = ({
 
         <CardContent>{comment.content}</CardContent>
 
-        <CardFooter className="flex flex-col items-start justify-between gap-2 md:flex-row">
+        <CardFooter className="flex items-start justify-between gap-2">
           {/* Show/Hide replies button */}
           {childComments.length > 0 && (
             <Button
