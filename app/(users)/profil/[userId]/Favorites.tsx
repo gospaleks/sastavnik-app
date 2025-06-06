@@ -20,7 +20,7 @@ const Favorites = ({ userId, essays }: Props) => {
   return (
     <Accordion type="single" collapsible>
       <AccordionItem value="omiljeni">
-        <AccordionTrigger className="bg-accent flex w-full items-center rounded-lg px-4 py-2 sm:text-lg">
+        <AccordionTrigger className="bg-accent flex w-full items-center rounded-lg px-4 py-2 underline-offset-4 sm:text-lg">
           <div className="flex items-center gap-2 font-normal">
             <BookmarkIcon />
             <span>Omiljeni sastavi ({essays.length})</span>

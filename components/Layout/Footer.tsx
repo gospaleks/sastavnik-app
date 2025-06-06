@@ -27,7 +27,7 @@ export default async function Footer() {
   return (
     <footer className="bg-muted border-border border-t">
       <ContentWrapper>
-        <div className="grid gap-6 px-4 py-8 md:grid-cols-3">
+        <div className="grid gap-x-14 gap-y-4 px-4 py-4 md:grid-cols-3">
           {/* Prva kolona: Logo i opis */}
           <div className="flex flex-col items-center gap-4 text-center md:items-start">
             <Logo width={130} height={50} />
@@ -49,6 +49,7 @@ export default async function Footer() {
               className={buttonVariants({
                 variant: 'outline',
                 size: 'sm',
+                className: 'w-full md:w-auto',
               })}
               href="/dodaj-sastav"
             >
@@ -60,7 +61,7 @@ export default async function Footer() {
           </div>
 
           {/* Druga kolona: Najnoviji sastavi */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-start">
             <h4 className="mb-4 text-lg font-semibold">Najnoviji sastavi</h4>
             <ul className="space-y-2 text-sm">
               {latestEssays.map((essay) => (
@@ -91,7 +92,7 @@ export default async function Footer() {
           </div>
 
           {/* Treca kolona: Kategorije i ostali linkovi */}
-          <div className="flex flex-col items-center md:items-start">
+          <div className="flex flex-col items-start">
             <div>
               <h4 className="mb-4 text-lg font-semibold">Kategorije</h4>
               <ul className="space-y-2 text-sm">
@@ -108,32 +109,30 @@ export default async function Footer() {
                 ))}
               </ul>
             </div>
-
-            <Separator className="dark:bg-accent my-4" />
-
-            <div className="flex flex-col items-center md:items-start">
-              <h4 className="mb-4 text-lg font-semibold">Ostali linkovi</h4>
-
-              <Link
-                href="/privatnost"
-                className={buttonVariants({
-                  variant: 'link',
-                  size: 'sm',
-                })}
-              >
-                Pravila privatnosti <ArrowRightIcon />
-              </Link>
-              <Link
-                href="/o-nama"
-                className={buttonVariants({
-                  variant: 'link',
-                  size: 'sm',
-                })}
-              >
-                O platformi Sastavnik <ArrowRightIcon />
-              </Link>
-            </div>
           </div>
+        </div>
+
+        <Separator className="dark:bg-accent my-4" />
+
+        <div className="flex flex-wrap items-center justify-center gap-4">
+          <Link
+            href="/privatnost"
+            className={buttonVariants({
+              variant: 'ghost',
+              size: 'sm',
+            })}
+          >
+            Pravila privatnosti
+          </Link>
+          <Link
+            href="/o-nama"
+            className={buttonVariants({
+              variant: 'ghost',
+              size: 'sm',
+            })}
+          >
+            O platformi Sastavnik
+          </Link>
         </div>
       </ContentWrapper>
 
@@ -148,7 +147,7 @@ export default async function Footer() {
               href="https://github.com/gospaleks"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-primary underline transition-colors"
+              className="hover:text-primary underline underline-offset-2 transition-colors"
             >
               gospaleks
             </Link>

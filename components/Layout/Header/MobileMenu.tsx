@@ -49,7 +49,9 @@ const MobileMenu = ({ categories, user }: Props) => {
         {/** Header navigacije */}
         <DrawerHeader className="mb-4 flex flex-row items-center justify-between px-0">
           <DrawerTitle className="text-base">
-            <Logo width={120} height={50} />
+            <div onClick={() => setIsOpen(false)}>
+              <Logo width={120} height={50} />
+            </div>
           </DrawerTitle>
 
           <DrawerClose>
@@ -94,6 +96,13 @@ const MobileMenu = ({ categories, user }: Props) => {
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
+            <Link
+              href="/dodaj-sastav"
+              className="mt-4 w-full border-b pb-4 text-lg hover:underline"
+              onClick={() => setIsOpen(false)} // zatvara drawer kada se klikne na link
+            >
+              Dodaj sastav
+            </Link>
             <Link
               href="/o-nama"
               className="mt-4 w-full border-b pb-4 text-lg hover:underline"

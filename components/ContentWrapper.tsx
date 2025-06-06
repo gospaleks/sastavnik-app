@@ -5,7 +5,7 @@ export const ContentWrapper = ({
   children: React.ReactNode;
   className?: string;
 }) => {
-  return <div className={`container mx-auto p-4 ${className}`}>{children}</div>;
+  return <div className={`mx-auto max-w-6xl p-4 ${className}`}>{children}</div>;
 };
 
 export default ContentWrapper;

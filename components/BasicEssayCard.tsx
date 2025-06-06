@@ -22,7 +22,7 @@ const BasicEssayCard = ({ essay }: Props) => {
       <Card className="cursor-pointer gap-1 p-4">
         <CardHeader className="flex items-start gap-3 p-0">
           <FileTextIcon className="text-primary" />
-          <h2 className="font-semibold tracking-tight hover:underline">
+          <h2 className="font-semibold tracking-tight underline-offset-4 hover:underline">
             {essay.title}
           </h2>
         </CardHeader>

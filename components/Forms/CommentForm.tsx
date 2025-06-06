@@ -60,6 +60,7 @@ const CommentForm = ({
     }
   }
 
+  const maxCharacters = 300;
   const charCount = form.watch('content')?.length || 0;
 
   return (
@@ -87,16 +88,16 @@ const CommentForm = ({
                         {...field}
                         autoFocus={autoFocus}
                         disabled={isSubmitting}
-                        maxLength={100}
+                        maxLength={maxCharacters}
                         onChange={(e) => {
-                          if (e.target.value.length <= 100) {
+                          if (e.target.value.length <= maxCharacters) {
                             field.onChange(e);
                           }
                         }}
-                        className="bg-background resize-none"
+                        className="bg-background"
                       />
                       <div className="text-muted-foreground absolute right-3 bottom-2 text-xs">
-                        {charCount}/100
+                        {charCount}/{maxCharacters}
                       </div>
                     </div>
                   </FormControl>

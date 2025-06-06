@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 
-import updateUsersBio from '@/actions/updateUsersBio';
+import updateUsersBio from '@/actions/users';
 import { UserWithEssays } from '@/lib/types';
 
 import TooltipItem from '@/components/TooltipItem';
@@ -30,6 +30,8 @@ import {
   ThumbsDownIcon,
   XIcon,
 } from 'lucide-react';
+import SocialLinks from './SocialLinks';
+import { Separator } from '@/components/ui/separator';
 
 type Props = {
   userData: UserWithEssays;
@@ -55,7 +57,7 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
   };
 
   return (
-    <Card className="w-full max-w-2xl">
+    <Card className="w-full">
       <CardHeader className="flex flex-col items-center gap-4">
         <MyAvatar
           imageUrl={userData.image}
@@ -106,20 +108,27 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
           {canEdit ? (
             <>
               {editing ? (
-                <Textarea
-                  id="bio"
-                  value={bio}
-                  onChange={(e) => {
-                    if (e.target.value.length <= 500) {
-                      setBio(e.target.value);
-                    }
-                  }}
-                  placeholder="Napiši nešto o sebi..."
-                  className="min-h-[120px]"
-                  disabled={!editing}
-                />
+                <div className="relative">
+                  <Textarea
+                    id="bio"
+                    value={bio}
+                    maxLength={500}
+                    onChange={(e) => {
+                      if (e.target.value.length <= 500) {
+                        setBio(e.target.value);
+                      }
+                    }}
+                    placeholder="Napiši nešto o sebi..."
+                    className="min-h-[140px] pb-10"
+                    disabled={!editing}
+                  />
+
+                  <p className="text-muted-foreground absolute right-2 bottom-2 text-right text-sm">
+                    {bio.length}/500
+                  </p>
+                </div>
               ) : bio.length > 0 ? (
-                <div className="text-muted-foreground text-sm whitespace-pre-line">
+                <div className="text-muted-foreground text-sm break-words whitespace-pre-line">
                   {bio}
                 </div>
               ) : (
@@ -127,15 +136,9 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
               )}
 
               {editing && (
-                <p className="text-muted-foreground text-right text-sm">
-                  {bio.length}/500
-                </p>
-              )}
-
-              {editing && (
                 <Button
                   onClick={handleSave}
-                  className="mt-2 w-full md:w-auto"
+                  className="mt-2 w-full"
                   size="sm"
                   disabled={loading || bio.length === 0 || bio === userData.bio}
                 >
@@ -161,6 +164,15 @@ const UsersInfo = ({ userData, canEdit }: Props) => {
             </div>
           )}
         </div>
+
+        <Separator />
+
+        <SocialLinks
+          userId={userData.id}
+          facebook={userData.facebook}
+          instagram={userData.instagram}
+          canEdit={canEdit}
+        />
       </CardContent>
 
       {/** TODO: Ocenjivanje korisnika */}
