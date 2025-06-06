@@ -36,7 +36,13 @@ const config = {
       lastmod: new Date().toISOString(),
     }));
 
-    return [...essayPaths, ...categoryPaths];
+    // Dodaj staticke rute
+    const staticPaths = [
+      { loc: '/privatnost', lastmod: new Date().toISOString() },
+      { loc: '/o-nama', lastmod: new Date().toISOString() },
+    ];
+
+    return [...essayPaths, ...categoryPaths, ...staticPaths];
   },
 };
 

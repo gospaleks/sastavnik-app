@@ -36,6 +36,9 @@ export const metadata: Metadata = {
     locale: 'sr_RS',
     type: 'website',
   },
+  verification: {
+    google: 'jltSHzd0AUMk2SJ8smiOeXyKbSzKA7vd2V1HtZgWEOk',
+  },
 
   metadataBase: new URL('https://sastavnik.gospaleks.rs'),
 };
