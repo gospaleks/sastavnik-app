@@ -39,7 +39,7 @@ const CommentsPage = async () => {
       </h1>
 
       {essaysWithComments.length > 0 ? (
-        <Accordion type="multiple" className="my-4 w-full">
+        <Accordion type="single" className="my-4 w-full">
           {essaysWithComments.map((essay) => {
             // Grupisi komentare
             const commentsByParentId: Record<string, CommentWithAuthor[]> = {};

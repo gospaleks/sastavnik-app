@@ -3,6 +3,7 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app';
 import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import TabBar from '@/components/Layout/TabBar';
 
 export const metadata: Metadata = {
   title: {
@@ -53,11 +54,14 @@ export default function RootLayout({
       <body className={`antialiased`}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            {children}
+            <TabBar />
+          </NuqsAdapter>
           <Toaster richColors closeButton />
         </ThemeProvider>
       </body>

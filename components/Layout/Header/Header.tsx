@@ -59,10 +59,6 @@ const Header = async () => {
         <DesktopMenu categories={categories} isLoggedIn={isLoggedIn} />
 
         <div className="flex items-center justify-center gap-4">
-          <Link href="/dodaj-sastav" className="block sm:hidden">
-            <PlusCircleIcon size={30} />
-          </Link>
-
           <SearchBar />
 
           {isLoggedIn && <UserAvatar user={user} isAdmin={isAdmin} />}

@@ -34,12 +34,12 @@ const SortFilter = () => {
           {sort === 'desc' ? (
             <>
               <ArrowDownWideNarrow className="h-4 w-4" />
-              <span className="sm:hidden lg:inline">Najnoviji</span>
+              <span className="hidden md:inline">Najnoviji</span>
             </>
           ) : (
             <>
               <ArrowUpWideNarrow className="h-4 w-4" />
-              <span className="sm:hidden lg:inline">Najstariji</span>
+              <span className="hidden md:inline">Najstariji</span>
             </>
           )}
         </Button>

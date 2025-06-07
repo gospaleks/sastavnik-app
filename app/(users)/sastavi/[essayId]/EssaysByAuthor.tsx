@@ -7,9 +7,9 @@ type Props = {
 };
 
 const EssaysByAuthor = async ({ authorId, essayToSkipId }: Props) => {
-  const otherEssaysByAuthor = (await getEssaysBasicByAuthor(authorId)).filter(
-    (essay) => essay.id !== essayToSkipId,
-  );
+  const otherEssaysByAuthor = (
+    await getEssaysBasicByAuthor(authorId, 5)
+  ).filter((essay) => essay.id !== essayToSkipId);
 
   return <BasicEssayList essays={otherEssaysByAuthor} />;
 };

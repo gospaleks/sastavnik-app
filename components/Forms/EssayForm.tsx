@@ -166,7 +166,6 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
           <>
             <div className="flex items-center gap-2">
               <PlusIcon className="inline-block" /> Dodavanje sastava
-              {!isLoggedIn && <span>(anonimno)</span>}
             </div>
             {!isLoggedIn && (
               <p className="text-destructive text-sm font-normal">

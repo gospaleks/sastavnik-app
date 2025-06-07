@@ -16,7 +16,7 @@ const EssaysWithSameCategory = async ({
   essayToSkipId,
 }: Props) => {
   const essaysWithSameCategory = (
-    await getEssaysBasicByCategoryName(categoryName)
+    await getEssaysBasicByCategoryName(categoryName, 5)
   ).filter((essay) => essay.id !== essayToSkipId);
 
   return (

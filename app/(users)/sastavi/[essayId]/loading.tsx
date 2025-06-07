@@ -1,10 +1,12 @@
 import ContentWrapper from '@/components/ContentWrapper';
+import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const LoadingEssayPage = () => {
   return (
     <ContentWrapper>
       <div className="flex flex-col gap-8 md:flex-row">
+        {/* Leva strana */}
         <div className="w-full space-y-2 md:w-8/12">
           {/* Placeholder za naslov */}
           <Skeleton className="mx-auto h-12 w-10/12 md:mx-0" />
@@ -28,17 +30,21 @@ const LoadingEssayPage = () => {
           </div>
 
           {/* Placeholder za sadržaj */}
-          <Skeleton className="mx-auto h-48 w-full" />
+          <Skeleton className="mx-auto h-80 w-full" />
 
           {/* Placeholder za tagove */}
           <div className="mt-4 flex flex-wrap gap-2">
-            <Skeleton className="h-8 w-20" />
-            <Skeleton className="h-8 w-20" />
-            <Skeleton className="h-8 w-20" />
+            <Skeleton className="h-5 w-12" />
+            <Skeleton className="h-5 w-20" />
+            <Skeleton className="h-5 w-12" />
+            <Skeleton className="h-5 w-14" />
           </div>
 
-          {/* Placeholder za alert */}
-          <Skeleton className="mt-4 h-16 w-full" />
+          {/* Placeholder za komentare */}
+          <div className="mt-8 space-y-4">
+            <CommentSkeleton />
+            <CommentSkeleton />
+          </div>
         </div>
 
         {/* Desna strana: Placeholder za ostale sastave autora i kategorije */}
@@ -46,17 +52,39 @@ const LoadingEssayPage = () => {
           {/* Placeholder za ostale sastave autora */}
           <div>
             <Skeleton className="h-6 w-3/4 md:w-1/2" />
-            <Skeleton className="mt-2 h-32 w-full" />
+            <EssaysByAuthorSkeleton />
           </div>
 
           {/* Placeholder za sastave iz iste kategorije */}
           <div>
             <Skeleton className="h-6 w-3/4 md:w-1/2" />
-            <Skeleton className="mt-2 h-32 w-full" />
+            <EssaysByAuthorSkeleton />
           </div>
         </div>
       </div>
     </ContentWrapper>
+  );
+};
+
+const CommentAutorSkeleton = () => {
+  return (
+    <div className="flex items-start gap-4">
+      <Skeleton className="h-10 w-10 rounded-full" />
+      <div className="flex flex-col gap-2">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-4 w-full" />
+      </div>
+    </div>
+  );
+};
+
+const CommentSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-2 p-4">
+      <CommentAutorSkeleton />
+      <Skeleton className="mt-4 h-6 w-3/4" />
+      <Skeleton className="h-4 w-full" />
+    </div>
   );
 };
 
