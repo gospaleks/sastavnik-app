@@ -1,6 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
+
 import { getAllCategories } from '@/data/category/getAllCategories';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
@@ -23,16 +22,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { buttonVariants } from '@/components/ui/button';
-import {
-  LogInIcon,
-  PlusCircleIcon,
-  PlusIcon,
-  User,
-  UserCircleIcon,
-} from 'lucide-react';
+import { LogInIcon, User, UserCircleIcon } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
 
+// TODO: sve fetch metode prebaci na client-side !!!!!!!!!!!!!!!
 const Header = async () => {
   const { getUser, isAuthenticated, getPermission } = getKindeServerSession();
   const [isLoggedIn, user, categories, adminPermission] = await Promise.all([
