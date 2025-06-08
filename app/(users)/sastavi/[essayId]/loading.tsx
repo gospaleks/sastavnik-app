@@ -51,13 +51,13 @@ const LoadingEssayPage = () => {
         <div className="flex w-full flex-col gap-8 md:w-4/12">
           {/* Placeholder za ostale sastave autora */}
           <div>
-            <Skeleton className="h-6 w-3/4 md:w-1/2" />
+            <Skeleton className="mb-2 h-6 w-3/4 md:w-1/2" />
             <EssaysByAuthorSkeleton />
           </div>
 
           {/* Placeholder za sastave iz iste kategorije */}
           <div>
-            <Skeleton className="h-6 w-3/4 md:w-1/2" />
+            <Skeleton className="mb-2 h-6 w-3/4 md:w-1/2" />
             <EssaysByAuthorSkeleton />
           </div>
         </div>

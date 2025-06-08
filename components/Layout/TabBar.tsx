@@ -1,16 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 
-import {
-  getKindeServerSession,
-  LoginLink,
-} from '@kinde-oss/kinde-auth-nextjs/server';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+import { LoginLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
 import SearchBarMobile from './SearchBarMobile';
 import { PlusCircleIcon, HomeIcon, UserIcon, LogInIcon } from 'lucide-react';
 
-const TabBar = async () => {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+const TabBar = () => {
+  const { getUser } = useKindeBrowserClient();
+  const user = getUser();
 
   return (
     <div className="bg-background border-muted sticky bottom-0 z-50 block border-t p-4 md:hidden">

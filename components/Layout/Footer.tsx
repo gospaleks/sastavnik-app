@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 import { getLatestEssays } from '@/data/essay/getLatestEssays';
@@ -15,12 +17,50 @@ import {
   FolderOpenIcon,
   PlusCircleIcon,
 } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Category } from '@prisma/client';
 
-export default async function Footer() {
-  const [categories, latestEssays] = await Promise.all([
-    getAllCategories(),
-    getLatestEssays(8),
-  ]);
+type LatestEssayType = {
+  id: string;
+  title: string;
+  content: string;
+};
+
+export default function Footer() {
+  const [latestEssays, setLatestEssays] = useState<LatestEssayType[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+
+  // Fetch latest essays and categories on component mount
+  useEffect(() => {
+    const fetchLatestEssays = async () => {
+      try {
+        const response = await fetch('/api/essay');
+        if (!response.ok) {
+          throw new Error('Failed to fetch latest essays');
+        }
+        const data: LatestEssayType[] = await response.json();
+        setLatestEssays(data);
+      } catch (error) {
+        console.error('Error fetching latest essays:', error);
+      }
+    };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/category');
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+        const data: Category[] = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchLatestEssays();
+    fetchCategories();
+  }, []);
 
   return (
     <footer className="bg-muted border-border border-t">

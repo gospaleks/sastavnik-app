@@ -1,8 +1,7 @@
-import React from 'react';
+'use client';
 
-import { getAllCategories } from '@/data/category/getAllCategories';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import {
   RegisterLink,
   LoginLink,
@@ -25,18 +24,35 @@ import { buttonVariants } from '@/components/ui/button';
 import { LogInIcon, User, UserCircleIcon } from 'lucide-react';
 import Logo from '@/components/Logo';
 import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
+import { useEffect, useState } from 'react';
+import { Category } from '@prisma/client';
 
-// TODO: sve fetch metode prebaci na client-side !!!!!!!!!!!!!!!
-const Header = async () => {
-  const { getUser, isAuthenticated, getPermission } = getKindeServerSession();
-  const [isLoggedIn, user, categories, adminPermission] = await Promise.all([
-    isAuthenticated(),
-    getUser(),
-    getAllCategories(),
-    getPermission('admin:access'),
-  ]);
+const Header = () => {
+  const {
+    getUser,
+    isAuthenticated: isLoggedIn,
+    getPermission,
+  } = useKindeBrowserClient();
+  const user = getUser();
+  const isAdmin = getPermission('admin:access').isGranted || false;
+  const [categories, setCategories] = useState<Category[]>([]);
 
-  const isAdmin = adminPermission?.isGranted || false;
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch('/api/category');
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories');
+        }
+        const data: Category[] = await response.json();
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   return (
     <header className="bg-background sticky top-0 z-50 h-16 border-b">

@@ -2,7 +2,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 const BasicEssayCardSkeleton = () => {
   return (
-    <div className="space-y-2 rounded-md p-4 shadow-sm">
+    <div className="space-y-2 rounded-xl p-4 shadow-sm">
       <div className="flex items-center gap-2">
         <Skeleton className="h-5 w-8" /> {/* Ikonica */}
         <Skeleton className="h-5 w-3/4" /> {/* Naslov */}
