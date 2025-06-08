@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getAllCategories } from '@/lib/services/categoryService';
+import { getAllCategories } from '@/data/category/getAllCategories';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import {

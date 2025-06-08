@@ -1,14 +1,14 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 
-import updateUsersBio from '@/actions/users';
+import updateUsersBio from '@/actions/user/updateUsersBio';
 import { UserWithEssays } from '@/lib/types';
 
 import TooltipItem from '@/components/TooltipItem';
 import InfoBox from '@/components/InfoBox';
 import MyAvatar from '@/components/MyAvatar';
+import SocialLinks from './SocialLinks';
 
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -19,6 +19,7 @@ import {
   CardHeader,
 } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
+import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 import {
   SaveIcon,
@@ -30,8 +31,6 @@ import {
   ThumbsDownIcon,
   XIcon,
 } from 'lucide-react';
-import SocialLinks from './SocialLinks';
-import { Separator } from '@/components/ui/separator';
 
 type Props = {
   userData: UserWithEssays;

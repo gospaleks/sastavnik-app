@@ -1,4 +1,4 @@
-import { getEssaysByPopularity } from '@/lib/services/essayService';
+import { getEssaysByPopularity } from '@/data/essay/getEssaysByPopularity';
 
 import {
   Carousel,

@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import deleteEssay from '@/actions/deleteEssay';
-import tooglePublishEssay from '@/actions/publishEssay';
+import deleteEssay from '@/actions/essay/deleteEssay';
+import tooglePublishEssay from '@/actions/essay/publishEssay';
 import { EssayWithCategory } from '@/lib/types';
 
 import YesNoAlert from '@/components/YesNoAlert';

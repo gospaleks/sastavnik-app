@@ -1,7 +1,10 @@
 import { prisma } from '@/lib/prisma';
-import { EssayWithComments } from '../types';
+import { EssayWithComments } from '@/lib/types';
+import { requireAdmin } from '../user/requireAdmin';
 
 export async function getAllComments() {
+  await requireAdmin('/');
+
   const essaysWithComments = await prisma.essay.findMany({
     where: {
       comments: {

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getEssaysBasicByCategoryName } from '@/lib/services/essayService';
+import { getEssaysBasicByCategoryName } from '@/data/essay/getEssaysBasicByCategoryName';
 
 import BasicEssayList from '@/components/BasicEssayList';
 

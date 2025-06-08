@@ -49,6 +49,7 @@ export default async function toggleFavorite(essayId: string) {
     });
 
     revalidateTag(`essay-favorite-${essayId}`); // Revalidiraj keš za taj sastav
+    revalidateTag(`user-${user.id}`); // Revalidiraj keš za korisnika
 
     return {
       success: true,
@@ -66,6 +67,7 @@ export default async function toggleFavorite(essayId: string) {
     });
 
     revalidateTag(`essay-favorite-${essayId}`); // Revalidiraj keš za taj sastav
+    revalidateTag(`user-${user.id}`); // Revalidiraj keš za korisnika
 
     return {
       success: true,

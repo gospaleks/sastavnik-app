@@ -71,6 +71,7 @@ export default async function updateEssay(
 
   revalidateTag('essays');
   revalidateTag(`essay-${updatedEssay.id}`); // Revalidacija za pojedinacni sastav
+  revalidateTag(`user-${updatedEssay.authorId}`); // Revalidacija za korisnika koji je autor sastava
 
   return {
     success: true,

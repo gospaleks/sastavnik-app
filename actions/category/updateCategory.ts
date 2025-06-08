@@ -5,13 +5,13 @@ import { CategoryFormSchemaType } from '@/lib/schemas';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { revalidateTag } from 'next/cache';
 
-export async function updateCategory(
+export const updateCategory = async (
   categoryId: string,
   values: CategoryFormSchemaType,
 ): Promise<{
   success: boolean;
   message: string;
-}> {
+}> => {
   const { getPermission } = getKindeServerSession();
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
 
@@ -70,4 +70,4 @@ export async function updateCategory(
     success: true,
     message: `Kategorija "${updatedCategory.name}" je uspešno izmenjena`,
   };
-}
+};

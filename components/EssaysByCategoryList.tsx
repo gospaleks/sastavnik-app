@@ -1,4 +1,4 @@
-import { getEssaysByCategoryName } from '@/lib/services/essayService';
+import { getEssaysByCategoryName } from '@/data/essay/getEssaysByCategoryName';
 
 import PagePagination from '@/components/PagePagination';
 import EssayCard from '@/components/EssayCard';

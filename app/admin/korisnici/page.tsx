@@ -1,22 +1,16 @@
 import { Metadata } from 'next/types';
-import { redirect } from 'next/navigation';
+
+import { getAllUsers } from '@/data/user/getAllUsers';
 
 import ContentWrapper from '@/components/ContentWrapper';
-import { isAdmin } from '../isAdmin';
-import { getAllUsers } from '@/lib/services/userService';
 import UsersList from './UsersList';
-import { Button } from '@/components/ui/button';
-import { prisma } from '@/lib/prisma';
 
 export const metadata: Metadata = {
   title: 'Korisnici',
 };
 
 const Korisnici = async () => {
-  const isUserAdmin = await isAdmin();
-  if (!isUserAdmin) redirect('/');
-
-  const users = await getAllUsers();
+  const users = await getAllUsers(); // metoda getAllUsers ima requireAdmin u sebi
 
   return (
     <ContentWrapper>

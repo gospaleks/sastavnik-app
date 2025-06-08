@@ -75,6 +75,10 @@ export default async function createEssay(
 
   revalidateTag('essays');
 
+  if (isLoggedIn) {
+    revalidateTag(`user-${user.id}`);
+  }
+
   return {
     success: true,
     message: isLoggedIn

@@ -2,7 +2,7 @@
 
 import { useTransition, useState } from 'react';
 
-import toggleFavorite from '@/actions/toggleFavorite';
+import toggleFavorite from '@/actions/essay/toggleFavorite';
 
 import { Button } from '@/components/ui/button';
 import { BookmarkIcon, Loader2Icon } from 'lucide-react';

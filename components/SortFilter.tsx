@@ -2,7 +2,7 @@
 
 import { parseAsInteger, useQueryState } from 'nuqs';
 
-import { refetchEssays } from '@/lib/services/refetchEssays';
+import { refetchEssays } from '@/data/essay/refetchEssays';
 
 import TooltipItem from '@/components/TooltipItem';
 

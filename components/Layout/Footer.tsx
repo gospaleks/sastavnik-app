@@ -1,8 +1,7 @@
-import Image from 'next/image';
 import Link from 'next/link';
 
-import { getLatestEssays } from '@/lib/services/essayService';
-import { getAllCategories } from '@/lib/services/categoryService';
+import { getLatestEssays } from '@/data/essay/getLatestEssays';
+import { getAllCategories } from '@/data/category/getAllCategories';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import AlertCard from '@/components/AlertCard';
@@ -12,7 +11,6 @@ import { Separator } from '@/components/ui/separator';
 import { buttonVariants } from '@/components/ui/button';
 import {
   ArrowRight,
-  ArrowRightIcon,
   FileTextIcon,
   FolderOpenIcon,
   PlusCircleIcon,

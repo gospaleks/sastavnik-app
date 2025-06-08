@@ -1,12 +1,10 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { Metadata } from 'next/types';
 
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { CommentWithAuthor } from '@/lib/types';
 
-import { isAdmin } from '../isAdmin';
-import { getAllComments } from '@/lib/services/commentService';
+import { requireAdmin } from '@/data/user/requireAdmin';
+import { getAllComments } from '@/data/comment/getAllComments';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import CommentsList from '@/components/Comments/CommentsList';
@@ -24,11 +22,7 @@ export const metadata: Metadata = {
 };
 
 const CommentsPage = async () => {
-  const isUserAdmin = await isAdmin();
-  if (!isUserAdmin) redirect('/');
-
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = await requireAdmin('/');
 
   const essaysWithComments = await getAllComments();
 
@@ -84,7 +78,7 @@ const CommentsPage = async () => {
                     comments={topLevelComments}
                     commentsByParentId={commentsByParentId}
                     essayId={essay.id}
-                    isAdmin={isUserAdmin}
+                    isAdmin={user ? true : false}
                     userId={user?.id}
                   />
                 </AccordionContent>

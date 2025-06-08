@@ -1,7 +1,6 @@
-import { redirect } from 'next/navigation';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-import { getAllCategories } from '@/lib/services/categoryService';
+import { getAllCategories } from '@/data/category/getAllCategories';
 
 import { TooltipProvider } from '@/components/ui/tooltip';
 import ContentWrapper from '@/components/ContentWrapper';
@@ -14,7 +13,6 @@ export const metadata = {
 const DodajSastavPage = async () => {
   const { isAuthenticated } = getKindeServerSession();
   const isLoggedIn = await isAuthenticated();
-  // if (!isLoggedIn) redirect('/api/auth/login');
 
   const categories = await getAllCategories();
 

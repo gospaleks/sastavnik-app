@@ -1,4 +1,4 @@
-import { getEssaysBasicByAuthor } from '@/lib/services/essayService';
+import { getEssaysBasicByAuthor } from '@/data/essay/getEssaysBasicByAuthor';
 import BasicEssayList from '@/components/BasicEssayList';
 
 type Props = {

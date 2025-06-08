@@ -1,13 +1,13 @@
 'use client';
 
-import Link from 'next/link';
 import { useState } from 'react';
+import { CommentWithAuthor } from '@/lib/types';
 
-import deleteEssay from '@/actions/deleteEssay';
-import tooglePublishEssay from '@/actions/publishEssay';
-import { CommentWithAuthor, EssayWithCategory } from '@/lib/types';
+import { deleteComment } from '@/actions/comment/deleteComment';
 
+import { ResponsiveDialog } from '@/components/responsive-dialog';
 import YesNoAlert from '@/components/YesNoAlert';
+import CommentForm from '@/components/Forms/CommentForm';
 
 import {
   DropdownMenu,
@@ -15,16 +15,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  EditIcon,
-  EllipsisVerticalIcon,
-  EyeOffIcon,
-  Trash2Icon,
-  UploadIcon,
-} from 'lucide-react';
-import { deleteComment } from '@/actions/comments';
-import { ResponsiveDialog } from '@/components/responsive-dialog';
-import CommentForm from '@/components/Forms/CommentForm';
+import { EditIcon, EllipsisVerticalIcon, Trash2Icon } from 'lucide-react';
 
 type Props = {
   essayId: string;

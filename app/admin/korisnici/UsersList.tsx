@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { UserWithNumberOfEssays } from '@/lib/types';
-import { deleteUser } from '@/actions/users';
+import { deleteUser } from '@/actions/user/deleteUser';
 
 import YesNoAlert from '@/components/YesNoAlert';
 import MyAvatar from '@/components/MyAvatar';

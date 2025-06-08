@@ -2,21 +2,17 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
-import { getUserById } from '@/lib/services/userService';
+import { getUserById } from '@/data/user/getUserById';
 
 import EssayCardInProfile from './EssayCardInProfile';
 import UsersInfo from './UsersInfo';
 
 import ContentWrapper from '@/components/ContentWrapper';
-import { Button, buttonVariants } from '@/components/ui/button';
-import {
-  NotebookTextIcon,
-  PlusCircleIcon,
-  PlusIcon,
-  UserIcon,
-} from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { NotebookTextIcon, PlusCircleIcon, UserIcon } from 'lucide-react';
 import Favorites from './Favorites';
 import InfoBox from '@/components/InfoBox';
+import { getUserSession } from '@/data/user/getUser';
 
 type PageProps = {
   params: Promise<{ userId: string }>;
@@ -30,6 +26,7 @@ export async function generateMetadata({
 
   return {
     title: `Profil - ${userData?.firstName} ${userData?.lastName}`,
+    description: `Profil korisnika ${userData?.firstName} ${userData?.lastName}. Prikaz njegovih sastava i informacija.`,
   };
 }
 
@@ -40,13 +37,12 @@ const ProfilPage = async ({ params }: PageProps) => {
   const usersEssays = userData?.essays || [];
 
   // Kinde
-  const { isAuthenticated, getUser, getPermission } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
-  const user = await getUser();
+  const { getPermission } = getKindeServerSession();
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
+  const user = await getUserSession();
 
   // Korisnik moze da uredjuje profil ako je njegov ili ako je admin
-  const canEdit = isLoggedIn && (userId === user.id || isAdmin);
+  const canEdit = user && (userId === user.id || isAdmin);
 
   // Filtriranje na osnovu published statusa
   const filteredEssays = canEdit

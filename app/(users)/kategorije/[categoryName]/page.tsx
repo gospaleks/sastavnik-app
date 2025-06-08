@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { SearchParams } from 'nuqs/server';
 import { loadSearchParams } from '@/lib/searchParams';
 
-import { doesCategoryExist } from '@/lib/services/categoryService';
+import { doesCategoryExist } from '@/data/category/doesCategoryExist';
 
 import SortFilter from '@/components/SortFilter';
 import ContentWrapper from '@/components/ContentWrapper';

@@ -4,11 +4,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 
 import { formatDate } from '@/lib/utils';
-import { getEssayById } from '@/lib/services/essayService';
-import {
-  getUsersRatingForEssay,
-  isEssayFavoriteForUser,
-} from '@/lib/services/userService';
+import { getEssayById } from '@/data/essay/getEssayById';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
@@ -30,6 +26,8 @@ import { ArrowRight } from 'lucide-react';
 import '@/components/minimal-tiptap/styles/index.css';
 import { CommentWithAuthor } from '@/lib/types';
 import CommentsList from '@/components/Comments/CommentsList';
+import { getUsersRatingForEssay } from '@/data/user/getUsersRatingForEssay';
+import { isEssayFavoriteForUser } from '@/data/user/isEssayFavoriteForUser';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;

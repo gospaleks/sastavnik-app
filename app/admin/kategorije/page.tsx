@@ -2,21 +2,21 @@ import { Metadata } from 'next';
 import { redirect } from 'next/navigation';
 import Link from 'next/link';
 
-import { getAllCategories } from '@/lib/services/categoryService';
+import { getAllCategories } from '@/data/category/getAllCategories';
 import { isAdmin } from '../isAdmin';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import { CategoryForm } from '@/components/Forms/CategoryForm';
 import CategoryDropdown from './CategoryDropdown';
 import { FolderOpenIcon } from 'lucide-react';
+import { requireAdmin } from '@/data/user/requireAdmin';
 
 export const metadata: Metadata = {
   title: 'Kategorije',
 };
 
 const KategorijePage = async () => {
-  const isUserAdmin = await isAdmin();
-  if (!isUserAdmin) redirect('/');
+  await requireAdmin('/');
 
   const categories = await getAllCategories();
 

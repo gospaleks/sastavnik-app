@@ -4,6 +4,8 @@ import { useState } from 'react';
 
 import { Category } from '@prisma/client';
 
+import { deleteCategory } from '@/actions/category/deleteCategory';
+
 import YesNoAlert from '@/components/YesNoAlert';
 import { ResponsiveDialog } from '@/components/responsive-dialog';
 
@@ -14,7 +16,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { EditIcon, EllipsisVerticalIcon, Trash2Icon } from 'lucide-react';
-import deleteCategory from '@/actions/deleteCategory';
 import { CategoryForm } from '@/components/Forms/CategoryForm';
 
 type Props = {

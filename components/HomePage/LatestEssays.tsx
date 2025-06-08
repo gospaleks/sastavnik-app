@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getLatestEssays } from '@/lib/services/essayService';
+import { getLatestEssays } from '@/data/essay/getLatestEssays';
 
 import BasicEssayList from '@/components/BasicEssayList';
 import { buttonVariants } from '@/components/ui/button';

@@ -10,8 +10,8 @@ import { Category, Essay } from '@prisma/client';
 import { essayFormSchema, EssayFormSchemaType } from '@/lib/schemas';
 import { cn } from '@/lib/utils';
 
-import updateEssay from '@/actions/updateEssay';
-import createEssay from '@/actions/createEssay';
+import createEssay from '@/actions/essay/createEssay';
+import updateEssay from '@/actions/essay/updateEssay';
 
 import { MinimalTiptapEditor } from '@/components/minimal-tiptap';
 import { Editor } from '@tiptap/react';
@@ -160,16 +160,16 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
       <h1 className="text-2xl font-bold">
         {essay ? (
           <div className="flex items-center gap-2">
-            <EditIcon className="inline-block" /> Izmena sastava
+            <EditIcon className="inline-block" /> Izmena
           </div>
         ) : (
           <>
             <div className="flex items-center gap-2">
-              <PlusIcon className="inline-block" /> Dodavanje sastava
+              <PlusIcon className="inline-block" /> Novi sastav
             </div>
             {!isLoggedIn && (
               <p className="text-destructive text-sm font-normal">
-                Sastav će biti objavljen nakon odobrenja administratora.
+                Rad će biti objavljen nakon odobrenja administratora.
               </p>
             )}
           </>
@@ -321,12 +321,12 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
                     {essay ? (
                       <>
                         <EditIcon className="h-4 w-4" />
-                        Izmeni sastav
+                        Izmeni
                       </>
                     ) : (
                       <>
                         <PlusIcon className="h-4 w-4" />
-                        Dodaj sastav
+                        Dodaj
                       </>
                     )}
                   </>

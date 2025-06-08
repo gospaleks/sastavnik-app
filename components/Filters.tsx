@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { refetchEssays } from '@/lib/services/refetchEssays';
+import { refetchEssays } from '@/data/essay/refetchEssays';
 import { Button } from '@/components/ui/button';
 import { FilterIcon, FilterXIcon, SearchIcon, XIcon } from 'lucide-react';
 import TooltipItem from './TooltipItem';

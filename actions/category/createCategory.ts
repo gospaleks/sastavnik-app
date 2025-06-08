@@ -5,12 +5,12 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { CategoryFormSchemaType } from '@/lib/schemas';
 import { revalidateTag } from 'next/cache';
 
-export default async function createCategory(
+export const createCategory = async (
   values: CategoryFormSchemaType,
 ): Promise<{
   success: boolean;
   message: string;
-}> {
+}> => {
   const { getPermission } = getKindeServerSession();
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
 
@@ -50,4 +50,4 @@ export default async function createCategory(
     success: true,
     message: `Kategorija "${category.name}" je uspešno dodata`,
   };
-}
+};

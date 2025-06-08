@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { categoryFormSchema, CategoryFormSchemaType } from '@/lib/schemas';
 
-import createCategory from '@/actions/createCategory';
-import { updateCategory } from '@/actions/updateCategory';
+import { createCategory } from '@/actions/category/createCategory';
+import { updateCategory } from '@/actions/category/updateCategory';
 
 import { Button } from '@/components/ui/button';
 import {

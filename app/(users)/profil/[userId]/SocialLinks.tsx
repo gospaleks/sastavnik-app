@@ -1,6 +1,9 @@
 'use client';
 
-import { updateUsersSocialLinks } from '@/actions/users';
+import { useState } from 'react';
+
+import { updateUsersSocialLinks } from '@/actions/user/updateUsersSocialLinks';
+
 import InfoBox from '@/components/InfoBox';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,7 +15,6 @@ import {
   Loader2Icon,
   SaveIcon,
 } from 'lucide-react';
-import { useState } from 'react';
 import { toast } from 'sonner';
 
 type Props = {
@@ -48,7 +50,7 @@ const SocialLinks = ({ userId, facebook, instagram, canEdit }: Props) => {
           <Instagram />
           <Input
             type="text"
-            placeholder="Upiši link..."
+            placeholder="username"
             value={ig}
             onChange={(e) => setIg(e.target.value)}
             className="rounded border px-2 py-1"
@@ -105,12 +107,12 @@ const SocialLinks = ({ userId, facebook, instagram, canEdit }: Props) => {
       <div className="flex flex-row flex-wrap gap-2">
         {instagram && (
           <a
-            href={instagram}
+            href={`https://instagram.com/${instagram}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center gap-2 rounded-md border border-pink-500 px-4 py-2 text-pink-500 transition-colors hover:bg-pink-500 hover:text-white"
           >
-            <Instagram /> Instagram <LinkIcon className="ml-auto" />
+            <Instagram /> @{instagram} <LinkIcon className="ml-auto" />
           </a>
         )}
 
@@ -133,7 +135,7 @@ const SocialLinks = ({ userId, facebook, instagram, canEdit }: Props) => {
       {canEdit && (
         <Button onClick={() => setEditMode(true)} variant={'link'} size={'sm'}>
           <Edit3Icon />
-          Izmeni linkove
+          Izmeni profile
         </Button>
       )}
     </div>

@@ -4,7 +4,7 @@ import { prisma } from '@/lib/prisma';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { revalidateTag } from 'next/cache';
 
-export default async function deleteCategory(categoryId: string) {
+export const deleteCategory = async (categoryId: string) => {
   const { getPermission } = getKindeServerSession();
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
 
@@ -45,4 +45,4 @@ export default async function deleteCategory(categoryId: string) {
     message: `Kategorija "${deletedCategory.name}" je uspešno obrisana. Obrisano je ${essaysCount} sastava.
     `,
   };
-}
+};

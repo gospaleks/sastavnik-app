@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { rateEssay } from '@/actions/rateEssay';
+import { useState } from 'react';
+import { rateEssay } from '@/actions/essay/rateEssay';
 import { cn } from '@/lib/utils';
-import { Loader2, Loader2Icon, Star } from 'lucide-react';
+import { Loader2Icon, Star } from 'lucide-react';
 import { toast } from 'sonner';
 
 type Props = {

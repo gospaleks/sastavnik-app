@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getAllCategories } from '@/lib/services/categoryService';
+import { getAllCategories } from '@/data/category/getAllCategories';
 import { FolderOpenIcon } from 'lucide-react';
 
 const CategoriesCardList = async () => {

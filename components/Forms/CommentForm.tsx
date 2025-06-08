@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { CommentWithAuthor } from '@/lib/types';
-
 import { commentFormSchema, CommentFormSchemaType } from '@/lib/schemas';
+
+import { editComment } from '@/actions/comment/editComment';
+import { createComment } from '@/actions/comment/createComment';
 
 import {
   Form,
@@ -16,9 +18,8 @@ import {
 } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Loader2, Send } from 'lucide-react';
 import { toast } from 'sonner';
-import { createComment, editComment } from '@/actions/comments';
+import { Loader2, Send } from 'lucide-react';
 
 type Props = {
   essayId: string;

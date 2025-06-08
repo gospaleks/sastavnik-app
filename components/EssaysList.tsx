@@ -1,4 +1,4 @@
-import { getEssays } from '@/lib/services/essayService';
+import { getEssays } from '@/data/essay/getEssays';
 
 import InfoBox from '@/components/InfoBox';
 import EssayCard from '@/components/EssayCard';

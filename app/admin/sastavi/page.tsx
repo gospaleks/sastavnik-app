@@ -1,8 +1,6 @@
-import { redirect } from 'next/navigation';
 import { Metadata } from 'next/types';
 
-import { getUnpublishedEssays } from '@/lib/services/essayService';
-import { isAdmin } from '../isAdmin';
+import { getUnpublishedEssays } from '@/data/essay/getUnpublishedEssays';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import UnpublishedEssayList from './UnpublishedEssayList';
@@ -12,10 +10,7 @@ export const metadata: Metadata = {
 };
 
 const UnpublishedEssaysPage = async () => {
-  const isUserAdmin = await isAdmin();
-  if (!isUserAdmin) redirect('/');
-
-  const unpublishedEssays = await getUnpublishedEssays();
+  const unpublishedEssays = await getUnpublishedEssays(); // metoda getUnpublishedEssays ima requireAdmin u sebi
 
   return (
     <ContentWrapper>

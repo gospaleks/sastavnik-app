@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 
 import { EssayWithAuthorCategory } from '@/lib/types';
 
-import tooglePublishEssay from '@/actions/publishEssay';
+import tooglePublishEssay from '@/actions/essay/publishEssay';
 
 import YesNoAlert from '@/components/YesNoAlert';
 import {

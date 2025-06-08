@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { refetchEssays } from '@/lib/services/refetchEssays';
+import { refetchEssays } from '@/data/essay/refetchEssays';
 
 type Props = {
   totalPages: number;

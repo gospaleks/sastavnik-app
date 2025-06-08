@@ -31,6 +31,7 @@ type Props = {
 const EssayCard = ({ essay }: Props) => {
   // Samo createdAt prikazujemo jer se updatedAt promeni i kad se sastav oceni a ne kad ga autor izmeni
   const formattedDate = formatDate(essay.createdAt);
+  const contentPreview = getTextPreviewFromHtml(essay.content, 300, 6);
 
   return (
     <Card className="transition-transform hover:-translate-y-1">
@@ -85,9 +86,7 @@ const EssayCard = ({ essay }: Props) => {
       </CardHeader>
 
       <CardContent className="flex-grow space-y-4">
-        <p className="text-sm whitespace-pre-line">
-          {getTextPreviewFromHtml(essay.content, 300)}
-        </p>
+        <p className="text-sm whitespace-pre-line">{contentPreview}</p>
 
         {essay.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">

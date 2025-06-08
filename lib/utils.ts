@@ -18,6 +18,7 @@ export function formatDate(date: Date) {
 export function getTextPreviewFromHtml(
   html: string,
   maxLength: number = 200,
+  maxLines: number = 5,
 ): string {
   const text = html
     .replace(/<\/p>/gi, '\n') // svaki paragraf novi red
@@ -29,5 +30,18 @@ export function getTextPreviewFromHtml(
     .replace(/\n[ \t]+/g, '\n') // whitespace posle \n
     .trim();
 
-  return text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  const lines = text.split('\n');
+  let preview = '';
+
+  if (lines.length > maxLines) {
+    preview = lines.slice(0, maxLines).join('\n');
+    // Ako je preview duži od maxLength, skrati ga
+    if (preview.length > maxLength)
+      preview = preview.slice(0, maxLength) + '...';
+    else preview += '\n...';
+  } else {
+    preview = text.length > maxLength ? text.slice(0, maxLength) + '...' : text;
+  }
+
+  return preview;
 }

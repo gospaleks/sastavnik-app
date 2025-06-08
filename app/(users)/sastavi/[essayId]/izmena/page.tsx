@@ -1,17 +1,13 @@
 import { notFound, redirect } from 'next/navigation';
 
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-
-import { canEditEssay, getEssayById } from '@/lib/services/essayService';
-import { getAllCategories } from '@/lib/services/categoryService';
+import { getAllCategories } from '@/data/category/getAllCategories';
+import { canUserEditEssay } from '@/data/essay/canUserEditEssay';
+import { getEssayById } from '@/data/essay/getEssayById';
+import { requireUser } from '@/data/user/requireUser';
 
 import ContentWrapper from '@/components/ContentWrapper';
 import { EssayForm } from '@/components/Forms/EssayForm';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
-
-type Props = {
-  params: { essayId: string };
-};
 
 export default async function EditEssayPageasync({
   params,
@@ -19,16 +15,10 @@ export default async function EditEssayPageasync({
   params: Promise<{ essayId: string }>;
 }) {
   const { essayId } = await params;
-  const { isAuthenticated, getUser } = getKindeServerSession();
-
-  const isLoggedIn = await isAuthenticated();
-  if (!isLoggedIn) redirect('/');
-
-  const user = await getUser();
-  if (!user) redirect('/');
+  const user = await requireUser('/');
 
   // Proverava da li je korisnik autor sastava ili admin
-  const canEdit = await canEditEssay(essayId);
+  const canEdit = await canUserEditEssay(essayId);
   if (!canEdit) redirect('/');
 
   const essay = await getEssayById(essayId);
@@ -45,7 +35,7 @@ export default async function EditEssayPageasync({
           <EssayForm
             essay={essay}
             categories={categories}
-            isLoggedIn={isLoggedIn}
+            isLoggedIn={user ? true : false}
           />
         </TooltipProvider>
       </div>

@@ -38,6 +38,7 @@ export default async function tooglePublishEssay(
 
   revalidateTag('essays'); // Revalidira tag za sve sastave
   revalidateTag(`essay-${publishedEssay.id}`); // Revalidira tag za taj sastav
+  revalidateTag(`user-${publishedEssay.authorId}`); // Revalidira tag za korisnika koji je autor sastava
 
   return {
     message: `Sastav "${publishedEssay.title}" je uspešno ${isPublished ? 'objavljen' : 'sakriven'}.`,
