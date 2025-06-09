@@ -15,6 +15,7 @@ import {
   ArrowRight,
   FileTextIcon,
   FolderOpenIcon,
+  Loader2Icon,
   PlusCircleIcon,
 } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -28,13 +29,15 @@ type LatestEssayType = {
 
 export default function Footer() {
   const [latestEssays, setLatestEssays] = useState<LatestEssayType[]>([]);
+  const [loadingLatestEssays, setLoadingLatestEssays] = useState(true);
   const [categories, setCategories] = useState<Category[]>([]);
+  const [loadingCategories, setLoadingCategories] = useState(true);
 
   // Fetch latest essays and categories on component mount
   useEffect(() => {
     const fetchLatestEssays = async () => {
       try {
-        const response = await fetch('/api/essay');
+        const response = await fetch('/api/essay/latest');
         if (!response.ok) {
           throw new Error('Failed to fetch latest essays');
         }
@@ -42,12 +45,14 @@ export default function Footer() {
         setLatestEssays(data);
       } catch (error) {
         console.error('Error fetching latest essays:', error);
+      } finally {
+        setLoadingLatestEssays(false);
       }
     };
 
     const fetchCategories = async () => {
       try {
-        const response = await fetch('/api/category');
+        const response = await fetch('/api/category/all');
         if (!response.ok) {
           throw new Error('Failed to fetch categories');
         }
@@ -55,6 +60,8 @@ export default function Footer() {
         setCategories(data);
       } catch (error) {
         console.error('Error fetching categories:', error);
+      } finally {
+        setLoadingCategories(false);
       }
     };
 
@@ -63,9 +70,9 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-muted border-border border-t">
+    <footer className="bg-muted border-border border-t pt-12">
       <ContentWrapper>
-        <div className="grid gap-x-14 gap-y-4 px-4 py-4 md:grid-cols-3">
+        <div className="grid gap-x-20 gap-y-4 px-4 py-4 md:grid-cols-3">
           {/* Prva kolona: Logo i opis */}
           <div className="flex flex-col items-center gap-4 text-center md:items-start">
             <Logo width={130} height={50} />
@@ -102,17 +109,25 @@ export default function Footer() {
           <div className="flex flex-col items-start">
             <h4 className="mb-4 text-lg font-semibold">Najnoviji sastavi</h4>
             <ul className="space-y-2 text-sm">
-              {latestEssays.map((essay) => (
-                <li key={essay.id}>
-                  <Link
-                    href={`/sastavi/${essay.id}`}
-                    className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
-                  >
-                    <FileTextIcon size={15} />
-                    {essay.title}
-                  </Link>
+              {loadingLatestEssays ? (
+                <Loader2Icon className="animate-spin" />
+              ) : latestEssays.length > 0 ? (
+                latestEssays.map((essay) => (
+                  <li key={essay.id}>
+                    <Link
+                      href={`/sastavi/${essay.id}`}
+                      className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
+                    >
+                      <FileTextIcon size={15} />
+                      {essay.title}
+                    </Link>
+                  </li>
+                ))
+              ) : (
+                <li className="text-muted-foreground">
+                  Nema najnovijih sastava
                 </li>
-              ))}
+              )}
             </ul>
             <Link
               href={'/sastavi'}
@@ -134,17 +149,23 @@ export default function Footer() {
             <div>
               <h4 className="mb-4 text-lg font-semibold">Kategorije</h4>
               <ul className="space-y-2 text-sm">
-                {categories.map((category) => (
-                  <li key={category.id}>
-                    <Link
-                      href={`/kategorije/${category.name}`}
-                      className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
-                    >
-                      <FolderOpenIcon size={15} />
-                      {category.name}
-                    </Link>
-                  </li>
-                ))}
+                {loadingCategories ? (
+                  <Loader2Icon className="animate-spin" />
+                ) : categories.length > 0 ? (
+                  categories.map((category) => (
+                    <li key={category.id}>
+                      <Link
+                        href={`/kategorije/${category.name}`}
+                        className="hover:text-foreground text-muted-foreground flex items-center gap-2 transition-colors"
+                      >
+                        <FolderOpenIcon size={15} />
+                        {category.name}
+                      </Link>
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-muted-foreground">Nema kategorija</li>
+                )}
               </ul>
             </div>
           </div>

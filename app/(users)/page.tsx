@@ -3,14 +3,15 @@ import { Suspense } from 'react';
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
 import EssayCardSlideshowSkeleton from '@/components/Loaders/EssayCardSlideshowSkeleton';
 
+import ContentWrapper from '@/components/ContentWrapper';
 import Hero from '@/components/HomePage/Hero';
 import PopularEssaysSlideShow from '@/components/HomePage/PopularEssaysSlideShow';
+import CategoriesCardList from '@/components/CategoriesCardList';
 import LatestEssays from '@/components/HomePage/LatestEssays';
-import QuoteOfTheDay from '@/components/HomePage/QuoteOfTheDay';
+import Benefits from '@/components/HomePage/Benefits';
 import SubmitYourEssayCTA from '@/components/HomePage/SubmitYourEssayCTA';
 
-import ContentWrapper from '@/components/ContentWrapper';
-import CategoriesCardList from '@/components/CategoriesCardList';
+import { Badge } from '@/components/ui/badge';
 
 const HomePage = async () => {
   return (
@@ -19,11 +20,17 @@ const HomePage = async () => {
       <Hero />
 
       {/* Popularni sastavi */}
-      <section className="border-foreground py-12 dark:border-b">
+      <section className="border-foreground py-12">
         <ContentWrapper>
-          <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-            🔥 Popularno
-          </h2>
+          <div className="pl-2 md:pl-0 md:text-center">
+            <Badge className="mb-3">Popularni radovi</Badge>
+            <h2 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              Najbolje ocenjeni radovi
+            </h2>
+            <p className="text-md text-muted-foreground mb-6 sm:text-lg">
+              Otkrijte sastave koji su osvojili srca naše zajednice
+            </p>
+          </div>
 
           <Suspense fallback={<EssayCardSlideshowSkeleton />}>
             <PopularEssaysSlideShow />
@@ -34,30 +41,37 @@ const HomePage = async () => {
       {/* Kategorije sastava */}
       <section
         style={{
-          backgroundImage: "url('/category_background3.jpg')",
+          backgroundImage: "url('/hero_light.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="dark:bg-muted border-foreground dark:border-b">
+        <div className="dark:bg-background border-foreground">
           <ContentWrapper className="py-12">
-            <h2 className="mb-8 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-              📚 Istraži po kategorijama
-            </h2>
+            <div className="pl-2 md:pl-0 md:text-center">
+              <Badge className="mb-3">Kategorije</Badge>
+              <h2 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
+                Istraži sve oblasti znanja
+              </h2>
+              <p className="text-md text-muted-foreground mb-6 sm:text-lg">
+                Pronađi inspiraciju i učenje kroz različite kategorije sastava
+              </p>
+            </div>
             <CategoriesCardList />
           </ContentWrapper>
         </div>
       </section>
 
       {/* Najnoviji sastavi */}
-      <section className="border-foreground py-12 dark:border-b">
+      <section className="border-foreground py-12">
         <ContentWrapper>
-          <div>
-            <h2 className="mb-3 text-center text-3xl font-bold tracking-tight sm:text-4xl">
-              📝 Najnovije
+          <div className="pl-2 md:pl-0 md:text-center">
+            <Badge className="mb-3">Najnoviji radovi</Badge>
+            <h2 className="mb-3 text-3xl font-bold tracking-tight sm:text-4xl">
+              Najnoviji sastavi u našoj zajednici
             </h2>
-            <p className="text-md text-muted-foreground mb-6 text-center sm:text-lg">
-              Pogledajte najnovije sastave koje su naši korisnici dodali
+            <p className="text-md text-muted-foreground mb-6 sm:text-lg">
+              Otkrijte najnovije radove naših talentovanih autora
             </p>
           </div>
           <Suspense fallback={<EssaysByAuthorSkeleton />}>
@@ -66,8 +80,8 @@ const HomePage = async () => {
         </ContentWrapper>
       </section>
 
-      {/* Citat */}
-      <QuoteOfTheDay />
+      {/* Benefits */}
+      <Benefits />
 
       {/* CTA za slanje sastava */}
       <SubmitYourEssayCTA />

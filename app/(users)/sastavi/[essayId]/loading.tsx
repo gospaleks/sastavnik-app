@@ -25,12 +25,14 @@ const LoadingEssayPage = () => {
 
           {/* Placeholder za StarRating */}
           <div className="flex flex-col gap-2 md:flex-row">
-            <Skeleton className="h-6 w-full md:w-32" />
-            <Skeleton className="h-6 w-full md:w-48" />
+            <Skeleton className="h-8 w-full md:w-32" />
+            <Skeleton className="h-8 w-full md:w-48" />
           </div>
 
+          <Skeleton className="h-8 w-full md:w-48" />
+
           {/* Placeholder za sadržaj */}
-          <Skeleton className="mx-auto h-80 w-full" />
+          <Skeleton className="mx-auto h-96 w-full" />
 
           {/* Placeholder za tagove */}
           <div className="mt-4 flex flex-wrap gap-2">

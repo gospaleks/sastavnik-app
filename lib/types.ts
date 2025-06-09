@@ -1,6 +1,24 @@
 import { Essay, Prisma } from '@prisma/client';
 
 // Essay types
+export const EssayBasicSelect = {
+  id: true,
+  title: true,
+  content: true,
+  createdAt: true,
+  category: {
+    select: {
+      id: true,
+      name: true,
+    },
+  },
+  averageRating: true,
+} as const;
+
+export type EssayBasic = Prisma.EssayGetPayload<{
+  select: typeof EssayBasicSelect;
+}>;
+
 export type EssayWithCategory = Prisma.EssayGetPayload<{
   include: {
     category: true;

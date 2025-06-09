@@ -30,6 +30,7 @@ export const deleteComment = async (commentId: string) => {
     };
   }
 
+  revalidateTag('essays');
   revalidateTag(`essay-${comment.essayId}`);
 
   return {

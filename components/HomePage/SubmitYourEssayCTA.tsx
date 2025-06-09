@@ -1,8 +1,13 @@
+'use client';
+
 import { buttonVariants } from '@/components/ui/button';
-import { PenLine, PlusCircleIcon } from 'lucide-react';
+import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+import { ArrowRight, PenLine, PlusCircleIcon } from 'lucide-react';
 import Link from 'next/link';
 
 const SubmitYourEssayCTA = () => {
+  const { isAuthenticated: isLoggedIn } = useKindeBrowserClient();
+
   return (
     <section className="mx-auto my-8 flex max-w-xl flex-col items-center justify-center gap-8 px-4 py-12 text-center">
       <div className="flex flex-col items-center justify-center gap-4">
@@ -20,16 +25,31 @@ const SubmitYourEssayCTA = () => {
         anonimno.
       </p>
 
-      <Link
-        className={buttonVariants({
-          variant: 'default',
-          size: 'lg',
-        })}
-        href="/dodaj-sastav"
-      >
-        <PlusCircleIcon className="h-5 w-5" />
-        Dodaj sastav
-      </Link>
+      <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+        {!isLoggedIn && (
+          <Link
+            className={buttonVariants({
+              variant: 'outline',
+              size: 'lg',
+            })}
+            href="/api/auth/register"
+          >
+            Registruj se besplatno
+            <ArrowRight className="h-5 w-5" />
+          </Link>
+        )}
+
+        <Link
+          className={buttonVariants({
+            variant: 'default',
+            size: 'lg',
+          })}
+          href="/dodaj-sastav"
+        >
+          <PlusCircleIcon className="h-5 w-5" />
+          Dodaj sastav
+        </Link>
+      </div>
     </section>
   );
 };

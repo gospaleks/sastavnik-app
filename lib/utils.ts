@@ -15,6 +15,38 @@ export function formatDate(date: Date) {
   return `${day}.${month}.${year}. ${hours}:${minutes}`;
 }
 
+export function formatRelativeTime(date: Date): string {
+  const now = new Date();
+  const diff = now.getTime() - date.getTime();
+
+  const seconds = Math.floor(diff / 1000);
+  const minutes = Math.floor(diff / (1000 * 60));
+  const hours = Math.floor(diff / (1000 * 60 * 60));
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const weeks = Math.floor(days / 7);
+  const months = Math.floor(days / 30);
+  const years = Math.floor(days / 365);
+
+  if (seconds < 60) return `pre ${seconds} sekundi`;
+  if (minutes < 60)
+    return `pre ${minutes} ${pluralize(minutes, 'minut', 'minuta', 'minuta')}`;
+  if (hours < 24)
+    return `pre ${hours} ${pluralize(hours, 'sat', 'sata', 'sati')}`;
+  if (days < 7) return `pre ${days} ${pluralize(days, 'dan', 'dana', 'dana')}`;
+  if (weeks < 5)
+    return `pre ${weeks} ${pluralize(weeks, 'nedelju', 'nedelje', 'nedelja')}`;
+  if (months < 12)
+    return `pre ${months} ${pluralize(months, 'mesec', 'meseca', 'meseci')}`;
+  return `pre ${years} ${pluralize(years, 'godinu', 'godine', 'godina')}`;
+}
+
+// Funkcija za ispravno srpsko množenje (singular, paušalno dual, plural)
+function pluralize(n: number, one: string, few: string, many: string): string {
+  if (n % 10 === 1 && n % 100 !== 11) return one;
+  if ([2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100)) return few;
+  return many;
+}
+
 export function getTextPreviewFromHtml(
   html: string,
   maxLength: number = 200,

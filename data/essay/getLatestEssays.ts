@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { EssayBasicSelect } from '@/lib/types';
 import { unstable_cacheTag as cacheTag } from 'next/cache';
 
 // Najnoviji sastavi (za prikaz na naslovnoj strani i u footeru)
@@ -15,10 +16,6 @@ export async function getLatestEssays(limit = 5) {
       createdAt: 'desc',
     },
     take: limit,
-    select: {
-      id: true,
-      title: true,
-      content: true,
-    },
+    select: EssayBasicSelect,
   });
 }

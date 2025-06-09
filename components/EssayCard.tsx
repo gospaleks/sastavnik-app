@@ -22,7 +22,11 @@ import {
   StarOffIcon,
   UserIcon,
 } from 'lucide-react';
-import { formatDate, getTextPreviewFromHtml } from '@/lib/utils';
+import {
+  formatDate,
+  formatRelativeTime,
+  getTextPreviewFromHtml,
+} from '@/lib/utils';
 
 type Props = {
   essay: EssayWithAuthorCategory;
@@ -30,7 +34,7 @@ type Props = {
 
 const EssayCard = ({ essay }: Props) => {
   // Samo createdAt prikazujemo jer se updatedAt promeni i kad se sastav oceni a ne kad ga autor izmeni
-  const formattedDate = formatDate(essay.createdAt);
+  const formattedDate = formatRelativeTime(essay.createdAt);
   const contentPreview = getTextPreviewFromHtml(essay.content, 300, 6);
 
   return (

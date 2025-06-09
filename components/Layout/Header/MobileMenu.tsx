@@ -86,7 +86,7 @@ const MobileMenu = ({ categories, user }: Props) => {
                       >
                         <Link
                           href={`/kategorije/${category.name}`}
-                          className="hover:bg-accent flex w-full items-center justify-start rounded-lg p-2 transition-colors"
+                          className="hover:bg-accent flex w-full items-center justify-between rounded-lg p-2 transition-colors"
                         >
                           {category.name} <ChevronRightIcon size={15} />
                         </Link>

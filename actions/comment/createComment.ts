@@ -47,6 +47,7 @@ export const createComment = async (
     };
   }
 
+  revalidateTag('essays');
   revalidateTag(`essay-${essayId}`);
 
   return {

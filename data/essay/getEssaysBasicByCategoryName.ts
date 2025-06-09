@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import { EssayBasicSelect } from '@/lib/types';
 import { unstable_cacheTag as cacheTag } from 'next/cache';
 
 // Basic podaci o sastavima po kategoriji
@@ -17,10 +18,6 @@ export async function getEssaysBasicByCategoryName(
       published: true,
     },
     take: limit,
-    select: {
-      id: true,
-      title: true,
-      content: true,
-    },
+    select: EssayBasicSelect,
   });
 }

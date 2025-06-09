@@ -10,6 +10,7 @@ import { CategoryForm } from '@/components/Forms/CategoryForm';
 import CategoryDropdown from './CategoryDropdown';
 import { FolderOpenIcon } from 'lucide-react';
 import { requireAdmin } from '@/data/user/requireAdmin';
+import { Badge } from '@/components/ui/badge';
 
 export const metadata: Metadata = {
   title: 'Kategorije',
@@ -47,6 +48,10 @@ const KategorijePage = async () => {
                     <FolderOpenIcon className="h-6 w-6" />
                   </div>
                   <h3 className="text-md font-semibold">{category.name}</h3>
+                  <Badge variant={'outline'} className="text-xs">
+                    {category._count.essays ?? 0}{' '}
+                    {category._count.essays === 1 ? 'rad' : 'radova'}
+                  </Badge>
                 </Link>
 
                 <div className="absolute top-2 right-2">

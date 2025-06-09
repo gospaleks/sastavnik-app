@@ -6,11 +6,11 @@ import { buttonVariants } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 
 const LatestEssays = async () => {
-  const latestEssays = await getLatestEssays(3);
+  const latestEssays = await getLatestEssays(6);
 
   return (
-    <div className="mx-auto max-w-4xl">
-      <BasicEssayList essays={latestEssays} />
+    <div>
+      <BasicEssayList essays={latestEssays} isGrid={true} />
 
       <div className="flex justify-center">
         <Link

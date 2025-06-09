@@ -17,7 +17,7 @@ const QuoteOfTheDay = () => {
         backgroundPosition: 'center',
       }}
     >
-      <div className="dark:bg-muted border-foreground dark:border-b">
+      <div className="dark:bg-muted border-foreground">
         <ContentWrapper>
           <div className="my-16 flex flex-col items-center justify-center gap-8 md:flex-row">
             <QuoteCard

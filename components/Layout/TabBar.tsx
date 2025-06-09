@@ -13,27 +13,35 @@ const TabBar = () => {
   const user = getUser();
 
   return (
-    <div className="bg-background border-muted sticky bottom-0 z-50 block border-t p-4 md:hidden">
+    <div className="bg-background border-muted sticky bottom-0 z-50 block border-t md:hidden">
       <div className="flex items-center justify-around">
         <Link href="/">
-          <HomeIcon size={28} />
+          <div className="p-4">
+            <HomeIcon size={28} />
+          </div>
         </Link>
 
         <Link href="/dodaj-sastav">
-          <PlusCircleIcon size={32} />
+          <div className="p-4">
+            <PlusCircleIcon size={32} />
+          </div>
         </Link>
 
-        <SearchBarMobile />
+        <div className="p-4">
+          <SearchBarMobile />
+        </div>
 
-        {user ? (
-          <Link href={`/profil/${user.id}`}>
-            <UserIcon size={28} />
-          </Link>
-        ) : (
-          <LoginLink>
-            <LogInIcon />
-          </LoginLink>
-        )}
+        <div className="p-4">
+          {user ? (
+            <Link href={`/profil/${user.id}`}>
+              <UserIcon size={28} />
+            </Link>
+          ) : (
+            <LoginLink>
+              <LogInIcon />
+            </LoginLink>
+          )}
+        </div>
       </div>
     </div>
   );
