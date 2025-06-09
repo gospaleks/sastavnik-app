@@ -6,7 +6,14 @@ import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { LoginLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
 import SearchBarMobile from './SearchBarMobile';
-import { PlusCircleIcon, HomeIcon, UserIcon, LogInIcon } from 'lucide-react';
+import {
+  PlusCircleIcon,
+  HomeIcon,
+  UserIcon,
+  LogInIcon,
+  FileTextIcon,
+  LayoutListIcon,
+} from 'lucide-react';
 
 const TabBar = () => {
   const { getUser } = useKindeBrowserClient();
@@ -14,34 +21,38 @@ const TabBar = () => {
 
   return (
     <div className="bg-background border-muted sticky bottom-0 z-50 block border-t md:hidden">
-      <div className="flex items-center justify-around">
-        <Link href="/">
-          <div className="p-4">
-            <HomeIcon size={28} />
-          </div>
+      <div className="flex items-center justify-around p-4">
+        <Link href="/" className="flex flex-col items-center gap-1">
+          <HomeIcon size={28} />
+          <span className="text-xs">Početna</span>
         </Link>
 
-        <Link href="/dodaj-sastav">
-          <div className="p-4">
-            <PlusCircleIcon size={32} />
-          </div>
+        <Link href="/sastavi" className="flex flex-col items-center gap-1">
+          <LayoutListIcon size={28} />
+          <span className="text-xs">Sastavi</span>
         </Link>
 
-        <div className="p-4">
-          <SearchBarMobile />
-        </div>
+        <Link href="/dodaj-sastav" className="flex flex-col items-center gap-1">
+          <PlusCircleIcon size={28} />
+          <span className="text-xs">Dodaj</span>
+        </Link>
 
-        <div className="p-4">
-          {user ? (
-            <Link href={`/profil/${user.id}`}>
-              <UserIcon size={28} />
-            </Link>
-          ) : (
-            <LoginLink>
-              <LogInIcon />
-            </LoginLink>
-          )}
-        </div>
+        <SearchBarMobile />
+
+        {user ? (
+          <Link
+            href={`/profil/${user.id}`}
+            className="flex flex-col items-center gap-1"
+          >
+            <UserIcon size={28} />
+            <span className="text-xs">Profil</span>
+          </Link>
+        ) : (
+          <LoginLink className="flex flex-col items-center gap-1">
+            <LogInIcon size={28} />
+            <span className="text-xs">Prijava</span>
+          </LoginLink>
+        )}
       </div>
     </div>
   );

@@ -6,13 +6,20 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDate(date: Date) {
-  const day = date.getDate().toString().padStart(2, '0');
-  const month = (date.getMonth() + 1).toString().padStart(2, '0'); // +1 jer je 0-indexed
-  const year = date.getFullYear();
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
+  // Prikaz u srpskoj vremenskoj zoni (Europe/Belgrade)
+  const options: Intl.DateTimeFormatOptions = {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+    timeZone: 'Europe/Belgrade',
+  };
 
-  return `${day}.${month}.${year}. ${hours}:${minutes}`;
+  const formatted = new Intl.DateTimeFormat('sr-Latn', options).format(date);
+
+  return formatted.replace(',', '');
 }
 
 export function formatRelativeTime(date: Date): string {

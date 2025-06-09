@@ -47,9 +47,12 @@ const SearchBarMobile = () => {
 
   return (
     <div className="flex md:hidden">
-      <Drawer direction="top" open={isOpen} onOpenChange={setIsOpen}>
+      <Drawer direction="bottom" open={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger asChild>
-          <SearchIcon size={29} className="" />
+          <div className="flex flex-col items-center gap-1">
+            <SearchIcon size={29} className="" />
+            <span className="text-xs">Pretraga</span>
+          </div>
         </DrawerTrigger>
 
         <DrawerContent className="p-4">

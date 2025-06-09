@@ -70,7 +70,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-muted border-border border-t pt-12">
+    <footer className="bg-muted border-border border-t md:pt-12">
       <ContentWrapper>
         <div className="grid gap-x-20 gap-y-4 px-4 py-4 md:grid-cols-3">
           {/* Prva kolona: Logo i opis */}

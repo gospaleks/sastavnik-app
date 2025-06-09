@@ -31,20 +31,25 @@ export async function generateMetadata({
 }
 
 const ProfilPage = async ({ params }: PageProps) => {
-  // User's data
+  // Extract userId from params
   const { userId } = await params;
-  const userData = await getUserById(userId);
+
+  // Parallelize fetching user data and session info
+  const [userData, user, { getPermission }] = await Promise.all([
+    getUserById(userId),
+    getUserSession(),
+    getKindeServerSession(),
+  ]);
+
   const usersEssays = userData?.essays || [];
 
-  // Kinde
-  const { getPermission } = getKindeServerSession();
+  // Check admin permission in parallel
   const isAdmin = (await getPermission('admin:access'))?.isGranted;
-  const user = await getUserSession();
 
-  // Korisnik moze da uredjuje profil ako je njegov ili ako je admin
+  // Determine if the user can edit
   const canEdit = user && (userId === user.id || isAdmin);
 
-  // Filtriranje na osnovu published statusa
+  // Filter essays based on published status
   const filteredEssays = canEdit
     ? usersEssays
     : usersEssays.filter((essay) => essay.published);
