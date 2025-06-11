@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { parseAsInteger, useQueryState } from 'nuqs';
 
@@ -39,6 +39,12 @@ const Filters = () => {
   const [grade, setGrade] = useQueryState('grade', {
     defaultValue: '',
   });
+
+  useEffect(() => {
+    if (searchTerm || schoolType || grade) {
+      setIsFiltersOpen(true);
+    }
+  }, [searchTerm, schoolType, grade]);
 
   const debouncedRefetch = useCallback(
     debounce(() => {

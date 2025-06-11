@@ -29,7 +29,7 @@ const Hero = async () => {
               🎓 Platforma za učenike
             </Badge>
 
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
+            <h1 className="text-4xl leading-tight font-bold tracking-tight sm:text-5xl md:text-6xl lg:text-7xl">
               <span className="text-foreground">Kreiraj.</span>{' '}
               <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-transparent">
                 Uči.
@@ -37,7 +37,7 @@ const Hero = async () => {
               <span className="text-foreground">Inspiriši.</span>
             </h1>
 
-            <p className="text-muted-foreground max-w-2xl text-xl leading-relaxed">
+            <p className="text-muted-foreground max-w-2xl text-xl leading-normal">
               Moderna platforma koja omogućava učenicima da dele svoje školske
               sastave, ocenjuju radove drugih i unapređuju svoje pisane veštine
               kroz zajedničko učenje.

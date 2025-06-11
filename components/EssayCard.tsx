@@ -22,11 +22,7 @@ import {
   StarOffIcon,
   UserIcon,
 } from 'lucide-react';
-import {
-  formatDate,
-  formatRelativeTime,
-  getTextPreviewFromHtml,
-} from '@/lib/utils';
+import { formatRelativeTime, getTextPreviewFromHtml } from '@/lib/utils';
 
 type Props = {
   essay: EssayWithAuthorCategory;
@@ -40,27 +36,30 @@ const EssayCard = ({ essay }: Props) => {
   return (
     <Card className="transition-transform hover:-translate-y-1">
       <CardHeader>
-        <CardTitle className="cursor-pointer text-xl font-bold tracking-tight underline-offset-4 hover:underline">
-          <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>
-        </CardTitle>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <Badge
+              variant="secondary"
+              className="bg-muted text-muted-foreground hover:bg-accent"
+              asChild
+            >
+              <Link href={`/kategorije/${essay.category.name}`}>
+                {essay.category.name}
+              </Link>
+            </Badge>
 
-        <CardDescription className="text-muted-foreground flex w-full flex-col text-sm">
-          <Link
-            className="hover:bg-muted cursor-pointer border-b p-2 transition-colors"
-            href={`/kategorije/${essay.category.name}`}
-          >
-            Kategorija: {essay.category.name}
-          </Link>
+            <Badge
+              variant="secondary"
+              className="bg-muted text-muted-foreground hover:bg-accent"
+              asChild
+            >
+              <Link href={`/sastavi?schoolType=${essay.schoolType}`}>
+                {essay.schoolType === 'OSNOVNA' ? 'OŠ' : 'SŠ'}
+              </Link>
+            </Badge>
+          </div>
 
-          <Link
-            className="hover:bg-muted cursor-pointer border-b p-2 transition-colors"
-            href={`/sastavi?schoolType=${essay.schoolType}&grade=${essay.level}`}
-          >
-            {essay.schoolType === 'OSNOVNA' ? 'Osnovna škola' : 'Srednja škola'}
-            , {essay.level}. razred
-          </Link>
-
-          <div className="mt-4 flex items-center gap-4 text-sm">
+          <div className="text-muted-foreground flex items-center gap-4 text-sm">
             <div className="flex items-center gap-1">
               {essay.averageRating !== 0 ? (
                 <>
@@ -70,7 +69,7 @@ const EssayCard = ({ essay }: Props) => {
               ) : (
                 <StarOffIcon />
               )}
-              <span>({essay.ratingCount})</span>
+              <span className="text-xs">({essay.ratingCount})</span>
             </div>
 
             <div className="relative opacity-80">
@@ -86,7 +85,11 @@ const EssayCard = ({ essay }: Props) => {
               )}
             </div>
           </div>
-        </CardDescription>
+        </div>
+
+        <CardTitle className="mt-4 cursor-pointer text-xl font-bold tracking-tight underline-offset-4 hover:underline">
+          <Link href={`/sastavi/${essay.id}`}>{essay.title}</Link>
+        </CardTitle>
       </CardHeader>
 
       <CardContent className="flex-grow space-y-4">
@@ -110,19 +113,12 @@ const EssayCard = ({ essay }: Props) => {
 
       <CardFooter className="flex flex-col items-start gap-4">
         <div className="flex w-full items-center justify-between">
-          <div className="text-muted-foreground flex flex-col text-left text-sm">
-            <span className="flex items-center gap-1 font-bold">
-              <Clock size={16} />
-              Objavljeno
-            </span>
+          <span className="text-muted-foreground flex items-center gap-2 text-sm">
+            <Clock size={16} />
             {formattedDate}
-          </div>
+          </span>
 
-          <div className="text-muted-foreground flex flex-col items-end text-right text-sm">
-            <span className="flex items-center gap-1 font-bold">
-              Autor <UserIcon size={16} />
-            </span>
-
+          <div className="text-muted-foreground flex items-center gap-2 text-right text-sm">
             {essay.author.email === 'anonimni korisnik' ? (
               <span>
                 {essay.author.firstName || ''} {essay.author.lastName || ''}
@@ -130,11 +126,12 @@ const EssayCard = ({ essay }: Props) => {
             ) : (
               <Link
                 href={`/profil/${essay.authorId}`}
-                className="hover:text-primary cursor-pointer underline transition-colors"
+                className="hover:text-primary cursor-pointer underline underline-offset-4 transition-colors"
               >
                 {essay.author.firstName || ''} {essay.author.lastName || ''}
               </Link>
             )}
+            <UserIcon size={16} />
           </div>
         </div>
 

@@ -10,40 +10,37 @@ import { Separator } from '@/components/ui/separator';
 const EssayCardSkeleton = () => {
   return (
     <Card>
-      <CardHeader>
-        <Skeleton className="mb-2 h-6 w-3/4" />
-        <Skeleton className="mb-1 h-4 w-1/2" />
-        <Skeleton className="h-4 w-1/4" />
-        <div className="flex gap-1">
-          <Skeleton className="h-4 w-1/12" />
-          <Skeleton className="h-4 w-1/12" />
+      <CardHeader className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-32" />
+          <Skeleton className="h-5 w-8" />
+        </div>
+
+        <div className="flex items-center gap-2">
+          <Skeleton className="h-5 w-8" />
+          <Skeleton className="h-5 w-8" />
         </div>
       </CardHeader>
 
-      <CardContent className="space-y-3">
-        <Skeleton className="h-4 w-full" />
+      <CardContent className="flex-grow space-y-3">
+        <Skeleton className="mb-8 h-6 w-[80%]" />
+
         <Skeleton className="h-4 w-[95%]" />
         <Skeleton className="h-4 w-[90%]" />
         <Skeleton className="h-4 w-[85%]" />
         <Skeleton className="h-4 w-[70%]" />
 
         <div className="mt-4 flex flex-wrap gap-2">
-          <Skeleton className="h-6 w-16 rounded-full" />
-          <Skeleton className="h-6 w-20 rounded-full" />
-          <Skeleton className="h-6 w-12 rounded-full" />
+          <Skeleton className="h-5 w-16 rounded-full" />
+          <Skeleton className="h-5 w-20 rounded-full" />
+          <Skeleton className="h-5 w-12 rounded-full" />
         </div>
       </CardContent>
 
       <CardFooter className="flex flex-col items-start gap-4">
         <div className="flex w-full items-center justify-between">
-          <div className="flex flex-col gap-1">
-            <Skeleton className="h-4 w-20" />
-            <Skeleton className="h-4 w-24" />
-          </div>
-          <div className="flex flex-col items-end">
-            <Skeleton className="mb-1 h-4 w-16" />
-            <Skeleton className="h-4 w-24" />
-          </div>
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-4 w-24" />
         </div>
 
         <Separator />

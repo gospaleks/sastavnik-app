@@ -21,13 +21,24 @@ import AlertCard from '@/components/AlertCard';
 import InfoBox from '@/components/InfoBox';
 
 import { Badge } from '@/components/ui/badge';
-import { ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  BookOpenIcon,
+  Calendar,
+  MessageCircleMoreIcon,
+  MessageSquareIcon,
+  School,
+  Tag,
+  UserIcon,
+} from 'lucide-react';
 
 import '@/components/minimal-tiptap/styles/index.css';
 import { CommentWithAuthor } from '@/lib/types';
 import CommentsList from '@/components/Comments/CommentsList';
 import { getUsersRatingForEssay } from '@/data/user/getUsersRatingForEssay';
 import { isEssayFavoriteForUser } from '@/data/user/isEssayFavoriteForUser';
+import UserAvatar from '@/components/Layout/Header/UserAvatar';
+import { Separator } from '@/components/ui/separator';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;
@@ -120,6 +131,7 @@ const EssayPage = async ({ params }: PageProps) => {
             />
           )}
 
+          {/** Naslov sastava */}
           <div className="relative">
             <h1
               className={`${canEdit && essay ? 'mr-8' : ''} text-center text-3xl font-extrabold tracking-tight md:text-left md:text-4xl`}
@@ -134,69 +146,80 @@ const EssayPage = async ({ params }: PageProps) => {
             )}
           </div>
 
-          <div className="flex flex-col gap-2">
-            <p className="text-muted-foreground flex items-center justify-center gap-2 text-sm md:justify-normal md:text-base">
-              {essay.author.email === 'anonimni korisnik' ? (
-                <span className="text-muted-foreground font-semibold">
+          {/** Autor i datum */}
+          <div className="my-4 flex w-full flex-col items-center gap-2 md:flex-row md:items-start">
+            {essay.author.email === 'anonimni korisnik' ? (
+              <span className="text-muted-foreground flex items-center gap-1 font-medium">
+                <span className="font-semibold">
                   {essay.author.firstName} {essay.author.lastName}
                 </span>
-              ) : (
-                <Link
-                  href={`/profil/${essay.authorId}`}
-                  className="flex items-center gap-1 font-semibold underline underline-offset-4 transition-colors hover:opacity-80"
-                >
+              </span>
+            ) : (
+              <Link
+                href={`/profil/${essay.authorId}`}
+                className="hover:text-primary flex items-center gap-1 font-medium transition-colors"
+              >
+                <span className="flex items-center gap-2 font-semibold">
                   {essay.author.firstName} {essay.author.lastName}
-                  <ArrowRight className="inline-block" size={17} />
-                </Link>
-              )}
-            </p>
+                </span>
+              </Link>
+            )}
 
-            <p className="text-muted-foreground text-center text-sm md:text-left">
+            <span className="text-muted-foreground hidden md:inline">•</span>
+
+            <span className="text-muted-foreground flex items-center gap-1 text-sm">
+              <Calendar className="h-4 w-4" />
               {formattedDate}
-            </p>
+            </span>
           </div>
 
-          <div className="flex flex-wrap gap-2 md:justify-start">
+          {/** Kategorija, tip skole, razred */}
+          <div className="my-2 flex flex-wrap gap-2 md:justify-start">
             <Link
               href={`/kategorije/${essay.category.name}`}
               className="bg-muted text-muted-foreground flex w-full items-center justify-between gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
-              <div>
-                <span className="font-semibold">Kategorija: </span>
+              <div className="flex items-center gap-2">
+                <BookOpenIcon className="h-4 w-4" />
                 <span>{essay.category.name}</span>
               </div>
-              <ArrowRight size={15} />
+              <ArrowRight size={15} className="md:hidden" />
             </Link>
 
             <Link
               href={`/sastavi?schoolType=${essay.schoolType}&grade=${essay.level}`}
               className="bg-muted text-muted-foreground flex w-full items-center justify-between gap-1 rounded-md px-3 py-2 text-sm hover:shadow-sm md:w-fit"
             >
-              <div>
-                <span className="font-semibold">
+              <div className="flex items-center gap-2">
+                <School className="h-4 w-4" />
+                <span>
                   {essay.schoolType === 'OSNOVNA'
                     ? 'Osnovna škola'
                     : 'Srednja škola'}
                 </span>
-                <span>, {essay.level}. razred</span>
+                <span>{essay.level}. razred</span>
               </div>
-              <ArrowRight size={15} />
+              <ArrowRight size={15} className="md:hidden" />
             </Link>
           </div>
 
-          <StarRating
-            isLoggedIn={!!user}
-            essayId={essay.id}
-            usersRating={usersRating?.value}
-            averageInit={essay.averageRating}
-            ratingCountInit={essay.ratingCount}
-          />
+          <div className="flex w-full flex-col items-center gap-2 md:flex-row">
+            <StarRating
+              isLoggedIn={!!user}
+              essayId={essay.id}
+              usersRating={usersRating?.value}
+              averageInit={essay.averageRating}
+              ratingCountInit={essay.ratingCount}
+            />
 
-          {/** Dugme za Favorite */}
-          <FavoriteToggleButton
-            essayId={essay.id}
-            initiallyFavorite={isFavorite}
-          />
+            {/** Dugme za Favorite */}
+            <FavoriteToggleButton
+              essayId={essay.id}
+              initiallyFavorite={isFavorite}
+            />
+          </div>
+
+          {/* <Separator className="my-4" /> */}
 
           {/** Prikazivanje sadržaja sastava */}
           <div
@@ -206,7 +229,8 @@ const EssayPage = async ({ params }: PageProps) => {
 
           {/** Prikazivanje tagova */}
           {essay.tags.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className="mt-4 flex flex-wrap items-center gap-2">
+              <Tag className="text-muted-foreground h-4 w-4" />
               {essay.tags.map((tag, index) => (
                 <Link href={`/tag/${tag}`} key={index}>
                   <Badge
@@ -220,10 +244,13 @@ const EssayPage = async ({ params }: PageProps) => {
             </div>
           )}
 
+          <Separator className="mt-8" />
+
           {/** Comment sekcija */}
           <div className="my-8 space-y-4">
-            <h1 className="text-xl font-semibold tracking-tight">
-              💬 Komentari ({essay.comments.length}):
+            <h1 className="flex items-center gap-2 text-xl font-semibold tracking-tight">
+              <MessageSquareIcon className="h-5 w-5" /> Komentari (
+              {essay.comments.length}):
             </h1>
 
             {user && <CommentForm essayId={essay.id} />}

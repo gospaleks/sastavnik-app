@@ -1,5 +1,6 @@
 import ContentWrapper from '@/components/ContentWrapper';
 import EssaysByAuthorSkeleton from '@/components/Loaders/EssaysByAuthorSkeleton';
+import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const LoadingEssayPage = () => {
@@ -7,14 +8,16 @@ const LoadingEssayPage = () => {
     <ContentWrapper>
       <div className="flex flex-col gap-8 md:flex-row">
         {/* Leva strana */}
-        <div className="w-full space-y-2 md:w-8/12">
+        <div className="w-full space-y-2 md:w-8/12 md:space-y-4">
           {/* Placeholder za naslov */}
           <Skeleton className="mx-auto h-12 w-10/12 md:mx-0" />
+          <Skeleton className="mx-auto mb-2 h-6 w-8/12 md:hidden" />
 
           {/* Placeholder za autora i datum */}
-          <div className="space-y-2">
-            <Skeleton className="mx-auto h-4 w-1/2 md:mx-0" />
-            <Skeleton className="mx-auto h-4 w-1/4 md:mx-0" />
+          <div className="flex flex-col items-center gap-2 md:flex-row">
+            <Skeleton className="h-4 w-32 md:mx-0" />
+            <Skeleton className="hidden h-4 w-4 rounded-full md:block" />
+            <Skeleton className="h-4 w-24 md:mx-0" />
           </div>
 
           {/* Placeholder za kategoriju i tip škole */}
@@ -27,9 +30,10 @@ const LoadingEssayPage = () => {
           <div className="flex flex-col gap-2 md:flex-row">
             <Skeleton className="h-8 w-full md:w-32" />
             <Skeleton className="h-8 w-full md:w-48" />
+            <Skeleton className="h-8 w-full md:w-48" />
           </div>
 
-          <Skeleton className="h-8 w-full md:w-48" />
+          <Separator className="my-4" />
 
           {/* Placeholder za sadržaj */}
           <Skeleton className="mx-auto h-96 w-full" />

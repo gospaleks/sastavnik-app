@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { EssayWithCategory } from '@/lib/types';
-import { formatDate, getTextPreviewFromHtml } from '@/lib/utils';
+import { formatRelativeTime, getTextPreviewFromHtml } from '@/lib/utils';
 
 import EssayDropdown from '@/components/EssayDropdown';
 
@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { ArrowRight } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 type Props = {
   essay: EssayWithCategory;
@@ -24,7 +25,7 @@ type Props = {
 const EssayCardInProfile = ({ essay, canEdit, isAdmin }: Props) => {
   const previewContent = getTextPreviewFromHtml(essay.content, 180);
 
-  const formattedDate = formatDate(essay.createdAt);
+  const formattedDate = formatRelativeTime(essay.createdAt);
 
   return (
     <Card
@@ -33,7 +34,17 @@ const EssayCardInProfile = ({ essay, canEdit, isAdmin }: Props) => {
     >
       {/* Leva sekcija */}
       <div className="flex w-full flex-col gap-2 sm:w-1/3">
-        <div className="flex w-full items-center justify-between">
+        <div className="flex flex-col gap-2">
+          <Badge
+            variant="secondary"
+            className="bg-muted text-muted-foreground hover:bg-accent"
+            asChild
+          >
+            <Link href={`/kategorije/${essay.category.name}`}>
+              {essay.category.name}
+            </Link>
+          </Badge>
+
           <Link
             href={`/sastavi/${essay.id}`}
             className="flex items-center gap-2"
@@ -43,13 +54,6 @@ const EssayCardInProfile = ({ essay, canEdit, isAdmin }: Props) => {
             </CardTitle>
           </Link>
         </div>
-
-        <Link
-          className="text-sm underline underline-offset-4 hover:opacity-80"
-          href={`/kategorije/${essay.category.name}`}
-        >
-          {essay.category.name}
-        </Link>
 
         <span className="text-muted-foreground text-sm sm:mr-4">
           {formattedDate}

@@ -39,7 +39,7 @@ export function FavoriteToggleButton({
   return (
     <Button
       variant={'secondary'}
-      className="w-full md:w-48"
+      className="w-full md:w-fit"
       onClick={handleClick}
       disabled={isPending}
     >
@@ -49,11 +49,11 @@ export function FavoriteToggleButton({
         </>
       ) : isFavorite ? (
         <>
-          <BookmarkFilledIcon /> Ukloni iz omiljenih
+          <BookmarkFilledIcon /> Ukloni
         </>
       ) : (
         <>
-          <BookmarkIcon /> Dodaj u omiljene
+          <BookmarkIcon /> Omiljeno
         </>
       )}
     </Button>

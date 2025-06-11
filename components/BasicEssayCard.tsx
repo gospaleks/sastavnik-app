@@ -54,7 +54,7 @@ const BasicEssayCard = ({ essay }: Props) => {
 
         <CardContent className="text-muted-foreground p-0 text-sm">
           <Link href={`/sastavi/${essay.id}`}>
-            <h2 className="text-foreground text-lg font-semibold underline-offset-4 hover:underline">
+            <h2 className="text-foreground text-lg leading-tight font-semibold tracking-tight underline-offset-4 hover:underline">
               {essay.title}
             </h2>
           </Link>
