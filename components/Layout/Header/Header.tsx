@@ -14,6 +14,7 @@ import DesktopMenu from '@/components/Layout/Header/DesktopMenu';
 import MobileMenu from '@/components/Layout/Header/MobileMenu';
 import SearchBar from '@/components/Layout/Header/SearchBar';
 import UserAvatar from '@/components/Layout/Header/UserAvatar';
+import Notifications from '@/components/Layout/Header/Notifications';
 import Logo from '@/components/Logo';
 import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
 
@@ -75,7 +76,12 @@ const Header = () => {
         <div className="flex items-center justify-center gap-4">
           <SearchBar />
 
-          {isLoggedIn && <UserAvatar user={user} isAdmin={isAdmin} />}
+          {isLoggedIn && (
+            <div className="flex items-center gap-4">
+              <Notifications user={user} />
+              <UserAvatar user={user} isAdmin={isAdmin} />
+            </div>
+          )}
 
           {/* Prijava i Registracija DESKTOP */}
           {!isLoggedIn && (
