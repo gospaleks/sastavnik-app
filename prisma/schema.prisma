@@ -23,6 +23,8 @@ model User {
   comments       Comment[]
   favoriteEssays Essay[]   @relation("FavoriteEssays")
   ratings        Rating[]
+
+  notifications Notification[]
 }
 
 model Essay {
@@ -94,4 +96,15 @@ model Rating {
   essayId String
 
   @@unique([userId, essayId])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  message   String
+  href      String? // Link to the essay or comment related to the notification
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
 }

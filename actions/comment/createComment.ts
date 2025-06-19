@@ -31,6 +31,7 @@ export const createComment = async (
     }
   }
 
+  // Cuvanje komentara
   const comment = await prisma.comment.create({
     data: {
       content,
@@ -45,6 +46,43 @@ export const createComment = async (
       success: false,
       message: 'Došlo je do greške prilikom dodavanja komentara',
     };
+  }
+
+  // Notifikacije
+
+  // Autor sastava na kojem se dodaje komentar
+  const essayAuthor = await prisma.essay.findUnique({
+    where: { id: essayId },
+    select: { authorId: true },
+  });
+
+  // 1. Notifikacija autoru eseja (ako je top level komentar)
+  if (!parentId && essayAuthor && essayAuthor.authorId !== user.id) {
+    await prisma.notification.create({
+      data: {
+        userId: essayAuthor.authorId,
+        message: `Novi komentar na vaš esej: "${comment.content.slice(0, 50)}..."`,
+        href: `/sastavi/${essayId}`, // TODO: add link to the specific comment if needed #commentID-${comment.id}`
+      },
+    });
+  }
+
+  // 2. Notifikacija autoru komentara na koji se odgovara
+  if (parentId) {
+    const parentCommentAuthor = await prisma.comment.findUnique({
+      where: { id: parentId },
+      select: { authorId: true },
+    });
+
+    if (parentCommentAuthor && parentCommentAuthor.authorId !== user.id) {
+      await prisma.notification.create({
+        data: {
+          userId: parentCommentAuthor.authorId,
+          message: `Novi odgovor na vaš komentar: "${comment.content.slice(0, 50)}..."`,
+          href: `/sastavi/${essayId}`, // TODO: add link to the specific comment if needed #commentID-${comment.id}`
+        },
+      });
+    }
   }
 
   revalidateTag('essays');
