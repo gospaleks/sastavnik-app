@@ -33,8 +33,6 @@ const LoadingEssayPage = () => {
             <Skeleton className="h-8 w-full md:w-48" />
           </div>
 
-          <Separator className="my-4" />
-
           {/* Placeholder za sadržaj */}
           <Skeleton className="mx-auto h-96 w-full" />
 

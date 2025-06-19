@@ -42,8 +42,13 @@ export function ModeToggle2() {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
+  // skeleton for initial render
   if (!mounted) {
-    return null;
+    return (
+      <Button variant={'outline'} onClick={toggleTheme}>
+        <Sun />
+      </Button>
+    );
   }
 
   return (

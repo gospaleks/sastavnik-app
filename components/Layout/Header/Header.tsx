@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 
 import {
@@ -7,10 +8,14 @@ import {
   LoginLink,
 } from '@kinde-oss/kinde-auth-nextjs/components';
 
+import { Category } from '@prisma/client';
+
 import DesktopMenu from '@/components/Layout/Header/DesktopMenu';
 import MobileMenu from '@/components/Layout/Header/MobileMenu';
 import SearchBar from '@/components/Layout/Header/SearchBar';
 import UserAvatar from '@/components/Layout/Header/UserAvatar';
+import Logo from '@/components/Logo';
+import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
 
 import {
   DropdownMenu,
@@ -22,12 +27,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { buttonVariants } from '@/components/ui/button';
 import { LogInIcon, User, UserCircleIcon } from 'lucide-react';
-import Logo from '@/components/Logo';
-import { ModeToggle, ModeToggle2 } from '@/components/ModeToggle';
-import { useEffect, useState } from 'react';
-import { Category } from '@prisma/client';
 
 const Header = () => {
+  // Kinde authentication hooks
   const {
     getUser,
     isAuthenticated: isLoggedIn,
@@ -35,6 +37,8 @@ const Header = () => {
   } = useKindeBrowserClient();
   const user = getUser();
   const isAdmin = getPermission('admin:access').isGranted || false;
+
+  // State for categories
   const [categories, setCategories] = useState<Category[]>([]);
 
   useEffect(() => {
