@@ -107,4 +107,6 @@ model Notification {
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String
+
+  @@index([userId, createdAt]) // Index for faster queries by user and creation date
 }

@@ -40,6 +40,7 @@ Pored korisničkog dela, platforma poseduje i **admin panel** sa punim CRUD oper
   <img src="public/ss3.png" alt="Screenshot 3" />
   <img src="public/ss4.png" alt="Screenshot 4" />
   <img src="public/ss5.png" alt="Screenshot 5" />
+  <img src="public/ss6.png" alt="Screenshot 6" />
 </div>
 
 ---

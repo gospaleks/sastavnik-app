@@ -61,7 +61,7 @@ export const createComment = async (
     await prisma.notification.create({
       data: {
         userId: essayAuthor.authorId,
-        message: `Novi komentar na vaš esej: "${comment.content.slice(0, 50)}..."`,
+        message: `Novi komentar na vaš sastav: "${comment.content.slice(0, 50)}..."`,
         href: `/sastavi/${essayId}`, // TODO: add link to the specific comment if needed #commentID-${comment.id}`
       },
     });
