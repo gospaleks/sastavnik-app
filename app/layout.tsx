@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/sonner';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import TabBar from '@/components/Layout/TabBar';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 export const metadata: Metadata = {
   title: {
@@ -64,6 +65,7 @@ export default function RootLayout({
           </NuqsAdapter>
           <Toaster richColors closeButton />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
