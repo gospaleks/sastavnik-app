@@ -300,7 +300,6 @@ export function EssayForm({ categories, essay, isLoggedIn }: Props) {
                         immediatelyRender={false}
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />

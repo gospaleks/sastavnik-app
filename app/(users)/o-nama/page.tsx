@@ -55,7 +55,7 @@ const AboutPage = () => {
 
           <div className="mt-6 text-right">
             <Badge variant="outline" className="text-xs">
-              Verzija sajta: 1.0.0
+              Verzija sajta: 1.1.0
             </Badge>
           </div>
         </CardContent>

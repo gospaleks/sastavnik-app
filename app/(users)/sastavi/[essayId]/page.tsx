@@ -39,6 +39,7 @@ import { getUsersRatingForEssay } from '@/data/user/getUsersRatingForEssay';
 import { isEssayFavoriteForUser } from '@/data/user/isEssayFavoriteForUser';
 import UserAvatar from '@/components/Layout/Header/UserAvatar';
 import { Separator } from '@/components/ui/separator';
+import Image from 'next/image';
 
 type PageProps = {
   params: Promise<{ essayId: string }>;
@@ -147,7 +148,7 @@ const EssayPage = async ({ params }: PageProps) => {
           </div>
 
           {/** Autor i datum */}
-          <div className="my-4 flex w-full flex-col items-center gap-2 md:flex-row md:items-start">
+          <div className="my-4 flex w-full flex-col items-center gap-2 md:flex-row">
             {essay.author.email === 'anonimni korisnik' ? (
               <span className="text-muted-foreground flex items-center gap-1 font-medium">
                 <span className="font-semibold">
@@ -159,9 +160,18 @@ const EssayPage = async ({ params }: PageProps) => {
                 href={`/profil/${essay.authorId}`}
                 className="hover:text-primary flex items-center gap-1 font-medium transition-colors"
               >
-                <span className="flex items-center gap-2 font-semibold">
-                  {essay.author.firstName} {essay.author.lastName}
-                </span>
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={essay.author.image || '/default_avatar.svg'}
+                    alt="avatar"
+                    width={24}
+                    height={24}
+                    className="rounded-full border"
+                  />
+                  <span className="flex items-center gap-2 font-semibold">
+                    {essay.author.firstName} {essay.author.lastName}
+                  </span>
+                </div>
               </Link>
             )}
 

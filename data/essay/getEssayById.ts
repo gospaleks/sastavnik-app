@@ -19,6 +19,7 @@ export async function getEssayById(essayId: string) {
           firstName: true,
           lastName: true,
           email: true,
+          image: true,
         },
       },
       category: true,
